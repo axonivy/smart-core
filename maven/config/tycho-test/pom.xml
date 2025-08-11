@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>ch.ivyteam.smart</groupId>
+    <artifactId>maven-config-tycho</artifactId>
+    <version>13.2.0-SNAPSHOT</version>
+    <relativePath>../tycho</relativePath>
+  </parent>
+  <artifactId>maven-config-tycho-test</artifactId>
+  <packaging>pom</packaging>
+
+  <properties>
+    <maven.surefire.version>3.5.3</maven.surefire.version>
+    <junit.engine.version>5.11.4</junit.engine.version>
+    <maven.surefire.common.argLine>-XX:-OmitStackTraceInFastThrow</maven.surefire.common.argLine>
+
+    <!-- If you want to add more things to the surefire arg line configure the property below in your project as follows "${maven.surefire.common.argLine} {your arguments}" -->
+    <maven.surefire.argLine>${maven.surefire.common.argLine}</maven.surefire.argLine>
+
+    <!-- all tests are skipped by default -->
+    <SKIP_INTEGRATION_TESTS>true</SKIP_INTEGRATION_TESTS>
+    <SKIP_UNIT_TESTS>true</SKIP_UNIT_TESTS>
+    <ivy-test-forkCount>0.5C</ivy-test-forkCount>  <!-- C = Core on executing machine -->
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.surefire</groupId>
+      <artifactId>surefire-logger-api</artifactId>
+      <version>${maven.surefire.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.engine.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.engine.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit.engine.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.27.4</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <testOutputDirectory>${basedir}/target/classes</testOutputDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.version}</version>
+        <executions>
+          <execution>
+            <id>test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>**/Test*.java</include>
+              </includes>
+              <excludes>
+                <exclude>${TESTS_TO_SKIP}</exclude>
+              </excludes>
+              <skipTests>${SKIP_UNIT_TESTS}</skipTests>
+              <argLine>${maven.surefire.argLine}</argLine>
+              <reuseForks>false</reuseForks>
+              <testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
+              <testFailureIgnore>true</testFailureIgnore>
+              <forkCount>${ivy-test-forkCount}</forkCount>
+              <trimStackTrace>false</trimStackTrace>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>target-platform-configuration</artifactId>
+          <version>${tycho-version}</version>
+          <configuration>
+            <pomDependencies>consider</pomDependencies>
+          </configuration>
+        </plugin>
+    </plugins>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>target-platform-configuration</artifactId>
+          <version>${tycho-version}</version>
+          <configuration>
+            <pomDependencies>consider</pomDependencies>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

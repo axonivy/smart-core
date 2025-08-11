@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="ch.ivyteam.smart.core.feature"
+      label="Smart Core Feature"
+      version="13.2.0.qualifier"
+      provider-name="Axon Ivy AG">
+
+   <plugin
+         id="ch.ivyteam.smart.core"
+         version="0.0.0"/>
+
+</feature>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="ch.ivyteam.smart.core.feature">
+      <category name="ch.ivyteam.smart"/>
+   </feature>
+   <feature id="ch.ivyteam.smart.core.feature.source">
+      <category name="ch.ivyteam.smart"/>
+   </feature>
+   <category-def name="ch.ivyteam.smart" label="Smart Artifacts"/>
+</site>

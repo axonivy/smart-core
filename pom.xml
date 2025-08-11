@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>ch.ivyteam.smart</groupId>
+    <artifactId>maven-config</artifactId>
+    <version>13.2.0-SNAPSHOT</version>
+    <relativePath>maven/config</relativePath>
+  </parent>
+  <artifactId>smart-module</artifactId>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>maven/config</module>
+    <module>maven/config/tycho</module>
+    <module>maven/config/tycho/feature</module>
+    <module>maven/config/tycho-test</module>
+
+    <module>targetplatform</module>
+
+    <module>ch.ivyteam.smart.core</module>
+    <module>ch.ivyteam.smart.core.tests</module>
+    <module>ch.ivyteam.smart.core.feature</module>
+    <module>ch.ivyteam.smart.p2</module>
+  </modules>
+
+</project>

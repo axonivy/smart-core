@@ -1,0 +1,21 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <mirrors>
+    <mirror>
+      <id>mirror.central</id>
+      <mirrorOf>central</mirrorOf>
+      <url>https://mvn-mirror.ivyteam.io/repository/maven-central/</url>
+    </mirror>
+  </mirrors>
+  <profiles>
+    <profile>
+      <id>disableP2Mirrors</id>
+      <properties>
+        <!-- Otherwise outisde mirrors are used instead of our mirror.ivyteam.io -->
+        <tycho.disableP2Mirrors>true</tycho.disableP2Mirrors>
+      </properties>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>disableP2Mirrors</activeProfile>
+  </activeProfiles>
+</settings>

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Smart Core
+Bundle-SymbolicName: ch.ivyteam.smart.core;singleton:=true
+Bundle-Version: 13.2.0.qualifier
+Bundle-Vendor: Axon Ivy AG
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Export-Package: ch.ivyteam.smart.core;x-friends:=ch.ivyteam.smart.core.tests
