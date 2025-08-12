@@ -2,17 +2,25 @@ package ch.ivyteam.smart.core;
 
 import java.util.List;
 
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.server.McpServerFeatures.SyncToolSpecification;
-import io.modelcontextprotocol.server.transport.StdioServerTransportProvider;
+import io.modelcontextprotocol.server.transport.HttpServletSseServerTransportProvider;
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
 import io.modelcontextprotocol.spec.McpSchema.ServerCapabilities;
 import io.modelcontextprotocol.spec.McpSchema.TextContent;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
 
-public class SmartCoreMcpServer {
+import ch.ivyteam.ivy.webserver.extension.ServletContextStartupListener;
 
-  public static void main(String[] args) {
+public class SmartCoreMcpServer implements ServletContextStartupListener {
+
+  @Override
+  public void onStartup(ServletContext ctx) {
     var temperatureService = Tool.builder()
         .name("Temperature Service")
         .description("Determines the current temperature in a city.")
@@ -32,10 +40,16 @@ public class SmartCoreMcpServer {
             false))
         .build();
 
-    McpServer.sync(new StdioServerTransportProvider())
-        .serverInfo("my-simple-server", "0.0.1")
+    var transportProvider = HttpServletSseServerTransportProvider.builder()
+        .objectMapper(new ObjectMapper())
+        .messageEndpoint("/smart-core")
+        .build();
+    McpServer.sync(transportProvider)
+        .serverInfo("smart-core-sse", "0.0.1")
         .capabilities(ServerCapabilities.builder().tools(true).build())
         .tools(List.of(temperatureServiceSpecification))
         .build();
+
+    ctx.addServlet("smart-core-mcp", (Servlet) transportProvider);
   }
 }

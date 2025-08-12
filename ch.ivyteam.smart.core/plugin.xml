@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="ch.ivyteam.ivy.webserver.extension.ServletContextStartupListener">
+     <ServletContextStartupListener class="ch.ivyteam.smart.core.SmartCoreMcpServer"></ServletContextStartupListener>
+  </extension>
+</plugin>

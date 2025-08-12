@@ -4,6 +4,11 @@ Bundle-Name: Smart Core
 Bundle-SymbolicName: ch.ivyteam.smart.core;singleton:=true
 Bundle-Version: 13.2.0.qualifier
 Bundle-Vendor: Axon Ivy AG
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/mcp.jar,
+ lib/jakarta.servlet-api.jar
 Bundle-ActivationPolicy: lazy
 Export-Package: ch.ivyteam.smart.core;x-friends:=ch.ivyteam.smart.core.tests
+Require-Bundle: ch.ivyteam.ivy.webserver,
+ javax.servlet,
+ ch.ivyteam.lib.jackson
