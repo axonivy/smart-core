@@ -9,7 +9,8 @@ Bundle-ClassPath: .,
  lib/reactor-core.jar,
  lib/reactive-streams.jar
 Bundle-ActivationPolicy: lazy
-Export-Package: ch.ivyteam.smart.core;x-friends:=ch.ivyteam.smart.core.tests
+Export-Package: ch.ivyteam.smart.core;x-friends:="ch.ivyteam.smart.core.tests",
+ ch.ivyteam.smart.core.schema;x-friends:="ch.ivyteam.smart.core.tests"
 Require-Bundle: ch.ivyteam.ivy.webserver,
  javax.servlet,
  ch.ivyteam.lib.jackson,
