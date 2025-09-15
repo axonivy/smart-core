@@ -19,7 +19,7 @@ import dev.langchain4j.model.chat.request.json.JsonRawSchema;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModelName;
 
-public class ProcessSchemaGenTest {
+public class TestProcessSchemaGen {
 
   @Test
   void askOpenAi_native120api_gpt41mini_inlineFull_multiElement() {
