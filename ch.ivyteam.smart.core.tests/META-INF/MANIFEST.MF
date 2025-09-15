@@ -12,4 +12,5 @@ Require-Bundle: ch.ivyteam.smart.core,
  ch.ivyteam.lib.jackson,
  ch.ivyteam.ivy.server.tests,
  ch.ivyteam.ivy.engine.rest.service,
- javax.annotation
+ javax.annotation,
+ com.google.inject
