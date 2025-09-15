@@ -16,6 +16,7 @@ import dev.langchain4j.model.chat.request.ChatRequest.Builder;
 import dev.langchain4j.model.chat.request.ResponseFormat;
 import dev.langchain4j.model.chat.request.ResponseFormatType;
 import dev.langchain4j.model.chat.request.json.JsonRawSchema;
+import dev.langchain4j.model.chat.request.json.JsonSchema;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModelName;
 
@@ -79,8 +80,8 @@ public class ProcessSchemaGenTest {
 
   private ResponseFormat nativeResponsePR(String resource) {
     var jsonNode = SchemaLoader.readSchema(resource);
-    JsonRawSchema nativeSchema = JsonRawSchema.from(jsonNode.toString());
-    var jsonSchema = new dev.langchain4j.model.chat.request.json.JsonSchema.Builder()
+    var nativeSchema = JsonRawSchema.from(jsonNode.toString());
+    var jsonSchema = new JsonSchema.Builder()
         .name(Strings.CS.removeEnd(resource, ".json"))
         .rootElement(nativeSchema)
         .build();
