@@ -29,12 +29,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-      <version>5.0.0</version>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
   
   <build>
@@ -50,7 +44,11 @@
             </goals>
             <configuration>
               <outputDirectory>${project.basedir}/lib</outputDirectory>
-              <includeGroupIds>io.modelcontextprotocol.sdk,jakarta.servlet</includeGroupIds>
+              <includeGroupIds>
+                io.modelcontextprotocol.sdk,
+                io.projectreactor,
+                org.reactivestreams
+              </includeGroupIds>
               <stripVersion>true</stripVersion>
             </configuration>
           </execution>

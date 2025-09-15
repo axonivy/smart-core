@@ -2,20 +2,19 @@ package ch.ivyteam.smart.core;
 
 import java.util.List;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.server.McpServerFeatures.SyncToolSpecification;
-import io.modelcontextprotocol.server.transport.HttpServletSseServerTransportProvider;
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
 import io.modelcontextprotocol.spec.McpSchema.ServerCapabilities;
 import io.modelcontextprotocol.spec.McpSchema.TextContent;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
 
 import ch.ivyteam.ivy.webserver.extension.ServletContextStartupListener;
+import ch.ivyteam.smart.core.mcp.transport.JavaxHttpServletSeeTransportProvider;
 
 public class SmartCoreMcpServer implements ServletContextStartupListener {
 
@@ -40,16 +39,19 @@ public class SmartCoreMcpServer implements ServletContextStartupListener {
             false))
         .build();
 
-    var transportProvider = HttpServletSseServerTransportProvider.builder()
+    var transportProvider = JavaxHttpServletSeeTransportProvider.builder()
         .objectMapper(new ObjectMapper())
         .messageEndpoint("/smart-core")
         .build();
+
     McpServer.sync(transportProvider)
         .serverInfo("smart-core-sse", "0.0.1")
         .capabilities(ServerCapabilities.builder().tools(true).build())
         .tools(List.of(temperatureServiceSpecification))
         .build();
 
-    ctx.addServlet("smart-core-mcp", (Servlet) transportProvider);
+    var servlet = ctx.addServlet("smart-core-mcp", transportProvider);
+    servlet.addMapping("/smart-core/*");
+    servlet.setAsyncSupported(true);
   }
 }
