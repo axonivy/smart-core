@@ -10,7 +10,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <maven.surefire.version>3.5.3</maven.surefire.version>
+    <maven.surefire.version>3.5.4</maven.surefire.version>
     <junit.engine.version>5.11.4</junit.engine.version>
     <maven.surefire.common.argLine>-XX:-OmitStackTraceInFastThrow</maven.surefire.common.argLine>
 
