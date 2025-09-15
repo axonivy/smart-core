@@ -1,0 +1,4 @@
+# Only project root files and MANIFEST.MF
+ch.ivyteam.smart.*/*/*
+!ch.ivyteam.smart.*/META-INF/MANIFEST.MF
+!ch.ivyteam.smart.*/*
