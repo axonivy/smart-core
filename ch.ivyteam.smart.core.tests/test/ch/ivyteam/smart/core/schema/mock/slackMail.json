@@ -1,0 +1,36 @@
+{
+  "id": "chatcmpl-CGA9u6FB3pnBiL3iKfrsI6h0eZpNe",
+  "object": "chat.completion",
+  "created": 1757968334,
+  "model": "gpt-4.1-mini-2025-04-14",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"$schema\":\"https://json-schema.axonivy.com/process/12.0.0/process.json\",\"id\":\"4BF7E2D1A59C3E07\",\"description\":\"Process to handle new customer Slack message and leads\",\"kind\":\"NORMAL\",\"config\":{\"data\":\"com.axonivy.training.leads.LeadProcess\"},\"elements\":[{\"id\":\"f1\",\"type\":\"SignalStartEvent\",\"name\":\"Start: New Slack Message\",\"config\":{\"output\":\"vars = new java.util.HashMap<>(); vars.put(\\\"customerMessage\\\", signal.message);\"},\"layout\":{\"at\":{\"x\":100,\"y\":100}},\"connect\":[{\"id\":\"f1_to_f2\",\"to\":\"f2\"}]},{\"id\":\"f2\",\"type\":\"EMail\",\"name\":\"Notify Rolf about New Lead\",\"config\":{\"headers\":{\"to\":\"rolf@axonivy.com\",\"subject\":\"New lead from Slack\"},\"message\":{\"body\":\"We got a new lead from a Slack message.\",\"contentType\":\"text/plain\"}},\"layout\":{\"at\":{\"x\":300,\"y\":100}},\"connect\":[{\"id\":\"f2_to_f3\",\"to\":\"f3\"}]},{\"id\":\"f3\",\"type\":\"Alternative\",\"name\":\"Check License Cost\",\"layout\":{\"at\":{\"x\":500,\"y\":100}},\"connect\":[{\"id\":\"f3_to_f4\",\"condition\":\"vars.get(\\\"predictedLicenseCost\\\") != null && ((Double)vars.get(\\\"predictedLicenseCost\\\")) > 100000\",\"to\":\"f4\"},{\"id\":\"f3_to_f5\",\"condition\":\"vars.get(\\\"predictedLicenseCost\\\") == null || ((Double)vars.get(\\\"predictedLicenseCost\\\")) <= 100000\",\"to\":\"f5\"}]},{\"id\":\"f4\",\"type\":\"UserTask\",\"name\":\"Assign High Priority Task to Marcel\",\"config\":{\"task\":{\"priority\":\"HIGH\",\"assignee\":\"marcel\"}},\"layout\":{\"at\":{\"x\":700,\"y\":50}},\"connect\":[{\"id\":\"f4_to_f5\",\"to\":\"f5\"}]},{\"id\":\"f5\",\"type\":\"TaskEnd\",\"name\":\"End Process\",\"layout\":{\"at\":{\"x\":900,\"y\":100}}}],\"docs\":{},\"layout\":{\"lanes\":[{\"name\":\"Slack Customer\",\"lanes\":[{\"name\":\"Customer\"}]},{\"name\":\"Internal Team\",\"lanes\":[{\"name\":\"Rolf\"},{\"name\":\"Marcel\"}]}]}}",
+        "refusal": null,
+        "annotations": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3773,
+    "completion_tokens": 499,
+    "total_tokens": 4272,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "service_tier": "default",
+  "system_fingerprint": "fp_4fce0778af"
+}
