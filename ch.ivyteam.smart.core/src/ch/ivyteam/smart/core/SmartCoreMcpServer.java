@@ -21,7 +21,7 @@ public class SmartCoreMcpServer implements ServletContextStartupListener {
   @Override
   public void onStartup(ServletContext ctx) {
     var temperatureService = Tool.builder()
-        .name("Temperature Service")
+        .name("temperature-service")
         .description("Determines the current temperature in a city.")
         .inputSchema("""
           {
