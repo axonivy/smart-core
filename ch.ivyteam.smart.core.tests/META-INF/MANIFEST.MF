@@ -9,4 +9,8 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: ch.ivyteam.smart.core,
  ch.ivyteam.ivy.workflow,
  ch.ivyteam.test,
- ch.ivyteam.lib.jackson
+ ch.ivyteam.lib.jackson,
+ ch.ivyteam.ivy.server.tests,
+ ch.ivyteam.ivy.engine.rest.service,
+ javax.annotation,
+ com.google.inject
