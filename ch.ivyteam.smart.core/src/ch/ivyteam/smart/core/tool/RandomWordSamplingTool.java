@@ -17,6 +17,7 @@ public class RandomWordSamplingTool {
     var randomWordToolUsingSampling = Tool.builder()
         .name("random-word")
         .description("Generates a random word.")
+        .inputSchema("{}")
         .build();
 
     return SyncToolSpecification.builder()
