@@ -11,6 +11,7 @@ import io.modelcontextprotocol.spec.McpSchema.ServerCapabilities;
 
 import ch.ivyteam.ivy.webserver.extension.ServletContextStartupListener;
 import ch.ivyteam.smart.core.mcp.transport.JavaxHttpServletSeeTransportProvider;
+import ch.ivyteam.smart.core.tool.IvyProcessGeneratorTool;
 import ch.ivyteam.smart.core.tool.RandomWordSamplingTool;
 import ch.ivyteam.smart.core.tool.TemperatureServiceTool;
 
@@ -23,10 +24,13 @@ public class SmartCoreMcpServer implements ServletContextStartupListener {
         .messageEndpoint("/smart-core")
         .build();
 
-    McpServer.sync(transportProvider)
+    McpServer.async(transportProvider)
         .serverInfo("smart-core-sse", "0.0.1")
         .capabilities(ServerCapabilities.builder().tools(true).build())
-        .tools(List.of(TemperatureServiceTool.specification(), RandomWordSamplingTool.specification()))
+        .tools(List.of(
+            TemperatureServiceTool.specification(),
+            RandomWordSamplingTool.specification(),
+            IvyProcessGeneratorTool.specification()))
         .build();
 
     var servlet = ctx.addServlet("smart-core-mcp", transportProvider);

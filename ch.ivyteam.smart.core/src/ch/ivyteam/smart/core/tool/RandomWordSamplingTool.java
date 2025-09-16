@@ -4,23 +4,25 @@ import static io.modelcontextprotocol.spec.McpSchema.Role.USER;
 
 import java.util.List;
 
-import io.modelcontextprotocol.server.McpServerFeatures.SyncToolSpecification;
+import io.modelcontextprotocol.server.McpServerFeatures.AsyncToolSpecification;
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
 import io.modelcontextprotocol.spec.McpSchema.CreateMessageRequest;
 import io.modelcontextprotocol.spec.McpSchema.SamplingMessage;
 import io.modelcontextprotocol.spec.McpSchema.TextContent;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
 
+import reactor.core.publisher.Mono;
+
 public class RandomWordSamplingTool {
 
-  public static SyncToolSpecification specification() {
+  public static AsyncToolSpecification specification() {
     var randomWordToolUsingSampling = Tool.builder()
         .name("random-word")
         .description("Generates a random word.")
         .inputSchema("{}")
         .build();
 
-    return SyncToolSpecification.builder()
+    return AsyncToolSpecification.builder()
         .tool(randomWordToolUsingSampling)
         .callHandler((exchange, request) -> {
           var clientCapabilities = exchange.getClientCapabilities();
@@ -34,7 +36,7 @@ public class RandomWordSamplingTool {
           var samplingRequest = CreateMessageRequest.builder()
               .messages(List.of(samplingMessage))
               .build();
-          var samplingResult = exchange.createMessage(samplingRequest);
+          var samplingResult = exchange.createMessage(samplingRequest).block();
 
           TextContent callToolResultContent;
           if (samplingResult == null || samplingResult.content() == null) {
@@ -47,7 +49,7 @@ public class RandomWordSamplingTool {
               callToolResultContent = new TextContent(content.toString());
             }
           }
-          return new CallToolResult(List.of(callToolResultContent), false);
+          return Mono.just(new CallToolResult(List.of(callToolResultContent), false));
         })
         .build();
   }
