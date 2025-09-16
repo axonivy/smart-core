@@ -1,12 +1,12 @@
 package ch.ivyteam.smart.core.tool;
 
+import static ch.ivyteam.ivy.IvyConstants.DIRECTORY_PROCESSES;
+import static ch.ivyteam.ivy.IvyConstants.PROCESS_EXTENSION;
 import static io.modelcontextprotocol.spec.McpSchema.Role.USER;
 
 import java.time.Duration;
 import java.util.List;
 
-import ch.ivyteam.smart.core.schema.OpenAiSchemaMapper;
-import ch.ivyteam.smart.core.schema.SchemaLoader;
 import io.modelcontextprotocol.server.McpServerFeatures.AsyncToolSpecification;
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
 import io.modelcontextprotocol.spec.McpSchema.CreateMessageRequest;
@@ -14,6 +14,9 @@ import io.modelcontextprotocol.spec.McpSchema.CreateMessageResult;
 import io.modelcontextprotocol.spec.McpSchema.SamplingMessage;
 import io.modelcontextprotocol.spec.McpSchema.TextContent;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
+
+import ch.ivyteam.smart.core.schema.OpenAiSchemaMapper;
+import ch.ivyteam.smart.core.schema.SchemaLoader;
 import reactor.core.publisher.Mono;
 
 public class IvyProcessGeneratorTool {
@@ -63,8 +66,13 @@ public class IvyProcessGeneratorTool {
               .timeout(Duration.ofSeconds(60))
               .block();
 
-          TextContent callToolResultContent = toTextContent(samplingResult);
-          return Mono.just(new CallToolResult(List.of(callToolResultContent), false));
+          var callToolResultContent = toTextContent(samplingResult);
+          return Mono.just(new CallToolResult(List.of(new TextContent("""
+            Create a file containing the process data.
+            The file must be located in the directory <project-root>/""" + DIRECTORY_PROCESSES + """
+            and have the file extension """ + PROCESS_EXTENSION + """
+            .
+            Process data:"""), callToolResultContent), false));
         })
         .build();
   }
@@ -86,5 +94,4 @@ public class IvyProcessGeneratorTool {
     OpenAiSchemaMapper.from(schema);
     return schema.toString();
   }
-
 }
