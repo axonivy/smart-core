@@ -3,24 +3,84 @@
 <target name="Smart" sequenceNumber="1597185458">
   <locations>
     <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-      <unit id="org.eclipse.equinox.p2.discovery.feature.feature.group" version="0.0.0"/>
-      <unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0"/>
-      <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
-      <repository location="https://p2.mirror.ivyteam.io/eclipse-platform/2024-12/"/>
-    </location>
-    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-      <unit id="org.junit" version="0.0.0"/>
-      <unit id="junit-jupiter-api" version="0.0.0"/>
-      <unit id="junit-jupiter-engine" version="0.0.0"/>
-      <unit id="junit-platform-launcher" version="0.0.0"/>
-      <unit id="junit-platform-runner" version="0.0.0"/>
-      <unit id="junit-vintage-engine" version="0.0.0"/>
-      <repository location="https://p2.mirror.ivyteam.io/eclipse-orbit/2024-12/"/>
+      <unit id="org.eclipse.equinox.p2.discovery.feature.feature.group" version="0.0.0" />
+      <unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0" />
+      <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0" />
+      <repository location="https://p2.mirror.ivyteam.io/eclipse-platform/2024-12/" />
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-      <unit id="ch.ivyteam.ivy.core.feature.feature.group" version="0.0.0"/>
-      <unit id="ch.ivyteam.ivy.core.test.feature.feature.group" version="0.0.0"/>
-      <repository location="https://p2.ivyteam.io/core/13.2.0/"/>
+      <unit id="ch.ivyteam.ivy.core.feature.feature.group" version="0.0.0" />
+      <unit id="ch.ivyteam.ivy.core.test.feature.feature.group" version="0.0.0" />
+      <repository location="https://p2.ivyteam.io/core/13.2.0/" />
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+      <unit id="ch.ivyteam.ivy.thirdparty.lib.designer.feature.feature.group" version="0.0.0" />
+      <unit id="ch.ivyteam.ivy.thirdparty.lib.designer.feature.source.feature.group" version="0.0.0" />
+      <unit id="ch.ivyteam.ivy.thirdparty.lib.feature.feature.group" version="0.0.0" />
+      <unit id="ch.ivyteam.ivy.thirdparty.lib.feature.source.feature.group" version="0.0.0" />
+      <unit id="ch.ivyteam.ivy.thirdparty.lib.test.feature.feature.group" version="0.0.0" />
+      <unit id="ch.ivyteam.ivy.thirdparty.lib.test.feature.source.feature.group" version="0.0.0" />
+      <repository location="https://p2.ivyteam.io/thirdparty-libs/13.2.17/" />
+    </location>
+    <location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="error" type="Maven">
+      <dependencies>
+        <dependency>
+          <groupId>org.awaitility</groupId>
+          <artifactId>awaitility</artifactId>
+          <version>4.3.0</version>
+          <type>jar</type>
+        </dependency>
+      </dependencies>
+    </location>
+    <location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="error" type="Maven">
+      <dependencies>
+        <dependency>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest</artifactId>
+          <version>2.2</version>
+          <type>jar</type>
+        </dependency>
+      </dependencies>
+    </location>
+    <location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="error" type="Maven">
+      <dependencies>
+        <dependency>
+          <groupId>org.assertj</groupId>
+          <artifactId>assertj-core</artifactId>
+          <version>3.27.4</version>
+          <type>jar</type>
+        </dependency>
+      </dependencies>
+    </location>
+    <location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="error" type="Maven">
+      <dependencies>
+        <dependency>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+          <version>1.21.2</version>
+          <type>jar</type>
+        </dependency>
+      </dependencies>
+    </location>
+    <location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="error" type="Maven">
+      <dependencies>
+        <dependency>
+          <groupId>net.bytebuddy</groupId>
+          <artifactId>byte-buddy</artifactId>
+          <version>1.17.7</version>
+          <type>jar</type>
+        </dependency>
+      </dependencies>
+    </location>
+    <location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="generate" type="Maven">
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.lucene</groupId>
+          <artifactId>lucene-facet</artifactId>
+          <version>9.12.0</version>
+          <type>jar</type>
+        </dependency>
+      </dependencies>
     </location>
   </locations>
 </target>
