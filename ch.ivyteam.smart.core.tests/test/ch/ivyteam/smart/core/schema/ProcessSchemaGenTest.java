@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.Strings;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -41,7 +40,6 @@ public class ProcessSchemaGenTest {
   LoggerAccess log = new LoggerAccess(LoggingHttpClient.class.getName());
 
   @Test
-  @Disabled
   void askOpenAi_native120api_gpt41mini_inlineFull_multiElement() {
     var model = ivyMockedOpenAi();
     OpenAiMock.CHAT = n -> Response.ok().entity(load("mock/slackMail.json")).build();
@@ -114,7 +112,8 @@ public class ProcessSchemaGenTest {
   }
 
   private ResponseFormat nativeResponsePR(String resource) {
-    var jsonNode = SchemaLoader.readSchema(resource);
+    var jsonNode = SchemaLoader.readSchema(ProcessSchemaGenTest.class, "process.json");
+    OpenAiSchemaMapper.from(jsonNode);
     var nativeSchema = JsonRawSchema.from(jsonNode.toString());
     var jsonSchema = new JsonSchema.Builder()
         .name(Strings.CS.removeEnd(resource, ".json"))

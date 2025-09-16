@@ -14,4 +14,5 @@ Export-Package: ch.ivyteam.smart.core;x-friends:="ch.ivyteam.smart.core.tests",
 Require-Bundle: ch.ivyteam.ivy.webserver,
  javax.servlet,
  ch.ivyteam.lib.jackson,
- ch.ivyteam.lib.json.schema.validator
+ ch.ivyteam.lib.json.schema.validator,
+ ch.ivyteam.ivy.process.model.io
