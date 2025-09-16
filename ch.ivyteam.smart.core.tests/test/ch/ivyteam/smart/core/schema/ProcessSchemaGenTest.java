@@ -112,7 +112,7 @@ public class ProcessSchemaGenTest {
   }
 
   private ResponseFormat nativeResponsePR(String resource) {
-    var jsonNode = SchemaLoader.readSchema(ProcessSchemaGenTest.class, "process.json");
+    var jsonNode = SchemaLoader.readSchema("process.json");
     OpenAiSchemaMapper.from(jsonNode);
     var nativeSchema = JsonRawSchema.from(jsonNode.toString());
     var jsonSchema = new JsonSchema.Builder()
