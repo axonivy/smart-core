@@ -54,7 +54,6 @@ public class OpenAiSchemaMapper {
 
   private static void sanitizeAmbigiousStringTypes(ObjectNode props) {
     props.propertyStream().forEach(et -> {
-      System.out.println("checking " + et);
       if (et.getValue() instanceof ObjectNode po) {
         if (po.get("anyOf") instanceof ArrayNode any && "string".equals(any.get(0).asText())) {
           po.remove("anyOf");
