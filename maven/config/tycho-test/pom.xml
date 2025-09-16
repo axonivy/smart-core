@@ -81,6 +81,7 @@
               <testFailureIgnore>true</testFailureIgnore>
               <forkCount>${ivy-test-forkCount}</forkCount>
               <trimStackTrace>false</trimStackTrace>
+              <classpathDependencyExcludes>jakarta.inject:jakarta.inject-api</classpathDependencyExcludes>
             </configuration>
           </execution>
         </executions>
