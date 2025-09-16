@@ -13,4 +13,5 @@ Require-Bundle: ch.ivyteam.smart.core,
  ch.ivyteam.ivy.server.tests,
  ch.ivyteam.ivy.engine.rest.service,
  javax.annotation,
- com.google.inject
+ ch.ivyteam.util.di,
+ ch.ivyteam.ivy.process.model.io

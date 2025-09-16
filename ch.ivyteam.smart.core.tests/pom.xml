@@ -33,6 +33,16 @@
       <groupId>dev.langchain4j</groupId>
       <artifactId>langchain4j-mcp</artifactId>
       <version>1.4.0-beta10</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
   
