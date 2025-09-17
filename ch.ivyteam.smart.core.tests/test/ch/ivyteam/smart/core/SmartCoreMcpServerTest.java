@@ -24,6 +24,6 @@ public class SmartCoreMcpServerTest {
   void tools() {
     assertThat(client.listTools().block().tools())
         .extracting(Tool::name)
-        .containsExactly("ivy-process-generator");
+        .containsExactly("ivy-process-generator", "ivy-dataclass-creator");
   }
 }
