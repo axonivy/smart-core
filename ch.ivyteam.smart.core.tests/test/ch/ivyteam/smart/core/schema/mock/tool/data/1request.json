@@ -1,0 +1,125 @@
+{
+  "model" : "gpt-4.1-mini",
+  "messages" : [ {
+    "role" : "user",
+    "content" : "create a dataClass describing a Customer"
+  } ],
+  "stream" : false,
+  "tools" : [ {
+    "type" : "function",
+    "function" : {
+      "name" : "DataClass-creator",
+      "description" : "I can assist you in creating DataClasses for Ivy",
+      "parameters" : {
+        "type" : "object",
+        "properties" : {
+          "simpleName" : {
+            "type" : "string"
+          },
+          "namespace" : {
+            "type" : "string"
+          },
+          "fields" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/$defs/Field"
+            }
+          }
+        },
+        "required" : [ ],
+        "$defs" : {
+          "Field" : {
+            "type" : "object",
+            "properties" : {
+              "annotations" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              },
+              "comment" : {
+                "type" : "string"
+              },
+              "entity" : {
+                "anyOf" : [ {
+                  "type" : "null"
+                }, {
+                  "$ref" : "#/$defs/EntityField"
+                } ]
+              },
+              "modifiers" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/$defs/Modifier"
+                }
+              },
+              "name" : {
+                "type" : "string"
+              },
+              "type" : {
+                "type" : "string"
+              }
+            },
+            "required" : [ "name", "type" ],
+            "additionalProperties" : false
+          },
+          "Association" : {
+            "type" : "string",
+            "enum" : [ "ONE_TO_ONE", "ONE_TO_MANY", "MANY_TO_ONE" ]
+          },
+          "EntityClass" : {
+            "type" : "object",
+            "properties" : {
+              "generateRepo" : {
+                "type" : "boolean"
+              },
+              "tableName" : {
+                "type" : "string"
+              }
+            },
+            "additionalProperties" : false
+          },
+          "CascadeType" : {
+            "type" : "string",
+            "enum" : [ "ALL", "PERSIST", "MERGE", "REMOVE", "REFRESH" ]
+          },
+          "Modifier" : {
+            "type" : "string",
+            "enum" : [ "PERSISTENT", "ID", "GENERATED", "NOT_NULLABLE", "UNIQUE", "NOT_UPDATEABLE", "NOT_INSERTABLE", "VERSION" ]
+          },
+          "EntityField" : {
+            "type" : "object",
+            "properties" : {
+              "association" : {
+                "anyOf" : [ {
+                  "type" : "null"
+                }, {
+                  "$ref" : "#/$defs/Association"
+                } ]
+              },
+              "cascadeTypes" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/$defs/CascadeType"
+                }
+              },
+              "databaseFieldLength" : {
+                "type" : "string"
+              },
+              "databaseName" : {
+                "type" : "string"
+              },
+              "mappedByFieldName" : {
+                "type" : "string"
+              },
+              "orphanRemoval" : {
+                "type" : "boolean"
+              }
+            },
+            "additionalProperties" : false
+          }
+        }
+      }
+    }
+  } ]
+}

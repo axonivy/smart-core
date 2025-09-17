@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class SchemaLoader {
 
-  private static final ObjectMapper MAPPER = new ObjectMapper();
+  public static final ObjectMapper MAPPER = new ObjectMapper();
 
   public static ObjectNode readSchema(String resource) {
     return readSchema(SchemaLoader.class, resource);
