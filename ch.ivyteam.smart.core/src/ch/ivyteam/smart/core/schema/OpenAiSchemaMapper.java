@@ -14,6 +14,7 @@ public class OpenAiSchemaMapper {
 
   public interface SchemaUri {
     URI PROCESS = versioned("process", ProcessVersion.LATEST);
+    URI DATA_CLASS = versioned("data-class", ProcessVersion.LATEST);
 
     private static URI versioned(String resource, JsonVersion version) {
       return URI.create("https://json-schema.axonivy.com/" + resource + "/" + version + "/" + resource + ".json");

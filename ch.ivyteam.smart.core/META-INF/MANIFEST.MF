@@ -16,4 +16,5 @@ Require-Bundle: ch.ivyteam.ivy.webserver,
  ch.ivyteam.lib.jackson,
  ch.ivyteam.lib.json.schema.validator,
  ch.ivyteam.ivy.process.model.io,
- ch.ivyteam.ivy.runtime.env
+ ch.ivyteam.ivy.runtime.env,
+ ch.ivyteam.ivy.scripting.dataclass

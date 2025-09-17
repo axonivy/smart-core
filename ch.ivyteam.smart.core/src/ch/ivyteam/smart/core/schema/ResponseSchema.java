@@ -7,10 +7,11 @@ import java.nio.file.Path;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public interface ReponseSchema {
+public interface ResponseSchema {
 
   IvySchema PROCESS = load(OpenAiSchemaMapper.SchemaUri.PROCESS);
-  
+  IvySchema DATA_CLASS = load(OpenAiSchemaMapper.SchemaUri.DATA_CLASS);
+
   private static IvySchema load(URI ref) {
     var resource = Path.of(ref.getPath()).getFileName().toString();
     var schema = readSchema(resource);

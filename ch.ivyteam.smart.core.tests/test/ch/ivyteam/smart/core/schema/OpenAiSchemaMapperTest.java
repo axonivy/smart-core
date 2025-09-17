@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import ch.ivyteam.ivy.process.io.ProcessVersion;
+import ch.ivyteam.smart.core.schema.OpenAiSchemaMapper.SchemaUri;
 
 public class OpenAiSchemaMapperTest {
 
@@ -23,12 +23,32 @@ public class OpenAiSchemaMapperTest {
   }
 
   @Test
+  void constantSchema_dataClass() {
+    var dataSchema = SchemaLoader.readSchema(OpenAiSchemaMapperTest.class, "data-class.json");
+
+    JsonNode rootProps = dataSchema.get("properties");
+    JsonNode schemaRef = rootProps.get("$schema");
+
+    assertThat(fieldNames(schemaRef))
+        .containsOnly("type");
+
+    new OpenAiSchemaMapper(SchemaUri.DATA_CLASS).optimize(dataSchema);
+
+    assertThat(fieldNames(schemaRef))
+        .as("adds const, also if no pattern is defined")
+        .containsOnly("type", "const");
+
+    assertThat(schemaRef.get("const").asText())
+        .isEqualTo(SchemaUri.DATA_CLASS.toASCIIString());
+  }
+
+  @Test
   void constantSchema() {
     JsonNode rootProps = schema.get("properties");
     JsonNode schemaRef = rootProps.get("$schema");
 
     assertThat(fieldNames(schemaRef))
-        .contains("pattern");
+        .containsOnly("type", "pattern");
 
     optimize();
 
@@ -37,7 +57,7 @@ public class OpenAiSchemaMapperTest {
         .doesNotContain("pattern");
 
     assertThat(schemaRef.get("const").asText())
-        .isEqualTo("https://json-schema.axonivy.com/process/" + ProcessVersion.LATEST + "/process.json");
+        .isEqualTo(SchemaUri.PROCESS.toASCIIString());
   }
 
   @Test
@@ -73,7 +93,7 @@ public class OpenAiSchemaMapperTest {
         .containsOnly("type", "additionalProperties");
   }
 
-  private static List<String> fieldNames(JsonNode map) {
+  static List<String> fieldNames(JsonNode map) {
     var names = new ArrayList<String>();
     map.fieldNames().forEachRemaining(names::add);
     return names;

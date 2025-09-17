@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import ch.ivyteam.ivy.request.EngineUriResolver;
 import ch.ivyteam.ivy.server.test.ManagedServer;
-import ch.ivyteam.smart.core.schema.ReponseSchema.IvySchema;
+import ch.ivyteam.smart.core.schema.ResponseSchema.IvySchema;
 import ch.ivyteam.smart.core.schema.RestMockProvider.OpenAiMock;
 import ch.ivyteam.test.log.LoggerAccess;
 import dev.langchain4j.data.message.SystemMessage;
@@ -62,7 +62,7 @@ public class ProcessSchemaGenTest {
         .isEqualTo("rolf@axonivy.com");
   }
 
-  private static String load(String resource) {
+  static String load(String resource) {
     try (InputStream is = ProcessSchemaGenTest.class.getResourceAsStream(resource)) {
       return new String(is.readAllBytes());
     } catch (IOException ex) {
@@ -74,6 +74,7 @@ public class ProcessSchemaGenTest {
     return openAiModelBuilder()
         .baseUrl(EngineUriResolver.instance().local() + "/api/mocked")
         .customHeaders(Map.of("X-Requested-By", "ivy"))
+        .apiKey(null)
         .build();
   }
 
@@ -88,7 +89,7 @@ public class ProcessSchemaGenTest {
   }
 
   private JsonNode generateProcess(OpenAiChatModel model, String instruction) {
-    var format = nativeResponse(ReponseSchema.PROCESS);
+    var format = nativeResponse(ResponseSchema.PROCESS);
     var writeMailProcess = processGeneration(instruction)
         .responseFormat(format)
         .build();
