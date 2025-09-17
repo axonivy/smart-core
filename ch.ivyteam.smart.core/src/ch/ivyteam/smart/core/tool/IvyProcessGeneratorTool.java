@@ -7,7 +7,6 @@ import static io.modelcontextprotocol.spec.McpSchema.Role.USER;
 import java.time.Duration;
 import java.util.List;
 
-import ch.ivyteam.smart.core.schema.ResponseSchema;
 import io.modelcontextprotocol.server.McpServerFeatures.AsyncToolSpecification;
 import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
@@ -16,11 +15,13 @@ import io.modelcontextprotocol.spec.McpSchema.CreateMessageResult;
 import io.modelcontextprotocol.spec.McpSchema.SamplingMessage;
 import io.modelcontextprotocol.spec.McpSchema.TextContent;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
+
+import ch.ivyteam.smart.core.schema.ResponseSchema;
 import reactor.core.publisher.Mono;
 
-public class IvyProcessGeneratorTool {
+public interface IvyProcessGeneratorTool {
 
-  public static AsyncToolSpecification specification() {
+  static AsyncToolSpecification specification() {
     var processGenerator = Tool.builder()
         .name("ivy-process-generator")
         .description("Generates an Ivy Process based on a user description.")
