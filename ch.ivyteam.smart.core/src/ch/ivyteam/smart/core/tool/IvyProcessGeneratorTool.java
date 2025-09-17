@@ -9,6 +9,7 @@ import java.util.List;
 
 import ch.ivyteam.smart.core.schema.ResponseSchema;
 import io.modelcontextprotocol.server.McpServerFeatures.AsyncToolSpecification;
+import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
 import io.modelcontextprotocol.spec.McpSchema.CreateMessageRequest;
 import io.modelcontextprotocol.spec.McpSchema.CreateMessageResult;
@@ -41,26 +42,8 @@ public class IvyProcessGeneratorTool {
             throw new IllegalStateException("Client does not support sampling");
           }
 
-          String schema = loadSchema();
-
-          var samplingRequest = CreateMessageRequest.builder()
-              .systemPrompt("""
-                Create a process based on the description provided by the user.
-                You must answer strictly in the following JSON format:""" + schema + """
-
-                Omit as many defaults as possible, but at any rate produce the required values.
-                Generate the 'data' as java qualified name.
-                For element ID's create unique instances, starting from f1.
-                Draw elements as graph.
-                Do not set any visual attributes on element, except the position 'at'.
-                Set the root process 'id' out of 16 random uppercase letters or numbers.
-                Visualize roles as pool.""")
-              .messages(List.of(new SamplingMessage(
-                  USER,
-                  new TextContent(request.arguments().get("processDescription").toString()))))
-              .build();
           var samplingResult = exchange
-              .createMessage(samplingRequest)
+              .createMessage(samplingRequest(request))
               .timeout(Duration.ofSeconds(60))
               .block();
 
@@ -75,7 +58,30 @@ public class IvyProcessGeneratorTool {
         .build();
   }
 
-  private static TextContent toTextContent(CreateMessageResult samplingResult) {
+  private static CreateMessageRequest samplingRequest(CallToolRequest request) {
+    return CreateMessageRequest.builder()
+        .systemPrompt("""
+          Create a process based on the description provided by the user.
+          You must answer strictly in the following JSON format:""" + loadSchema() + """
+
+          Omit as many defaults as possible, but at any rate produce the required values.
+          Generate the 'data' as java qualified name.
+          For element ID's create unique instances, starting from f1.
+          Draw elements as graph.
+          Do not set any visual attributes on element, except the position 'at'.
+          Set the root process 'id' out of 16 random uppercase letters or numbers.
+          Visualize roles as pool.""")
+        .messages(List.of(new SamplingMessage(USER,
+            new TextContent(request.arguments().get("processDescription").toString()))))
+        .build();
+  }
+
+  private static String loadSchema() {
+    // TODO: load-schema form ivy-core. Keep it as static resource in process.model.io bundle.
+    return ResponseSchema.PROCESS.schema().toString();
+  }
+
+  static TextContent toTextContent(CreateMessageResult samplingResult) {
     if (samplingResult == null || samplingResult.content() == null) {
       return new TextContent("[no sampling response]");
     }
@@ -84,10 +90,5 @@ public class IvyProcessGeneratorTool {
       return new TextContent(textContent.text());
     }
     return new TextContent(content.toString());
-  }
-
-  private static String loadSchema() {
-    // TODO: load-schema form ivy-core. Keep it as static resource in process.model.io bundle.
-    return ResponseSchema.PROCESS.schema().toString();
   }
 }
