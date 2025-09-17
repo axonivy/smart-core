@@ -1,16 +1,36 @@
 package ch.ivyteam.smart.core.schema;
 
+import java.net.URI;
 import java.util.Map.Entry;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import ch.ivyteam.ivy.json.history.JsonVersion;
 import ch.ivyteam.ivy.process.io.ProcessVersion;
 
 public class OpenAiSchemaMapper {
 
-  public static JsonNode from(ObjectNode schema) {
+  public interface SchemaUri {
+    URI PROCESS = versioned("process", ProcessVersion.LATEST);
+
+    private static URI versioned(String resource, JsonVersion version) {
+      return URI.create("https://json-schema.axonivy.com/" + resource + "/" + version + "/" + resource + ".json");
+    }
+  }
+
+  private final URI target;
+
+  public static OpenAiSchemaMapper forProcess() {
+    return new OpenAiSchemaMapper(SchemaUri.PROCESS);
+  }
+
+  public OpenAiSchemaMapper(URI schema) {
+    this.target = schema;
+  }
+
+  public JsonNode optimize(ObjectNode schema) {
     JsonNode rootProps = schema.get("properties");
     if (rootProps.get("$schema") instanceof ObjectNode schemaRef) {
       staticSchemaRef(schemaRef);
@@ -25,13 +45,9 @@ public class OpenAiSchemaMapper {
     return schema;
   }
 
-  private static void staticSchemaRef(ObjectNode schemaRef) {
-    if (schemaRef.get("pattern") != null) {
-      var removed = schemaRef.remove("pattern");
-      if (removed.asText().contains("process")) {
-        schemaRef.put("const", "https://json-schema.axonivy.com/process/" + ProcessVersion.LATEST + "/process.json");
-      }
-    }
+  private void staticSchemaRef(ObjectNode schemaRef) {
+    schemaRef.remove("pattern");
+    schemaRef.put("const", target.toString());
   }
 
   private static void sanitizeDef(JsonNode json) {

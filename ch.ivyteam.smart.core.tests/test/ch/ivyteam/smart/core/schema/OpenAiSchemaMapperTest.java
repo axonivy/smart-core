@@ -30,7 +30,7 @@ public class OpenAiSchemaMapperTest {
     assertThat(fieldNames(schemaRef))
         .contains("pattern");
 
-    OpenAiSchemaMapper.from(schema);
+    optimize();
 
     assertThat(fieldNames(schemaRef))
         .contains("const")
@@ -49,7 +49,7 @@ public class OpenAiSchemaMapperTest {
         .as("valid json; no explicity 'properties'")
         .containsOnly("type", "additionalProperties");
 
-    OpenAiSchemaMapper.from(schema);
+    optimize();
 
     assertThat(fieldNames(map))
         .as("inject empty 'properties' attribute to make OpenAI comply")
@@ -67,7 +67,7 @@ public class OpenAiSchemaMapperTest {
         .as("multi-line or a simple string")
         .containsOnly("anyOf", "additionalProperties");
 
-    OpenAiSchemaMapper.from(schema);
+    optimize();
 
     assertThat(fieldNames(name))
         .containsOnly("type", "additionalProperties");
@@ -77,6 +77,10 @@ public class OpenAiSchemaMapperTest {
     var names = new ArrayList<String>();
     map.fieldNames().forEachRemaining(names::add);
     return names;
+  }
+
+  private void optimize() {
+    OpenAiSchemaMapper.forProcess().optimize(schema);
   }
 
 }

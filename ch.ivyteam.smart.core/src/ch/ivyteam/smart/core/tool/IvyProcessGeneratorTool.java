@@ -91,7 +91,7 @@ public class IvyProcessGeneratorTool {
   private static String loadSchema() {
     // TODO: load-schema form ivy-core. Keep it as static resource in process.model.io bundle.
     var schema = SchemaLoader.readSchema("process.json");
-    OpenAiSchemaMapper.from(schema);
+    OpenAiSchemaMapper.forProcess().optimize(schema);
     return schema.toString();
   }
 }
