@@ -16,6 +16,8 @@ import reactor.core.publisher.Mono;
 
 public interface McpClientMock {
 
+  String SAMPLING_RESPONSE_MOCK = "Sampling response mock";
+
   static McpAsyncClient create() {
     return create(request -> {});
   }
@@ -30,7 +32,7 @@ public interface McpClientMock {
         .capabilities(ClientCapabilities.builder().sampling().build())
         .sampling(request -> {
           samplingRequestConsumer.accept(request);
-          return Mono.just(CreateMessageResult.builder().message("Sampling response mock").build());
+          return Mono.just(CreateMessageResult.builder().message(SAMPLING_RESPONSE_MOCK).build());
         })
         .build();
   }
