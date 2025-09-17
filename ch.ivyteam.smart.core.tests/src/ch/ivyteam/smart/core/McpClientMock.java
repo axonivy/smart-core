@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.client.McpClient;
-import io.modelcontextprotocol.client.transport.HttpClientSseClientTransport;
+import io.modelcontextprotocol.client.transport.HttpClientStreamableHttpTransport;
 import io.modelcontextprotocol.spec.McpSchema.ClientCapabilities;
 import io.modelcontextprotocol.spec.McpSchema.CreateMessageRequest;
 import io.modelcontextprotocol.spec.McpSchema.CreateMessageResult;
@@ -22,8 +22,8 @@ public interface McpClientMock {
 
   static McpAsyncClient create(Consumer<CreateMessageRequest> samplingRequestConsumer) {
     var baseUri = EngineUriResolver.instance().local() + SERVLET_PATH;
-    var transportProvider = HttpClientSseClientTransport.builder(baseUri)
-        .sseEndpoint(baseUri + "/sse")
+    var transportProvider = HttpClientStreamableHttpTransport.builder(baseUri)
+        .endpoint(baseUri + "/mcp")
         .build();
 
     return McpClient.async(transportProvider)
