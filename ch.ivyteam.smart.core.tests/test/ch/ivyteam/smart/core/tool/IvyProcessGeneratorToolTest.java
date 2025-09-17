@@ -30,7 +30,6 @@ public class IvyProcessGeneratorToolTest {
     samplingRequests = new ArrayList<>();
 
     client = McpClientMock.create(samplingRequests::add);
-    client.initialize();
   }
 
   @Test

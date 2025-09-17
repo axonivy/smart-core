@@ -18,7 +18,6 @@ public class SmartCoreMcpServerTest {
   @BeforeEach
   void beforeEach() {
     client = McpClientMock.create();
-    client.initialize();
   }
 
   @Test

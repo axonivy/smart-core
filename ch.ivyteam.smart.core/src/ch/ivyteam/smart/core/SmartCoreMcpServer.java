@@ -10,7 +10,7 @@ import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.spec.McpSchema.ServerCapabilities;
 
 import ch.ivyteam.ivy.webserver.extension.ServletContextStartupListener;
-import ch.ivyteam.smart.core.mcp.transport.JavaxHttpServletSeeTransportProvider;
+import ch.ivyteam.smart.core.mcp.transport.JavaxHttpServletStreamableServerTransportProvider;
 import ch.ivyteam.smart.core.tool.IvyProcessGeneratorTool;
 
 public class SmartCoreMcpServer implements ServletContextStartupListener {
@@ -18,9 +18,8 @@ public class SmartCoreMcpServer implements ServletContextStartupListener {
 
   @Override
   public void onStartup(ServletContext ctx) {
-    var transportProvider = JavaxHttpServletSeeTransportProvider.builder()
+    var transportProvider = JavaxHttpServletStreamableServerTransportProvider.builder()
         .objectMapper(new ObjectMapper())
-        .messageEndpoint(SERVLET_PATH)
         .build();
 
     McpServer.async(transportProvider)
