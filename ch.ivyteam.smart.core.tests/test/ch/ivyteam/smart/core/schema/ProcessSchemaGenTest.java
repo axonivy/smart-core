@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Map;
 
 import javax.ws.rs.core.Response;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import ch.ivyteam.ivy.request.EngineUriResolver;
 import ch.ivyteam.ivy.server.test.ManagedServer;
+import ch.ivyteam.smart.core.schema.ReponseSchema.IvySchema;
 import ch.ivyteam.smart.core.schema.RestMockProvider.OpenAiMock;
 import ch.ivyteam.test.log.LoggerAccess;
 import dev.langchain4j.data.message.SystemMessage;
@@ -75,9 +77,9 @@ public class ProcessSchemaGenTest {
         .build();
   }
 
-  private OpenAiChatModelBuilder openAiModelBuilder() {
+  static OpenAiChatModelBuilder openAiModelBuilder() {
     return OpenAiChatModel.builder()
-        // .apiKey(System.getenv("llm.openai.apiKey"))
+        .apiKey(System.getenv("llm.openai.apiKey"))
         .supportedCapabilities(RESPONSE_FORMAT_JSON_SCHEMA)
         .modelName(OpenAiChatModelName.GPT_4_1_MINI)
         .strictJsonSchema(false)
@@ -86,7 +88,7 @@ public class ProcessSchemaGenTest {
   }
 
   private JsonNode generateProcess(OpenAiChatModel model, String instruction) {
-    var format = nativeResponsePR("proc-inline-full.json");
+    var format = nativeResponse(ReponseSchema.PROCESS);
     var writeMailProcess = processGeneration(instruction)
         .responseFormat(format)
         .build();
@@ -111,10 +113,9 @@ public class ProcessSchemaGenTest {
         .messages(processHints, new UserMessage(msg));
   }
 
-  private ResponseFormat nativeResponsePR(String resource) {
-    var jsonNode = SchemaLoader.readSchema("process.json");
-    OpenAiSchemaMapper.from(jsonNode);
-    var nativeSchema = JsonRawSchema.from(jsonNode.toString());
+  static ResponseFormat nativeResponse(IvySchema ivySchema) {
+    var nativeSchema = JsonRawSchema.from(ivySchema.schema().toString());
+    var resource = Path.of(ivySchema.source().getPath()).getFileName().toString();
     var jsonSchema = new JsonSchema.Builder()
         .name(Strings.CS.removeEnd(resource, ".json"))
         .rootElement(nativeSchema)
