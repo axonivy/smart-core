@@ -1,0 +1,47 @@
+{
+  "id": "chatcmpl-CGkBq3YZI2E64PUhpeNmRLJPa9Cvq",
+  "object": "chat.completion",
+  "created": 1758106838,
+  "model": "gpt-4.1-mini-2025-04-14",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "call_8zHLWOKMcD5ILE7LZ9gEQIYS",
+            "type": "function",
+            "function": {
+              "name": "DataClass-creator",
+              "arguments": "{\"simpleName\":\"Customer\",\"fields\":[{\"name\":\"id\",\"type\":\"Long\",\"modifiers\":[\"ID\",\"GENERATED\"]},{\"name\":\"firstName\",\"type\":\"String\",\"modifiers\":[\"NOT_NULLABLE\"]},{\"name\":\"lastName\",\"type\":\"String\",\"modifiers\":[\"NOT_NULLABLE\"]},{\"name\":\"email\",\"type\":\"String\",\"modifiers\":[\"NOT_NULLABLE\",\"UNIQUE\"]},{\"name\":\"phoneNumber\",\"type\":\"String\"},{\"name\":\"dateOfBirth\",\"type\":\"LocalDate\"}]}"
+            }
+          }
+        ],
+        "refusal": null,
+        "annotations": []
+      },
+      "logprobs": null,
+      "finish_reason": "tool_calls"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 168,
+    "completion_tokens": 111,
+    "total_tokens": 279,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "service_tier": "default",
+  "system_fingerprint": "fp_6d7dcc9a98"
+}
+
