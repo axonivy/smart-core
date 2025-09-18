@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
 
 public interface IvyDataClassCreatorTool {
 
-  String NAME = "ivy-dataclass-creator";
+  String NAME = "ivy-data-class-creator";
   String DESCRIPTION = """
     Creates an Axon Ivy data class definition based on a user request.
     Use this tool when the user asks to create, model, or design a new data class""";
