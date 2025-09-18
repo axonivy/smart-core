@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 
 import ch.ivyteam.ivy.json.history.JsonVersion;
 import ch.ivyteam.ivy.process.io.ProcessVersion;
@@ -56,8 +57,34 @@ public class OpenAiSchemaMapper {
       sanitizeAbsentProperties(json, obj);
       if (json.get("properties") instanceof ObjectNode props) {
         sanitizeAmbigiousStringTypes(props);
+        if (json.get("required") instanceof ArrayNode required) {
+          modelOptionalAsNullUnion(props, required);
+        }
       }
     }
+  }
+
+  /**
+   * Comply with OpenAI strict required interpretation.
+   * @see "https://platform.openai.com/docs/guides/structured-outputs/supported-schemas#all-fields-must-be-required"
+   */
+  private static void modelOptionalAsNullUnion(ObjectNode props, ArrayNode required) {
+    var require = required.valueStream().map(JsonNode::asText).toList();
+    props.propertyStream()
+        .filter(e -> !require.contains(e.getKey()))
+        .map(e -> {
+          required.add(e.getKey());
+          return e.getValue();
+        })
+        .filter(ObjectNode.class::isInstance)
+        .map(ObjectNode.class::cast)
+        .forEach(prop -> {
+          if (prop.get("type") instanceof TextNode type) {
+            var single = type.asText();
+            var union = prop.putArray("type");
+            union.add(single).add("null");
+          }
+        });
   }
 
   private static void sanitizeAbsentProperties(JsonNode json, ObjectNode obj) {
