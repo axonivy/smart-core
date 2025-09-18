@@ -44,7 +44,7 @@ public class ProcessSchemaGenTest {
   @Test
   void askOpenAi_native120api_gpt41mini_inlineFull_multiElement() {
     var model = ivyMockedOpenAi();
-    OpenAiMock.CHAT = n -> Response.ok().entity(load("mock/slackMail.json")).build();
+    OpenAiMock.CHAT = n -> ok("mock/slackMail.json");
 
     var json = generateProcess(model,
         """
@@ -60,6 +60,28 @@ public class ProcessSchemaGenTest {
         .findAny();
     assertThat(mail.get().get("config").get("headers").get("to").asText())
         .isEqualTo("rolf@axonivy.com");
+  }
+
+  @Test
+  void promptDiet_processId() {
+    OpenAiMock.CHAT = n -> ok("mock/promptDiet.json");
+    var json = generateProcess(ivyMockedOpenAi(),
+        "create a new soap-process to fetch products from ERP");
+    assertThat(json.get("id").asText())
+        .isEqualTo("F1A2B3C4D5E6F7G8");
+  }
+
+  @Test
+  void promptDiet_data() {
+    OpenAiMock.CHAT = n -> ok("mock/promptDiet.json");
+    var json = generateProcess(ivyMockedOpenAi(),
+        "create a new soap-process to fetch products from ERP");
+    assertThat(json.get("config").get("data").asText())
+        .isEqualTo("com.example.erp.FetchProductsData");
+  }
+
+  static Response ok(String resource) {
+    return Response.ok().entity(load(resource)).build();
   }
 
   static String load(String resource) {
@@ -102,11 +124,9 @@ public class ProcessSchemaGenTest {
   private Builder processGeneration(String msg) {
     var processHints = new SystemMessage("""
       omit as many defaults as possible, but at any rate produce the required values.
-      Generate the 'data' as java qualified name.
       For element ID's create unique instances, starting from f1.
       Draw elements as graph.
       Do not set any visual attributes on element, except the position 'at'.
-      Set the root process 'id' out of 16 random uppercase letters or numbers.
       Visualize roles as pool.
       """);
 

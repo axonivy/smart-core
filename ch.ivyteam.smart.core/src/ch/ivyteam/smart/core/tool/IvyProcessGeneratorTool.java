@@ -7,6 +7,7 @@ import static io.modelcontextprotocol.spec.McpSchema.Role.USER;
 import java.time.Duration;
 import java.util.List;
 
+import ch.ivyteam.smart.core.schema.ResponseSchema;
 import io.modelcontextprotocol.server.McpServerFeatures.AsyncToolSpecification;
 import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
@@ -15,8 +16,6 @@ import io.modelcontextprotocol.spec.McpSchema.CreateMessageResult;
 import io.modelcontextprotocol.spec.McpSchema.SamplingMessage;
 import io.modelcontextprotocol.spec.McpSchema.TextContent;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
-
-import ch.ivyteam.smart.core.schema.ResponseSchema;
 import reactor.core.publisher.Mono;
 
 public interface IvyProcessGeneratorTool {
@@ -66,11 +65,9 @@ public interface IvyProcessGeneratorTool {
           You must answer strictly in the following JSON format:""" + loadSchema() + """
 
           Omit as many defaults as possible, but at any rate produce the required values.
-          Generate the 'data' as java qualified name.
           For element ID's create unique instances, starting from f1.
           Draw elements as graph.
           Do not set any visual attributes on element, except the position 'at'.
-          Set the root process 'id' out of 16 random uppercase letters or numbers.
           Visualize roles as pool.""")
         .messages(List.of(new SamplingMessage(USER,
             new TextContent(request.arguments().get("processDescription").toString()))))
