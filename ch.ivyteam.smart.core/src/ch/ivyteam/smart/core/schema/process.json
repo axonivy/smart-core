@@ -33,10 +33,12 @@
       "$ref" : "#/$defs/Map(String,String)"
     }
   },
+  "required" : [ "id", "config" ],
   "additionalProperties" : false,
   "$defs" : {
     "ElementNode" : {
       "type" : "object",
+      "required" : [ "id", "type", "visual" ],
       "properties" : {
         "id" : {
           "type" : "string"
@@ -1120,6 +1122,7 @@
           "type" : "string"
         }
       },
+      "required" : ["data"],
       "additionalProperties" : false
     },
     "RootView" : {
@@ -1367,6 +1370,7 @@
     },
     "VisualNodeShape" : {
       "type" : "object",
+      "required" : ["at"],
       "properties" : {
         "at" : {
           "$ref" : "#/$defs/VisualPoint"

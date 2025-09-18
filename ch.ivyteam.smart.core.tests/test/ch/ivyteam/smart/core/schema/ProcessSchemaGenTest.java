@@ -80,6 +80,14 @@ public class ProcessSchemaGenTest {
         .isEqualTo("com.example.erp.FetchProductsData");
   }
 
+  @Test
+  void promptDiet_require() {
+    OpenAiMock.CHAT = n -> ok("mock/promptDiet.json");
+    var json = generateProcess(openAiModelBuilder().strictJsonSchema(true).build(),
+        "create a new soap-process to fetch products from ERP");
+    System.out.println(json.toPrettyString());
+  }
+
   static Response ok(String resource) {
     return Response.ok().entity(load(resource)).build();
   }
