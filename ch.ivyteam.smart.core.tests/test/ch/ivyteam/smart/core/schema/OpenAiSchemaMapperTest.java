@@ -4,11 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import ch.ivyteam.smart.core.schema.OpenAiSchemaMapper.SchemaUri;
@@ -91,6 +93,30 @@ public class OpenAiSchemaMapperTest {
 
     assertThat(fieldNames(name))
         .containsOnly("type", "additionalProperties");
+  }
+
+  @Test
+  void requiredFields() {
+    var definitions = schema.get("$defs");
+    var node = definitions.get("ElementNode");
+    var required = (ArrayNode) node.get("required");
+    var props = (ObjectNode) node.get("properties");
+    var bpmn = props.get("bpmnId");
+    assertThat(bpmn.get("type").asText())
+        .isEqualTo("string");
+    assertThat(required.valueStream()).extracting(JsonNode::asText)
+        .containsOnly("id", "type", "visual");
+
+    optimize();
+
+    assertThat(bpmn.get("type"))
+        .isInstanceOf(ArrayNode.class);
+    assertThat(bpmn.get("type").valueStream()).extracting(JsonNode::asText)
+        .as("interpolate union type; to express optional property")
+        .containsOnly("string", "null");
+    assertThat(required.valueStream()).extracting(JsonNode::asText)
+        .as("must require all properties in OpenAI structured output")
+        .containsAll(props.propertyStream().map(Entry::getKey).toList());
   }
 
   static List<String> fieldNames(JsonNode map) {
