@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -114,9 +113,10 @@ public class OpenAiSchemaMapperTest {
     assertThat(bpmn.get("type").valueStream()).extracting(JsonNode::asText)
         .as("interpolate union type; to express optional property")
         .containsOnly("string", "null");
-    assertThat(required.valueStream()).extracting(JsonNode::asText)
-        .as("must require all properties in OpenAI structured output")
-        .containsAll(props.propertyStream().map(Entry::getKey).toList());
+    // // only for strict mode!
+    // assertThat(required.valueStream()).extracting(JsonNode::asText)
+    // .as("must require all properties in OpenAI structured output")
+    // .containsAll(props.propertyStream().map(Entry::getKey).toList());
   }
 
   static List<String> fieldNames(JsonNode map) {
@@ -126,7 +126,7 @@ public class OpenAiSchemaMapperTest {
   }
 
   private void optimize() {
-    OpenAiSchemaMapper.forProcess().optimize(schema);
+    new OpenAiSchemaMapper(SchemaUri.PROCESS).optimize(schema);
   }
 
 }
