@@ -25,7 +25,7 @@ public interface IvyProcessCreatorTool {
   String NAME = "ivy-process-creator";
   String DESCRIPTION = """
     Creates an Axon Ivy Process definition based on a user request.
-    Use this tool when the user asks to create, model, or design a new process (workflow) including tasks/dialogs/forms, data-classes, variables, external integrations, scheduling, notifications, etc.""";
+    Use this tool when the user asks to create, model, or design a new process (workflow) including tasks/dialogs/forms, data classes, variables, external integrations, scheduling, notifications, etc.""";
   String INPUT_SCHEMA = """
     {
       "type": "object",
@@ -48,10 +48,9 @@ public interface IvyProcessCreatorTool {
     - Visualize roles as pools.""";
 
   String TOOL_RESULT_INTRO = """
-    Create a file containing the process definition.
-    The file must be located in the directory '<project-root>/""" + DIRECTORY_PROCESSES + """
-    ' and have the file extension '""" + PROCESS_EXTENSION + """
-    '.""";
+    Create a file for the process definition in the directory '<project-root>/""" + DIRECTORY_PROCESSES + """
+    ' with the file extension '""" + PROCESS_EXTENSION + """
+    '. Create all required resources, such as data classes, as well.""";
 
   static AsyncToolSpecification specification() {
     var processGenerator = Tool.builder()
