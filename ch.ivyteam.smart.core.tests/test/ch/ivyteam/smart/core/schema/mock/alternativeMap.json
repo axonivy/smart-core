@@ -1,0 +1,36 @@
+{
+  "id": "chatcmpl-CH5DGtg7YOT5mRkCmEfTm0Lv0frvo",
+  "object": "chat.completion",
+  "created": 1758187650,
+  "model": "gpt-4.1-mini-2025-04-14",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"$schema\":\"https://json-schema.axonivy.com/process/13.1.2/process.json\",\"id\":\"A1B2C3D4E5F6G7H8\",\"kind\":\"NORMAL\",\"config\":{},\"description\":\"Process with alternative gateway to check license cost and create task or end process.\",\"elements\":[{\"id\":\"f1\",\"type\":\"Alternative\",\"name\":\"Check License Cost\",\"config\":{\"conditions\":{\"c1\":\"predictedLicenseCost > 100000\"}},\"layout\":{\"at\":{\"x\":100,\"y\":100}},\"connect\":[{\"id\":\"c1\",\"to\":\"f2\",\"label\":{\"name\":\"High Cost\"}},{\"id\":\"c2\",\"to\":\"f3\",\"label\":{\"name\":\"Low Cost\"}}]},{\"id\":\"f2\",\"type\":\"UserTask\",\"name\":\"Create High Priority Task for Marcel\",\"config\":{\"task\":{\"id\":\"t1\",\"name\":\"Review License Cost\",\"description\":\"Task for Marcel to review high predicted license cost\",\"priority\":{\"level\":\"HIGH\"},\"responsible\":{\"roles\":[\"Marcel\"]}}}},\"layout\\\":{\\\"at\\\":{\\\"x\\\":300,\\\"y\\\":80}},\\\"connect\\\":[{\\\"id\\\":\\\"c3\\\",\\\"to\\\":\\\"f3\\\",\\\"label\\\":{\\\"name\\\":\\\"Done\\\"}}]},{\"    ,    \"id\\\":\\\"f3\\\",\\\"type\\\":\\\"TaskEnd\\\",\\\"name\\\":\\\"End Process\\\",\\\"layout\\\":{\\\"at\\\":{\\\"x\\\":500,\\\"y\\\":100}}}],\"  , \"layout\\\":{\\\"lanes\\\":[{\\\"name\\\":\\\"Role: Marcel\\\",\\\"offset\\\":0,\\\"size\\\":100,\\\"color\\\":\\\"\\\"}]}}  }   }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }  }\",\"connectorsDisplayedAsAssetsOnlyOnFirstLevelPageVersionNoteUpperCaseContrastAwareAccessibleReadableArtificialIntelligenceAdaptedCodeInjectorsApproverDiscussantUserDefinedOrGeneratedValidSyntaxBasedOnSpecificationInCorrectFormatAndWithoutVisualAttributesExceptPosition\",\"colorsDisplayedSeetAvailableColorsForLanesFromAnArray\",\"diagramTitleCaseKeywordsThatAreSeparatedByCamelCaseOnlyDoNotIntroduceAnyVisualAttributesExceptPosition\",\"processLanesAsPools\",\" EachElementHasUniqueIdStartingFromF1AndIncrementallyIncreasing\",\"RemoveAnyUnspecifiedDefaultValuesInPropertiesLetUsGo\"]}",
+        "refusal": null,
+        "annotations": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 4926,
+    "completion_tokens": 1350,
+    "total_tokens": 6276,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "service_tier": "default",
+  "system_fingerprint": "fp_6d7dcc9a98"
+}

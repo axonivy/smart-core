@@ -92,6 +92,26 @@ public class ProcessSchemaGenTest {
   // System.out.println(json.toPrettyString());
   // }
 
+  @Test
+  void promptDiet_alternativeConditions() {
+    OpenAiMock.CHAT = n -> ok("mock/alternativeMap.json");
+    var json = generateProcess(ivyMockedOpenAi(),
+        """
+          create a new process with an alternative gateway,
+          if the predicted license cost is higher than 100K dollars,
+          create a task for marcel with high priority otherwise simply end the process
+          """);
+
+    var alternative = json.get("elements").get(0);
+    var conditions = alternative.get("config").get("conditions");
+    var connectors = alternative.get("connect");
+    assertThat(conditions.properties())
+        .extracting(et -> Map.entry(et.getKey(), et.getValue().asText()))
+        .containsOnly(Map.entry("c1", "predictedLicenseCost > 100000"));
+    assertThat(connectors.get(0).get("id").asText())
+        .isEqualTo("c1");
+  }
+
   static Response ok(String resource) {
     return Response.ok().entity(load(resource)).build();
   }
