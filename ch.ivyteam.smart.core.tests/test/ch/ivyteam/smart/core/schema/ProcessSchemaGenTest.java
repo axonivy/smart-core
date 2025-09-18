@@ -80,13 +80,17 @@ public class ProcessSchemaGenTest {
         .isEqualTo("com.example.erp.FetchProductsData");
   }
 
-  @Test
-  void promptDiet_require() {
-    OpenAiMock.CHAT = n -> ok("mock/promptDiet.json");
-    var json = generateProcess(openAiModelBuilder().strictJsonSchema(true).build(),
-        "create a new soap-process to fetch products from ERP");
-    System.out.println(json.toPrettyString());
-  }
+  // @Test
+  // @Disabled("too many limits with OpenAIs 'required' interpretation")
+  // void promptDiet_require() {
+  // // additionalProperties: not allowed!
+  // // optional values must be expressed as 'union',
+  // // but we can't do this for $ref types: e.g. 'kind'.
+  // OpenAiMock.CHAT = n -> ok("mock/promptDiet.json");
+  // var json = generateProcess(openAiModelBuilder().strictJsonSchema(true).build(),
+  // "create a new soap-process to fetch products from ERP");
+  // System.out.println(json.toPrettyString());
+  // }
 
   static Response ok(String resource) {
     return Response.ok().entity(load(resource)).build();
