@@ -37,8 +37,8 @@ public class IvyProcessCreatorToolTest {
   }
 
   @Test
-  void processGeneration() {
-    var processDescription = "Description of the process to generate";
+  void processCreation() {
+    var processDescription = "Description of the process to create";
     var result = client.callTool(CallToolRequest.builder()
         .name(NAME)
         .arguments(Map.of("processDescription", processDescription))

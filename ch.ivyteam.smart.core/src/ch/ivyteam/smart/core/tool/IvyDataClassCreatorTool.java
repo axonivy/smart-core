@@ -5,6 +5,9 @@ import static ch.ivyteam.ivy.IvyConstants.DIRECTORY_DATACLASSES;
 
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.modelcontextprotocol.server.McpAsyncServerExchange;
 import io.modelcontextprotocol.server.McpServerFeatures.AsyncToolSpecification;
 import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
@@ -28,6 +31,8 @@ public interface IvyDataClassCreatorTool {
     ' with the file extension '""" + DATA_CLASS_EXTENSION + """
     '.""";
 
+  ObjectMapper MAPPER = new ObjectMapper();
+
   static AsyncToolSpecification specification() {
     var dataClassGenerator = Tool.builder()
         .name(NAME)
@@ -41,7 +46,13 @@ public interface IvyDataClassCreatorTool {
   }
 
   private static Mono<CallToolResult> callHandler(@SuppressWarnings("unused") McpAsyncServerExchange _exchange, CallToolRequest request) {
-    return Mono.just(new CallToolResult(List.of(new TextContent(TOOL_RESULT_INTRO), new TextContent(request.arguments().toString())), false));
+    String dataClassDefinition;
+    try {
+      dataClassDefinition = MAPPER.writeValueAsString(request.arguments());
+    } catch (JsonProcessingException ex) {
+      throw new RuntimeException(ex);
+    }
+    return Mono.just(new CallToolResult(List.of(new TextContent(TOOL_RESULT_INTRO), new TextContent(dataClassDefinition)), false));
   }
 
   private static String loadSchema() {
