@@ -24,10 +24,6 @@ public class OpenAiSchemaMapper {
 
   private final URI target;
 
-  public static OpenAiSchemaMapper forProcess() {
-    return new OpenAiSchemaMapper(SchemaUri.PROCESS);
-  }
-
   public OpenAiSchemaMapper(URI schema) {
     this.target = schema;
   }
@@ -57,34 +53,11 @@ public class OpenAiSchemaMapper {
       sanitizeAbsentProperties(json, obj);
       if (json.get("properties") instanceof ObjectNode props) {
         sanitizeAmbigiousStringTypes(props);
-        if (json.get("required") instanceof ArrayNode required) {
+        if (obj.get("required") instanceof ArrayNode required) {
           modelOptionalAsNullUnion(props, required);
         }
       }
     }
-  }
-
-  /**
-   * Comply with OpenAI strict required interpretation.
-   * @see "https://platform.openai.com/docs/guides/structured-outputs/supported-schemas#all-fields-must-be-required"
-   */
-  private static void modelOptionalAsNullUnion(ObjectNode props, ArrayNode required) {
-    var require = required.valueStream().map(JsonNode::asText).toList();
-    props.propertyStream()
-        .filter(e -> !require.contains(e.getKey()))
-        .map(e -> {
-          required.add(e.getKey());
-          return e.getValue();
-        })
-        .filter(ObjectNode.class::isInstance)
-        .map(ObjectNode.class::cast)
-        .forEach(prop -> {
-          if (prop.get("type") instanceof TextNode type) {
-            var single = type.asText();
-            var union = prop.putArray("type");
-            union.add(single).add("null");
-          }
-        });
   }
 
   private static void sanitizeAbsentProperties(JsonNode json, ObjectNode obj) {
@@ -109,6 +82,28 @@ public class OpenAiSchemaMapper {
         }
       }
     });
+  }
+
+  /**
+   * Comply with OpenAI strict required interpretation.
+   * @see "https://platform.openai.com/docs/guides/structured-outputs/supported-schemas#all-fields-must-be-required"
+   */
+  private static void modelOptionalAsNullUnion(ObjectNode props, ArrayNode required) {
+    var require = required.valueStream().map(JsonNode::asText).toList();
+    props.propertyStream()
+        .filter(e -> !require.contains(e.getKey()))
+        .map(Entry::getValue)
+        .filter(ObjectNode.class::isInstance)
+        .map(ObjectNode.class::cast)
+        .forEach(prop -> {
+          if (prop.get("type") instanceof TextNode type) {
+            if ("array".equals(type.asText())) {
+              return;
+            }
+            var union = prop.putArray("type");
+            union.add(type).add("null");
+          }
+        });
   }
 
 }
