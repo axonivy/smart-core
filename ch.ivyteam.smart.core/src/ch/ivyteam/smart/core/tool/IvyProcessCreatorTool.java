@@ -49,8 +49,9 @@ public interface IvyProcessCreatorTool {
 
   String TOOL_RESULT_INTRO = """
     Create a file containing the process definition.
-    The file must be located in the directory '<project-root>/""" + DIRECTORY_PROCESSES +
-      "' and have the file extension '" + PROCESS_EXTENSION + "'.";
+    The file must be located in the directory '<project-root>/""" + DIRECTORY_PROCESSES + """
+    ' and have the file extension '""" + PROCESS_EXTENSION + """
+    '.""";
 
   static AsyncToolSpecification specification() {
     var processGenerator = Tool.builder()
