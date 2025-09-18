@@ -8,7 +8,8 @@
     },
     "id" : {
       "type" : "string",
-      "pattern" : "^[A-F0-9]{16,}$"
+      "pattern" : "^[A-F0-9]{16,}$",
+      "description": "Unique ID of 16 uppercase letters (A-F) or numbers"
     },
     "kind" : {
       "$ref" : "#/$defs/ProcessKind"
@@ -1106,7 +1107,8 @@
       "type" : "object",
       "properties" : {
         "data" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "Full qualified java DataClass name"
         },
         "permissions" : {
           "$ref" : "#/$defs/RootPermissions"
