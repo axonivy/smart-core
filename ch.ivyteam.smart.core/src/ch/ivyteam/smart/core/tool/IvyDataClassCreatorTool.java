@@ -27,8 +27,8 @@ public interface IvyDataClassCreatorTool {
   String INPUT_SCHEMA = loadSchema();
 
   String TOOL_RESULT_INTRO = """
-    Create a file for the data class definition in the directory '<project-root>/""" + DIRECTORY_DATACLASSES + """
-    ' with the file extension '""" + DATA_CLASS_EXTENSION + """
+    Create a file for the data class definition in a subdirectory of '<project-root>/""" + DIRECTORY_DATACLASSES + """
+    'matching its namespace with the file extension '""" + DATA_CLASS_EXTENSION + """
     '.""";
 
   ObjectMapper MAPPER = new ObjectMapper();
