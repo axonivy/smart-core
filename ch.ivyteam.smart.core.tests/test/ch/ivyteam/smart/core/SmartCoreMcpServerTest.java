@@ -9,6 +9,7 @@ import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
 
 import ch.ivyteam.ivy.server.test.ManagedServer;
+import ch.ivyteam.smart.core.tool.IvyProcessCreatorTool;
 
 @ManagedServer
 public class SmartCoreMcpServerTest {
@@ -24,6 +25,6 @@ public class SmartCoreMcpServerTest {
   void tools() {
     assertThat(client.listTools().block().tools())
         .extracting(Tool::name)
-        .containsExactly("ivy-process-generator", "ivy-dataclass-creator");
+        .containsExactly(IvyProcessCreatorTool.NAME, "ivy-dataclass-creator");
   }
 }
