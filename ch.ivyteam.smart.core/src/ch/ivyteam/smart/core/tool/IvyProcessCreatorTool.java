@@ -24,7 +24,7 @@ public interface IvyProcessCreatorTool {
 
   String NAME = "ivy-process-creator";
   String DESCRIPTION = """
-    Creates an Axon Ivy Process definition based on a user request.
+    Creates an Axon Ivy process definition based on a user request.
     Use this tool when the user asks to create, model, or design a new process (workflow) including tasks/dialogs/forms, data classes, variables, external integrations, scheduling, notifications, etc.""";
   String INPUT_SCHEMA = """
     {
