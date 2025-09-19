@@ -1,0 +1,12 @@
+name: Publish Release Drafter
+
+on:
+  workflow_run:
+    workflows: ["Release-Build"]
+    types:
+      - completed
+
+jobs:
+  publish_release_drafter:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    uses: axonivy-market/github-workflows/.github/workflows/publish-release-drafter.yml@v6
