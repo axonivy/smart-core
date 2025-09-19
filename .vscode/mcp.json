@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"smart-core-beta": {
+			"url": "http://localhost:8080/smart-core/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}
