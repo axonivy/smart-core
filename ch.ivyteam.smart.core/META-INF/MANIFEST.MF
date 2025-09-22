@@ -7,7 +7,10 @@ Bundle-Vendor: Axon Ivy AG
 Bundle-ClassPath: .,
  lib/mcp.jar,
  lib/reactor-core.jar,
- lib/reactive-streams.jar
+ lib/reactive-streams.jar,
+ lib/mcp-core.jar,
+ lib/mcp-json.jar,
+ lib/mcp-json-jackson2.jar
 Bundle-ActivationPolicy: lazy
 Export-Package: ch.ivyteam.smart.core;x-friends:="ch.ivyteam.smart.core.tests",
  ch.ivyteam.smart.core.schema;x-friends:="ch.ivyteam.smart.core.tests",
