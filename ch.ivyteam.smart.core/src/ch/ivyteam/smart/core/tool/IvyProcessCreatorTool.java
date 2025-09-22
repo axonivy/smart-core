@@ -2,6 +2,7 @@ package ch.ivyteam.smart.core.tool;
 
 import static ch.ivyteam.ivy.IvyConstants.DIRECTORY_PROCESSES;
 import static ch.ivyteam.ivy.IvyConstants.PROCESS_EXTENSION;
+import static ch.ivyteam.smart.core.SmartCoreMcpServer.MAPPER;
 import static io.modelcontextprotocol.spec.McpSchema.Role.USER;
 
 import java.time.Duration;
@@ -56,7 +57,7 @@ public interface IvyProcessCreatorTool {
     var processGenerator = Tool.builder()
         .name(NAME)
         .description(DESCRIPTION)
-        .inputSchema(INPUT_SCHEMA)
+        .inputSchema(MAPPER, INPUT_SCHEMA)
         .build();
     return AsyncToolSpecification.builder()
         .tool(processGenerator)
