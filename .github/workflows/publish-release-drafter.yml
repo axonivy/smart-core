@@ -1,4 +1,5 @@
 name: Publish Release Drafter
+permissions: {}
 
 on:
   workflow_run:

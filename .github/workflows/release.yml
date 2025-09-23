@@ -1,4 +1,5 @@
 name: Release-Build
+permissions: {}
 
 on:
   workflow_dispatch:
