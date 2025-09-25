@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import ch.ivyteam.ivy.request.EngineUriResolver;
 import ch.ivyteam.ivy.server.test.ManagedServer;
-import ch.ivyteam.smart.core.tool.IvyDataClassCreatorTool;
+import ch.ivyteam.smart.core.tool.IvyDataClassSchemaTool;
 import ch.ivyteam.test.log.LoggerAccess;
 import dev.langchain4j.mcp.client.DefaultMcpClient;
 import dev.langchain4j.mcp.client.transport.McpTransport;
@@ -30,7 +30,7 @@ public class McpServletTest {
       var tools = mcpClient.listTools();
       assertThat(tools).isNotEmpty();
       var temperatureTool = tools.stream()
-          .filter(spec -> spec.name().contains(IvyDataClassCreatorTool.NAME))
+          .filter(spec -> spec.name().contains(IvyDataClassSchemaTool.NAME))
           .findFirst()
           .get();
       assertThat(temperatureTool).isNotNull();
