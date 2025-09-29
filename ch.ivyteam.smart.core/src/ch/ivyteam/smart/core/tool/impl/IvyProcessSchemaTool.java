@@ -22,7 +22,7 @@ public class IvyProcessSchemaTool implements IvySchemaTool {
   public String guidelines() {
     return """
       - Process files must be located in a subdirectory of '<project-root>/""" + DIRECTORY_PROCESSES + """
-      /'.
+      /'. Note: This does not apply to form processes.
       - Omit as many defaults as possible, but at any rate produce the required values.
       - Create unique instances for element IDs, starting from 'f1'.
       - Draw elements as graphs.

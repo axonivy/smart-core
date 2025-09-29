@@ -12,6 +12,7 @@ import io.modelcontextprotocol.spec.McpSchema.ServerCapabilities;
 import ch.ivyteam.ivy.webserver.extension.ServletContextStartupListener;
 import ch.ivyteam.smart.core.mcp.transport.JavaxHttpServletStreamableServerTransportProvider;
 import ch.ivyteam.smart.core.tool.impl.IvyDataClassSchemaTool;
+import ch.ivyteam.smart.core.tool.impl.IvyFormSchemaTool;
 import ch.ivyteam.smart.core.tool.impl.IvyProcessSchemaTool;
 
 public class SmartCoreMcpServer implements ServletContextStartupListener {
@@ -28,7 +29,8 @@ public class SmartCoreMcpServer implements ServletContextStartupListener {
         .capabilities(ServerCapabilities.builder().tools(true).build())
         .tools(List.of(
             new IvyProcessSchemaTool().specification(),
-            new IvyDataClassSchemaTool().specification()))
+            new IvyDataClassSchemaTool().specification(),
+            new IvyFormSchemaTool().specification()))
         .build();
 
     var servlet = ctx.addServlet("smart-core-mcp", transportProvider);

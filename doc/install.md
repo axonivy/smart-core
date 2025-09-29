@@ -39,6 +39,7 @@
     # Tool Mapping
     - Process (file extension 'p.json'): ivy-process-schema
     - Data Class (file extension 'd.json'): ivy-data-class-schema
+    - Form (file extension 'f.json'): ivy-form-schema
     ```
 
 # Troubleshooting

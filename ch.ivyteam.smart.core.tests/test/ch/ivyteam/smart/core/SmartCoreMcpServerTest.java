@@ -10,6 +10,7 @@ import io.modelcontextprotocol.spec.McpSchema.Tool;
 
 import ch.ivyteam.ivy.server.test.ManagedServer;
 import ch.ivyteam.smart.core.tool.impl.IvyDataClassSchemaTool;
+import ch.ivyteam.smart.core.tool.impl.IvyFormSchemaTool;
 import ch.ivyteam.smart.core.tool.impl.IvyProcessSchemaTool;
 
 @ManagedServer
@@ -26,6 +27,9 @@ public class SmartCoreMcpServerTest {
   void tools() {
     assertThat(client.listTools().block().tools())
         .extracting(Tool::name)
-        .containsExactly(new IvyProcessSchemaTool().name(), new IvyDataClassSchemaTool().name());
+        .containsExactly(
+            new IvyProcessSchemaTool().name(),
+            new IvyDataClassSchemaTool().name(),
+            new IvyFormSchemaTool().name());
   }
 }

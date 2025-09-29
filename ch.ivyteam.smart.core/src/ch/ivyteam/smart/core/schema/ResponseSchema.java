@@ -11,6 +11,7 @@ public interface ResponseSchema {
 
   IvySchema PROCESS = load(OpenAiSchemaMapper.SchemaUri.PROCESS);
   IvySchema DATA_CLASS = load(OpenAiSchemaMapper.SchemaUri.DATA_CLASS);
+  IvySchema FORM = load(OpenAiSchemaMapper.SchemaUri.FORM);
 
   private static IvySchema load(URI ref) {
     var resource = Path.of(ref.getPath()).getFileName().toString();
