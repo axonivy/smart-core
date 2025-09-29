@@ -1,8 +1,5 @@
 package ch.ivyteam.smart.core.tool;
 
-import static ch.ivyteam.smart.core.tool.IvyProcessSchemaTool.GUIDELINES;
-import static ch.ivyteam.smart.core.tool.IvyProcessSchemaTool.NAME;
-import static ch.ivyteam.smart.core.tool.IvyProcessSchemaTool.loadSchema;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +11,7 @@ import io.modelcontextprotocol.spec.McpSchema.TextContent;
 
 import ch.ivyteam.ivy.server.test.ManagedServer;
 import ch.ivyteam.smart.core.McpClientMock;
+import ch.ivyteam.smart.core.tool.impl.IvyProcessSchemaTool;
 
 @ManagedServer
 public class IvyProcessSchemaToolTest {
@@ -27,13 +25,14 @@ public class IvyProcessSchemaToolTest {
 
   @Test
   void processSchema() {
+    var tool = new IvyProcessSchemaTool();
     var result = client.callTool(CallToolRequest.builder()
-        .name(NAME)
+        .name(tool.name())
         .build())
         .block();
 
     assertThat(result.content()).hasSize(2);
-    assertThat(((TextContent) result.content().get(0)).text()).isEqualTo(loadSchema());
-    assertThat(((TextContent) result.content().get(1)).text()).isEqualTo(GUIDELINES);
+    assertThat(((TextContent) result.content().get(0)).text()).isEqualTo(tool.schema());
+    assertThat(((TextContent) result.content().get(1)).text()).isEqualTo("Guidelines:\n" + tool.guidelines());
   }
 }
