@@ -11,10 +11,10 @@ import io.modelcontextprotocol.spec.McpSchema.TextContent;
 
 import ch.ivyteam.ivy.server.test.ManagedServer;
 import ch.ivyteam.smart.core.McpClientMock;
-import ch.ivyteam.smart.core.tool.impl.IvyProcessSchemaTool;
+import ch.ivyteam.smart.core.tool.impl.IvyFormSchemaTool;
 
 @ManagedServer
-public class IvyProcessSchemaToolTest {
+public class IvyFormSchemaToolTest {
 
   McpAsyncClient client;
 
@@ -24,8 +24,8 @@ public class IvyProcessSchemaToolTest {
   }
 
   @Test
-  void callTool() {
-    var tool = new IvyProcessSchemaTool();
+  void callTool() throws Exception {
+    var tool = new IvyFormSchemaTool();
     var result = client.callTool(CallToolRequest.builder()
         .name(tool.name())
         .build())

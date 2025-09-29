@@ -7,15 +7,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-
+import ch.ivyteam.ivy.dialog.form.io.FormVersion;
 import ch.ivyteam.ivy.json.history.JsonVersion;
 import ch.ivyteam.ivy.process.io.ProcessVersion;
+import ch.ivyteam.ivy.scripting.dataclass.model.DataClassVersion;
 
 public class OpenAiSchemaMapper {
 
   public interface SchemaUri {
     URI PROCESS = versioned("process", ProcessVersion.LATEST);
-    URI DATA_CLASS = versioned("data-class", ProcessVersion.LATEST);
+    URI DATA_CLASS = versioned("data-class", DataClassVersion.LATEST);
+    URI FORM = versioned("form", FormVersion.LATEST);
 
     private static URI versioned(String resource, JsonVersion version) {
       return URI.create("https://json-schema.axonivy.com/" + resource + "/" + version + "/" + resource + ".json");

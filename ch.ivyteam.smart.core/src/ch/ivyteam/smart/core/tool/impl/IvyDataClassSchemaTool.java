@@ -22,7 +22,7 @@ public class IvyDataClassSchemaTool implements IvySchemaTool {
   public String guidelines() {
     return """
       - Data class files must be located in a subdirectory of '<project-root>/""" + DIRECTORY_DATACLASSES + """
-      /' matching its namespace.""";
+      /' matching its namespace. Note: This does not apply to form data classes.""";
   }
 
   @Override
