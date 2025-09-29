@@ -6,6 +6,10 @@ import javax.servlet.ServletContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.modelcontextprotocol.json.McpJsonMapper;
+import io.modelcontextprotocol.json.jackson.JacksonMcpJsonMapper;
+import io.modelcontextprotocol.json.schema.JsonSchemaValidator;
+import io.modelcontextprotocol.json.schema.jackson.DefaultJsonSchemaValidator;
 import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.spec.McpSchema.ServerCapabilities;
 
@@ -17,10 +21,15 @@ import ch.ivyteam.smart.core.tool.IvyProcessCreatorTool;
 public class SmartCoreMcpServer implements ServletContextStartupListener {
   public static final String SERVLET_PATH = "/smart-core";
 
+  // TODO: Make ServiceLoader work; loading services from `mcp-json-jackson2.jar` should provide this
+  public static final McpJsonMapper MAPPER = new JacksonMcpJsonMapper(new ObjectMapper());
+  // TODO: Make ServiceLoader work; loading services from `mcp-json-jackson2.jar` should provide this
+  private static final JsonSchemaValidator VALIDATOR = new DefaultJsonSchemaValidator();
+
   @Override
   public void onStartup(ServletContext ctx) {
     var transportProvider = JavaxHttpServletStreamableServerTransportProvider.builder()
-        .objectMapper(new ObjectMapper())
+        .jsonMapper(MAPPER)
         .build();
 
     McpServer.async(transportProvider)
@@ -29,6 +38,8 @@ public class SmartCoreMcpServer implements ServletContextStartupListener {
         .tools(List.of(
             IvyProcessCreatorTool.specification(),
             IvyDataClassCreatorTool.specification()))
+        .jsonMapper(MAPPER)
+        .jsonSchemaValidator(VALIDATOR)
         .build();
 
     var servlet = ctx.addServlet("smart-core-mcp", transportProvider);

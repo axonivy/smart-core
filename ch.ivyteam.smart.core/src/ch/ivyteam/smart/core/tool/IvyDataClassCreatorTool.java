@@ -2,11 +2,10 @@ package ch.ivyteam.smart.core.tool;
 
 import static ch.ivyteam.ivy.IvyConstants.DATA_CLASS_EXTENSION;
 import static ch.ivyteam.ivy.IvyConstants.DIRECTORY_DATACLASSES;
+import static ch.ivyteam.smart.core.SmartCoreMcpServer.MAPPER;
 
+import java.io.IOException;
 import java.util.List;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.modelcontextprotocol.server.McpAsyncServerExchange;
 import io.modelcontextprotocol.server.McpServerFeatures.AsyncToolSpecification;
@@ -31,13 +30,11 @@ public interface IvyDataClassCreatorTool {
     'matching its namespace with the file extension '""" + DATA_CLASS_EXTENSION + """
     '.""";
 
-  ObjectMapper MAPPER = new ObjectMapper();
-
   static AsyncToolSpecification specification() {
     var dataClassGenerator = Tool.builder()
         .name(NAME)
         .description(DESCRIPTION)
-        .inputSchema(INPUT_SCHEMA)
+        .inputSchema(MAPPER, INPUT_SCHEMA)
         .build();
     return AsyncToolSpecification.builder()
         .tool(dataClassGenerator)
@@ -49,7 +46,7 @@ public interface IvyDataClassCreatorTool {
     String dataClassDefinition;
     try {
       dataClassDefinition = MAPPER.writeValueAsString(request.arguments());
-    } catch (JsonProcessingException ex) {
+    } catch (IOException ex) {
       throw new RuntimeException(ex);
     }
     return Mono.just(new CallToolResult(List.of(new TextContent(TOOL_RESULT_INTRO), new TextContent(dataClassDefinition)), false));
