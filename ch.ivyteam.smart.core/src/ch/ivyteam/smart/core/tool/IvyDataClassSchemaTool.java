@@ -1,5 +1,7 @@
 package ch.ivyteam.smart.core.tool;
 
+import static ch.ivyteam.ivy.IvyConstants.DATA_CLASS_EXTENSION;
+import static ch.ivyteam.ivy.IvyConstants.DIRECTORY_DATACLASSES;
 import static ch.ivyteam.smart.core.schema.ResponseSchema.DATA_CLASS;
 
 import java.util.List;
@@ -17,12 +19,15 @@ public interface IvyDataClassSchemaTool {
 
   String NAME = "ivy-data-class-schema";
   String DESCRIPTION = """
-    Returns the JSON schema and guidelines for handling Axon Ivy data class definitions.
+    Returns the JSON schema and guidelines for handling Axon Ivy data class definitions (file extension '""" + DATA_CLASS_EXTENSION + """
+    ').
     Whenever instructed to create, edit, or otherwise work with or handle a data class, invoke this tool.
     Use the schema as the authoritative source of truth for structure, required fields, and allowed values and strictly follow the guidelines.""";
+
   String GUIDELINES = """
     Guidelines:
-    - Data class files must be located in a subdirectory of '<project-root>/dataclasses/' matching its namespace.""";
+    - Data class files must be located in a subdirectory of '<project-root>/""" + DIRECTORY_DATACLASSES + """
+    /' matching its namespace.""";
 
   static AsyncToolSpecification specification() {
     var dataClassSchemaTool = Tool.builder()
