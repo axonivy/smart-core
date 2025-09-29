@@ -39,6 +39,7 @@ public interface IvyProcessSchemaTool {
     var dataClassSchemaTool = Tool.builder()
         .name(NAME)
         .description(DESCRIPTION)
+        .inputSchema("{}")
         .build();
     return AsyncToolSpecification.builder()
         .tool(dataClassSchemaTool)

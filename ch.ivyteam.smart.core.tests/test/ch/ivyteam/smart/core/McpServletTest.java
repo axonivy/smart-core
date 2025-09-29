@@ -29,11 +29,11 @@ public class McpServletTest {
     try (var mcpClient = mcpClient()) {
       var tools = mcpClient.listTools();
       assertThat(tools).isNotEmpty();
-      var temperatureTool = tools.stream()
+      var dataClassSchemaTool = tools.stream()
           .filter(spec -> spec.name().contains(IvyDataClassSchemaTool.NAME))
           .findFirst()
           .get();
-      assertThat(temperatureTool).isNotNull();
+      assertThat(dataClassSchemaTool).isNotNull();
 
     } finally {
       mcpLog.all().stream()

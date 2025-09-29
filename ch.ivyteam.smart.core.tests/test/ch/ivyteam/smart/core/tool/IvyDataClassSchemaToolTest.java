@@ -33,7 +33,7 @@ public class IvyDataClassSchemaToolTest {
         .block();
 
     assertThat(result.content()).hasSize(2);
-    assertThat(((TextContent) result.content().getFirst()).text()).isEqualTo(loadSchema());
-    assertThat(((TextContent) result.content().getFirst()).text()).isEqualTo(GUIDELINES);
+    assertThat(((TextContent) result.content().get(0)).text()).isEqualTo(loadSchema());
+    assertThat(((TextContent) result.content().get(1)).text()).isEqualTo(GUIDELINES);
   }
 }
