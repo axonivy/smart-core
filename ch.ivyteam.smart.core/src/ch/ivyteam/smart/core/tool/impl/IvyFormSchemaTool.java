@@ -35,9 +35,7 @@ public class IvyFormSchemaTool implements IvySchemaTool {
       - The form process must be of kind 'HTML_DIALOG' and contain a 'HtmlDialogStart' connected to a 'HtmlDialogEnd' and a 'HtmlDialogEventStart' connected to a 'HtmlDialogExit'.
       - The form must be located in a subdirectory of '<project-root>/""" + DIRECTORY_SRC_HD + """
       /' but not directly in it. At least one other directory between '""" + DIRECTORY_SRC_HD + """
-      ' and the form directory is required.
-      - The id of the form must be UUID.""";
-    // TODO: move UUID requirement to schema; probably needs a tool to generate it
+      ' and the form directory is required.""";
   }
 
   @Override
