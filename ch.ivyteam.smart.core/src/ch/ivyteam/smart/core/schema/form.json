@@ -988,7 +988,8 @@
     },
     "id" : {
       "type" : "string",
-      "format" : "uuid"
+      "format" : "uuid",
+      "description": "Unique ID in UUID format"
     },
     "config" : {
       "$ref" : "#/$defs/FormConfig"
