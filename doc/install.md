@@ -26,21 +26,31 @@
     ![tools](img/smart-core-mcp-tools.png)
 
 3. Done, start chatting. Here's a prompt that we like to use.
-    > Create a process.
+    ```
+    Create a process.
     Start the process based on a signal, referencing a slack-message from a new customer.
     Add an email element, telling rolf@axonivy.com that we got a new lead!
     Use an alternative gateway, if the predicted license cost is higher than 100K dollars, create a task for marcel with high priority otherwise simply end the process.
-
-    Note that depending on the model you use, Copilot might not always invoke the required tools. If that happens, you can try again, but tell it explicitly to use the respective tools. Alternatively, you can add custom instructions to your project to ensure tool usage by Copilot. To do this, add a file `.github/copilot-instructions.md` with the following content to your project:
-
-    ```md
-    Whenever instructed to create, edit, or otherwise work with or handle a file or resource in this project, check the following mapping to determine whether the file/resource is present in it as a key. If so, invoke the corresponding tool defined as the value in the mapping to retrieve a JSON schema and additional guidelines regarding that file/resource before proceeding. Use the schema as the authoritative source of truth for structure, required fields, and allowed values and strictly follow the guidelines returned.
-
-    # Tool Mapping
-    - Process (file extension 'p.json'): ivy-process-schema
-    - Data Class (file extension 'd.json'): ivy-data-class-schema
-    - Form (file extension 'f.json'): ivy-form-schema
     ```
+
+## Caveats
+
+### File changes and editor refresh
+
+The editors in the Axon Ivy PRO Designer VSCode extension currently don't refresh when making changes directly to a file. This means that edits performed by Copilot are not immediatly reflected in the editors. Restart VSCode to make the changes visible.
+
+### Tool usage
+
+Depending on the model you use, Copilot might not always invoke the required tools. If that happens, you can try again, but tell it explicitly to use the respective tools. Alternatively, you can add custom instructions to your project to ensure tool usage by Copilot. To do this, add a file `.github/copilot-instructions.md` with the following content to your project:
+
+```md
+Whenever instructed to create, edit, or otherwise work with or handle a file or resource in this project, check the following mapping to determine whether the file/resource is present in it as a key. If so, invoke the corresponding tool defined as the value in the mapping to retrieve a JSON schema and additional guidelines regarding that file/resource before proceeding. Use the schema as the authoritative source of truth for structure, required fields, and allowed values and strictly follow the guidelines returned.
+
+# Tool Mapping
+- Process (file extension 'p.json'): ivy-process-schema
+- Data Class (file extension 'd.json'): ivy-data-class-schema
+- Form (file extension 'f.json'): ivy-form-schema
+```
 
 # Troubleshooting
 
