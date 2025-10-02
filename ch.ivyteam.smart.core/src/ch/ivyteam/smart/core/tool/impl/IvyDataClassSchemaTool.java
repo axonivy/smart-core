@@ -2,7 +2,7 @@ package ch.ivyteam.smart.core.tool.impl;
 
 import static ch.ivyteam.ivy.IvyConstants.DATA_CLASS_EXTENSION;
 import static ch.ivyteam.ivy.IvyConstants.DIRECTORY_DATACLASSES;
-import static ch.ivyteam.smart.core.schema.ResponseSchema.DATA_CLASS;
+import static ch.ivyteam.smart.core.schema.ResourceSchema.DATA_CLASS;
 
 import ch.ivyteam.smart.core.tool.IvySchemaTool;
 
