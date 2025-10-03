@@ -28,6 +28,7 @@ public class IvyProcessSchemaTool implements IvySchemaTool {
       - Draw elements as graphs.
       - Do not set any visual attributes on elements, except the position 'at'.
       - Visualize roles as pools.
+      - Ensure elements are connected to the next one in the sequence flow.
       - A process requires a process data class. Create it if needed.""";
   }
 
