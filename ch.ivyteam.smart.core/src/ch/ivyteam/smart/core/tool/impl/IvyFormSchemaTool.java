@@ -5,7 +5,7 @@ import static ch.ivyteam.ivy.IvyConstants.DIRECTORY_SRC_HD;
 import static ch.ivyteam.ivy.IvyConstants.PROCESS_EXTENSION;
 import static ch.ivyteam.ivy.dialog.configuration.FormNameExtensions.EXTENSION;
 import static ch.ivyteam.ivy.dialog.configuration.FormNameExtensions.EXTENSION_WITHOUT_DOT;
-import static ch.ivyteam.smart.core.schema.ResponseSchema.FORM;
+import static ch.ivyteam.smart.core.schema.ResourceSchema.FORM;
 
 import ch.ivyteam.smart.core.tool.IvySchemaTool;
 

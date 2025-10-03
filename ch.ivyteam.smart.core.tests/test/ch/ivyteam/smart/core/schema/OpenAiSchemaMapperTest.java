@@ -2,6 +2,7 @@ package ch.ivyteam.smart.core.schema;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import ch.ivyteam.smart.core.schema.OpenAiSchemaMapper.SchemaUri;
+import ch.ivyteam.smart.core.schema.OpenAiSchemaMapper.SchemaPath;
 
 public class OpenAiSchemaMapperTest {
 
@@ -20,12 +21,12 @@ public class OpenAiSchemaMapperTest {
 
   @BeforeEach
   void setUp() {
-    this.schema = SchemaLoader.readSchema(OpenAiSchemaMapperTest.class, "process.json");
+    this.schema = SchemaLoader.readSchema(OpenAiSchemaMapperTest.class, Path.of("process.json"));
   }
 
   @Test
   void constantSchema_dataClass() {
-    var dataSchema = SchemaLoader.readSchema(OpenAiSchemaMapperTest.class, "data-class.json");
+    var dataSchema = SchemaLoader.readSchema(OpenAiSchemaMapperTest.class, Path.of("data-class.json"));
 
     JsonNode rootProps = dataSchema.get("properties");
     JsonNode schemaRef = rootProps.get("$schema");
@@ -33,14 +34,14 @@ public class OpenAiSchemaMapperTest {
     assertThat(fieldNames(schemaRef))
         .containsOnly("type");
 
-    new OpenAiSchemaMapper(SchemaUri.DATA_CLASS).optimize(dataSchema);
+    new OpenAiSchemaMapper(SchemaPath.DATA_CLASS).optimize(dataSchema);
 
     assertThat(fieldNames(schemaRef))
         .as("adds const, also if no pattern is defined")
         .containsOnly("type", "const");
 
     assertThat(schemaRef.get("const").asText())
-        .isEqualTo(SchemaUri.DATA_CLASS.toASCIIString());
+        .isEqualTo(SchemaPath.DATA_CLASS.toString());
   }
 
   @Test
@@ -58,7 +59,7 @@ public class OpenAiSchemaMapperTest {
         .doesNotContain("pattern");
 
     assertThat(schemaRef.get("const").asText())
-        .isEqualTo(SchemaUri.PROCESS.toASCIIString());
+        .isEqualTo(SchemaPath.PROCESS.toString());
   }
 
   @Test
@@ -126,7 +127,7 @@ public class OpenAiSchemaMapperTest {
   }
 
   private void optimize() {
-    new OpenAiSchemaMapper(SchemaUri.PROCESS).optimize(schema);
+    new OpenAiSchemaMapper(SchemaPath.PROCESS).optimize(schema);
   }
 
 }
