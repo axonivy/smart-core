@@ -82,10 +82,10 @@
               <forkCount>${ivy-test-forkCount}</forkCount>
               <trimStackTrace>false</trimStackTrace>
               <classpathDependencyExcludes>jakarta.inject:jakarta.inject-api</classpathDependencyExcludes>
-              <systemProperties>
+              <systemPropertyVariables>
                 <!-- Prevent NPE's on about a missing webapps folder -->
                 <IVY_WEBAPPS_ROOT>${basedir}</IVY_WEBAPPS_ROOT>
-              </systemProperties>
+              </systemPropertyVariables>
             </configuration>
           </execution>
         </executions>
