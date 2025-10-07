@@ -29,8 +29,8 @@
     ```
     Create a process.
     Start the process based on a signal, referencing a slack-message from a new customer.
-    Add an email element, telling rolf@axonivy.com that we got a new lead!
-    Use an alternative gateway, if the predicted license cost is higher than 100K dollars, create a task for marcel with high priority otherwise simply end the process.
+    Add an email element, telling ceo@axonivy.com that we got a new lead!
+    Use an alternative gateway, if the predicted license cost is higher than 100K dollars, create a task for PM with high priority otherwise simply end the process.
     ```
 
 ## Caveats
