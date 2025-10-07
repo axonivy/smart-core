@@ -23,12 +23,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.modelcontextprotocol.common.McpTransportContext;
+import io.modelcontextprotocol.json.McpJsonMapper;
+import io.modelcontextprotocol.json.TypeRef;
 import io.modelcontextprotocol.server.McpTransportContextExtractor;
-import io.modelcontextprotocol.server.transport.HttpServletStreamableServerTransportProvider;
 import io.modelcontextprotocol.spec.HttpHeaders;
 import io.modelcontextprotocol.spec.McpError;
 import io.modelcontextprotocol.spec.McpSchema;
@@ -100,7 +98,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
    */
   private final boolean disallowDelete;
 
-  private final ObjectMapper objectMapper;
+  private final McpJsonMapper jsonMapper;
 
   private McpStreamableServerSession.Factory sessionFactory;
 
@@ -123,23 +121,23 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
   private KeepAliveScheduler keepAliveScheduler;
 
   /**
-   * Constructs a new HttpServletStreamableServerTransportProvider instance.
-   * @param objectMapper The ObjectMapper to use for JSON serialization/deserialization
-   *          of messages.
+   * Constructs a new JavaxHttpServletStreamableServerTransportProvider instance.
+   * @param jsonMapper The JsonMapper to use for JSON serialization/deserialization of
+   *          messages.
    * @param mcpEndpoint The endpoint URI where clients should send their JSON-RPC
    *          messages via HTTP. This endpoint will handle GET, POST, and DELETE requests.
    * @param disallowDelete Whether to disallow DELETE requests on the endpoint.
    * @param contextExtractor The extractor for transport context from the request.
    * @throws IllegalArgumentException if any parameter is null
    */
-  private JavaxHttpServletStreamableServerTransportProvider(ObjectMapper objectMapper, String mcpEndpoint,
+  private JavaxHttpServletStreamableServerTransportProvider(McpJsonMapper jsonMapper, String mcpEndpoint,
       boolean disallowDelete, McpTransportContextExtractor<HttpServletRequest> contextExtractor,
       Duration keepAliveInterval) {
-    Assert.notNull(objectMapper, "ObjectMapper must not be null");
+    Assert.notNull(jsonMapper, "JsonMapper must not be null");
     Assert.notNull(mcpEndpoint, "MCP endpoint must not be null");
     Assert.notNull(contextExtractor, "Context extractor must not be null");
 
-    this.objectMapper = objectMapper;
+    this.jsonMapper = jsonMapper;
     this.mcpEndpoint = mcpEndpoint;
     this.disallowDelete = disallowDelete;
     this.contextExtractor = contextExtractor;
@@ -159,7 +157,8 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
 
   @Override
   public List<String> protocolVersions() {
-    return List.of(ProtocolVersions.MCP_2024_11_05, ProtocolVersions.MCP_2025_03_26);
+    return List.of(ProtocolVersions.MCP_2024_11_05, ProtocolVersions.MCP_2025_03_26,
+        ProtocolVersions.MCP_2025_06_18);
   }
 
   @Override
@@ -389,7 +388,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
         body.append(line);
       }
 
-      McpSchema.JSONRPCMessage message = McpSchema.deserializeJsonRpcMessage(objectMapper, body.toString());
+      McpSchema.JSONRPCMessage message = McpSchema.deserializeJsonRpcMessage(jsonMapper, body.toString());
 
       // Handle initialization request
       if (message instanceof McpSchema.JSONRPCRequest jsonrpcRequest
@@ -400,8 +399,8 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
           return;
         }
 
-        McpSchema.InitializeRequest initializeRequest = objectMapper.convertValue(jsonrpcRequest.params(),
-            new TypeReference<McpSchema.InitializeRequest>(){});
+        McpSchema.InitializeRequest initializeRequest = jsonMapper.convertValue(jsonrpcRequest.params(),
+            new TypeRef<McpSchema.InitializeRequest>(){});
         McpStreamableServerSession.McpStreamableServerSessionInit init = this.sessionFactory
             .startSession(initializeRequest);
         this.sessions.put(init.session().getId(), init.session());
@@ -414,7 +413,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
           response.setHeader(HttpHeaders.MCP_SESSION_ID, init.session().getId());
           response.setStatus(HttpServletResponse.SC_OK);
 
-          String jsonResponse = objectMapper.writeValueAsString(new McpSchema.JSONRPCResponse(
+          String jsonResponse = jsonMapper.writeValueAsString(new McpSchema.JSONRPCResponse(
               McpSchema.JSONRPC_VERSION, jsonrpcRequest.id(), initResult, null));
 
           PrintWriter writer = response.getWriter();
@@ -564,7 +563,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
     response.setContentType(APPLICATION_JSON);
     response.setCharacterEncoding(UTF_8);
     response.setStatus(httpCode);
-    String jsonError = objectMapper.writeValueAsString(mcpError);
+    String jsonError = jsonMapper.writeValueAsString(mcpError);
     PrintWriter writer = response.getWriter();
     writer.write(jsonError);
     writer.flush();
@@ -671,7 +670,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
             return;
           }
 
-          String jsonText = objectMapper.writeValueAsString(message);
+          String jsonText = jsonMapper.writeValueAsString(message);
           JavaxHttpServletStreamableServerTransportProvider.this.sendEvent(writer, MESSAGE_EVENT_TYPE, jsonText,
               messageId != null ? messageId : this.sessionId);
           logger.debug("Message sent to session {} with ID {}", this.sessionId, messageId);
@@ -686,15 +685,15 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
     }
 
     /**
-     * Converts data from one type to another using the configured ObjectMapper.
+     * Converts data from one type to another using the configured JsonMapper.
      * @param data The source data object to convert
      * @param typeRef The target type reference
      * @return The converted object of type T
      * @param <T> The target type
      */
     @Override
-    public <T> T unmarshalFrom(Object data, TypeReference<T> typeRef) {
-      return objectMapper.convertValue(data, typeRef);
+    public <T> T unmarshalFrom(Object data, TypeRef<T> typeRef) {
+      return jsonMapper.convertValue(data, typeRef);
     }
 
     /**
@@ -722,7 +721,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
 
         this.closed = true;
 
-        // HttpServletStreamableServerTransportProvider.this.sessions.remove(this.sessionId);
+        // JavaxHttpServletStreamableServerTransportProvider.this.sessions.remove(this.sessionId);
         this.asyncContext.complete();
         logger.debug("Successfully completed async context for session {}", sessionId);
       } catch (Exception e) {
@@ -740,11 +739,11 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
 
   /**
    * Builder for creating instances of
-   * {@link HttpServletStreamableServerTransportProvider}.
+   * {@link JavaxHttpServletStreamableServerTransportProvider}.
    */
   public static class Builder {
 
-    private ObjectMapper objectMapper;
+    private McpJsonMapper jsonMapper;
 
     private String mcpEndpoint = "/mcp";
 
@@ -755,15 +754,15 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
     private Duration keepAliveInterval;
 
     /**
-     * Sets the ObjectMapper to use for JSON serialization/deserialization of MCP
+     * Sets the JsonMapper to use for JSON serialization/deserialization of MCP
      * messages.
-     * @param objectMapper The ObjectMapper instance. Must not be null.
+     * @param jsonMapper The JsonMapper instance. Must not be null.
      * @return this builder instance
-     * @throws IllegalArgumentException if objectMapper is null
+     * @throws IllegalArgumentException if JsonMapper is null
      */
-    public Builder objectMapper(ObjectMapper objectMapper) {
-      Assert.notNull(objectMapper, "ObjectMapper must not be null");
-      this.objectMapper = objectMapper;
+    public Builder jsonMapper(McpJsonMapper jsonMapper) {
+      Assert.notNull(jsonMapper, "JsonMapper must not be null");
+      this.jsonMapper = jsonMapper;
       return this;
     }
 
@@ -814,17 +813,16 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
     }
 
     /**
-     * Builds a new instance of {@link HttpServletStreamableServerTransportProvider}
+     * Builds a new instance of {@link JavaxHttpServletStreamableServerTransportProvider}
      * with the configured settings.
-     * @return A new HttpServletStreamableServerTransportProvider instance
+     * @return A new JavaxHttpServletStreamableServerTransportProvider instance
      * @throws IllegalStateException if required parameters are not set
      */
     public JavaxHttpServletStreamableServerTransportProvider build() {
-      Assert.notNull(this.objectMapper, "ObjectMapper must be set");
       Assert.notNull(this.mcpEndpoint, "MCP endpoint must be set");
-
-      return new JavaxHttpServletStreamableServerTransportProvider(this.objectMapper, this.mcpEndpoint,
-          this.disallowDelete, this.contextExtractor, this.keepAliveInterval);
+      return new JavaxHttpServletStreamableServerTransportProvider(
+          jsonMapper == null ? McpJsonMapper.getDefault() : jsonMapper, mcpEndpoint, disallowDelete,
+          contextExtractor, keepAliveInterval);
     }
 
   }

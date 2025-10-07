@@ -1,5 +1,7 @@
 package ch.ivyteam.smart.core.tool;
 
+import static ch.ivyteam.smart.core.SmartCoreMcpServer.MAPPER;
+
 import java.util.List;
 
 import io.modelcontextprotocol.server.McpAsyncServerExchange;
@@ -32,7 +34,7 @@ public interface IvySchemaTool {
     var tool = Tool.builder()
         .name(name())
         .description(description())
-        .inputSchema("{}")
+        .inputSchema(MAPPER, "{}")
         .build();
     return AsyncToolSpecification.builder()
         .tool(tool)
