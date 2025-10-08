@@ -24,4 +24,5 @@ Require-Bundle: ch.ivyteam.ivy.webserver,
  ch.ivyteam.ivy.runtime.env,
  ch.ivyteam.ivy.scripting.dataclass,
  ch.ivyteam.ivy.dialog.config,
- ch.ivyteam.ivy.dialog.form
+ ch.ivyteam.ivy.dialog.form,
+ ch.ivyteam.ivy.process.schema

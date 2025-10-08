@@ -2,7 +2,7 @@ package ch.ivyteam.smart.core.tool.impl;
 
 import static ch.ivyteam.ivy.IvyConstants.DIRECTORY_PROCESSES;
 import static ch.ivyteam.ivy.IvyConstants.PROCESS_EXTENSION;
-import static ch.ivyteam.smart.core.schema.ResponseSchema.PROCESS;
+import static ch.ivyteam.smart.core.schema.ResourceSchema.PROCESS;
 
 import ch.ivyteam.smart.core.tool.IvySchemaTool;
 
