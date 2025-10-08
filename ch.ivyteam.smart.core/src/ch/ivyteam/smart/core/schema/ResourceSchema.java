@@ -12,11 +12,11 @@ import ch.ivyteam.ivy.scripting.dataclass.schema.DataClassSchemaResource;
 
 public interface ResourceSchema {
 
+  ObjectMapper MAPPER = new ObjectMapper();
+
   IvySchema PROCESS = load(ProcessSchemaResource.resource(), ProcessSchemaResource.schemaRef());
   IvySchema DATA_CLASS = load(DataClassSchemaResource.resource(), DataClassSchemaResource.schemaRef());
   IvySchema FORM = load(FormSchemaResource.resource(), FormSchemaResource.schemaRef());
-
-  ObjectMapper MAPPER = new ObjectMapper();
 
   private static IvySchema load(URL resource, String schemaRef) {
     var schema = readSchema(resource);
