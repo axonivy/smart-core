@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import ch.ivyteam.ivy.request.EngineUriResolver;
 import ch.ivyteam.ivy.server.test.ManagedServer;
-import ch.ivyteam.smart.core.schema.OpenAiSchemaMapper.SchemaUri;
 import ch.ivyteam.smart.core.schema.RestMockProvider.OpenAiMock;
 import ch.ivyteam.test.log.LoggerAccess;
 import dev.langchain4j.agent.tool.ToolSpecification;
@@ -83,7 +82,7 @@ public class DataClassSchemaGenTest {
       return Response.serverError().build();
     };
 
-    var dataSchema = ResponseSchema.DATA_CLASS.schema();
+    var dataSchema = ResourceSchema.DATA_CLASS.schema();
     var mandatory = List.of("simpleName", "namespace", "fields");
     var in = JsonObjectSchema.builder();
     dataSchema.get("properties").propertyStream()
@@ -109,8 +108,8 @@ public class DataClassSchemaGenTest {
   private static String createDataClass(String args) {
     try {
       var jObj = JsonNodeFactory.instance.objectNode();
-      jObj.put("$schema", SchemaUri.DATA_CLASS.toString());
-      var params = (ObjectNode) SchemaLoader.MAPPER.readTree(args);
+      jObj.put("$schema", ResourceSchema.DATA_CLASS.source());
+      var params = (ObjectNode) ResourceSchema.MAPPER.readTree(args);
       jObj.setAll(params);
       return jObj.toString();
     } catch (JsonProcessingException ex) {
@@ -131,7 +130,7 @@ public class DataClassSchemaGenTest {
   }
 
   private JsonNode generate(OpenAiChatModel model, String instruction) {
-    var format = ProcessSchemaGenTest.nativeResponse(ResponseSchema.DATA_CLASS);
+    var format = ProcessSchemaGenTest.nativeResponse(ResourceSchema.DATA_CLASS);
     var request = dataGeneration(instruction)
         .responseFormat(format)
         .build();

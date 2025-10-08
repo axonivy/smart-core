@@ -1,6 +1,5 @@
 package ch.ivyteam.smart.core.schema;
 
-import java.nio.file.Path;
 import java.util.Map.Entry;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -8,27 +7,12 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 
-import ch.ivyteam.ivy.dialog.form.io.FormVersion;
-import ch.ivyteam.ivy.json.history.JsonVersion;
-import ch.ivyteam.ivy.process.io.ProcessVersion;
-import ch.ivyteam.ivy.scripting.dataclass.model.DataClassVersion;
-
 public class OpenAiSchemaMapper {
 
-  public interface SchemaPath {
-    Path PROCESS = versioned("process", ProcessVersion.LATEST);
-    Path DATA_CLASS = versioned("data-class", DataClassVersion.LATEST);
-    Path FORM = versioned("form", FormVersion.LATEST);
+  private final String path;
 
-    private static Path versioned(String resource, JsonVersion version) {
-      return Path.of("/generated-schema", resource, version.value(), resource + ".json");
-    }
-  }
-
-  private final Path target;
-
-  public OpenAiSchemaMapper(Path schema) {
-    this.target = schema;
+  public OpenAiSchemaMapper(String path) {
+    this.path = path;
   }
 
   public JsonNode optimize(ObjectNode schema) {
@@ -48,7 +32,7 @@ public class OpenAiSchemaMapper {
 
   private void staticSchemaRef(ObjectNode schemaRef) {
     schemaRef.remove("pattern");
-    schemaRef.put("const", target.toString());
+    schemaRef.put("const", path);
   }
 
   private static void sanitizeDef(JsonNode json) {

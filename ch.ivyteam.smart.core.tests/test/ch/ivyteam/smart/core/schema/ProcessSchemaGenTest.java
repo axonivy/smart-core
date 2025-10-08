@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import ch.ivyteam.ivy.request.EngineUriResolver;
 import ch.ivyteam.ivy.server.test.ManagedServer;
-import ch.ivyteam.smart.core.schema.ResponseSchema.IvySchema;
+import ch.ivyteam.smart.core.schema.ResourceSchema.IvySchema;
 import ch.ivyteam.smart.core.schema.RestMockProvider.OpenAiMock;
 import ch.ivyteam.test.log.LoggerAccess;
 import dev.langchain4j.data.message.SystemMessage;
@@ -143,7 +143,7 @@ public class ProcessSchemaGenTest {
   }
 
   private JsonNode generateProcess(OpenAiChatModel model, String instruction) {
-    var format = nativeResponse(ResponseSchema.PROCESS);
+    var format = nativeResponse(ResourceSchema.PROCESS);
     var writeMailProcess = processGeneration(instruction)
         .responseFormat(format)
         .build();
@@ -168,7 +168,7 @@ public class ProcessSchemaGenTest {
 
   static ResponseFormat nativeResponse(IvySchema ivySchema) {
     var nativeSchema = JsonRawSchema.from(ivySchema.schema().toString());
-    var resource = Path.of(ivySchema.source().getPath()).getFileName().toString();
+    var resource = Path.of(ivySchema.source()).getFileName().toString();
     var jsonSchema = new JsonSchema.Builder()
         .name(Strings.CS.removeEnd(resource, ".json"))
         .rootElement(nativeSchema)

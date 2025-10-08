@@ -16,4 +16,5 @@ Require-Bundle: ch.ivyteam.smart.core,
  ch.ivyteam.util.di;visibility:=reexport,
  ch.ivyteam.ivy.process.model.io,
  ch.ivyteam.ivy.config.schema.tests,
- ch.ivyteam.ivy.dialog.form
+ ch.ivyteam.ivy.dialog.form,
+ ch.ivyteam.ivy.process.schema
