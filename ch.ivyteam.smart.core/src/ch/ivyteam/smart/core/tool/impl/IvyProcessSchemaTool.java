@@ -33,7 +33,6 @@ public class IvyProcessSchemaTool implements IvySchemaTool {
 
   @Override
   public String schema() {
-    // TODO: load-schema form ivy-core. Keep it as static resource in process.model.io bundle.
     return PROCESS.schema().toString();
   }
 }

@@ -27,7 +27,6 @@ public class IvyDataClassSchemaTool implements IvySchemaTool {
 
   @Override
   public String schema() {
-    // TODO: load-schema form ivy-core. Keep it as static resource.
     return DATA_CLASS.schema().toString();
   }
 }
