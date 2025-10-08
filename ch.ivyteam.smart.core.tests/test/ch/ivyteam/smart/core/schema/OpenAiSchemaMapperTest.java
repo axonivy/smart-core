@@ -23,13 +23,13 @@ public class OpenAiSchemaMapperTest {
 
   @BeforeEach
   void setUp() {
-    this.schemaResource = ProcessSchemaResource.get();
+    this.schemaResource = ProcessSchemaResource.resource();
     this.schema = ResourceSchema.readSchema(this.schemaResource);
   }
 
   @Test
   void constantSchema_dataClass() {
-    var dataSchemaResource = DataClassSchemaResource.get();
+    var dataSchemaResource = DataClassSchemaResource.resource();
     var dataSchema = ResourceSchema.readSchema(dataSchemaResource);
 
     JsonNode rootProps = dataSchema.get("properties");

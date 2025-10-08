@@ -12,15 +12,15 @@ import ch.ivyteam.ivy.scripting.dataclass.schema.DataClassSchemaResource;
 
 public interface ResourceSchema {
 
-  IvySchema PROCESS = load(ProcessSchemaResource.get());
-  IvySchema DATA_CLASS = load(DataClassSchemaResource.get());
-  IvySchema FORM = load(FormSchemaResource.get());
+  IvySchema PROCESS = load(ProcessSchemaResource.resource(), ProcessSchemaResource.schemaRef());
+  IvySchema DATA_CLASS = load(DataClassSchemaResource.resource(), DataClassSchemaResource.schemaRef());
+  IvySchema FORM = load(FormSchemaResource.resource(), FormSchemaResource.schemaRef());
 
   ObjectMapper MAPPER = new ObjectMapper();
 
-  private static IvySchema load(URL resource) {
+  private static IvySchema load(URL resource, String schemaRef) {
     var schema = readSchema(resource);
-    new OpenAiSchemaMapper(resource.getPath()).optimize(schema);
+    new OpenAiSchemaMapper(schemaRef).optimize(schema);
     return new IvySchema(resource.getPath(), schema);
   }
 

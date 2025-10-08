@@ -9,10 +9,10 @@ import com.fasterxml.jackson.databind.node.TextNode;
 
 public class OpenAiSchemaMapper {
 
-  private final String path;
+  private final String target;
 
-  public OpenAiSchemaMapper(String path) {
-    this.path = path;
+  public OpenAiSchemaMapper(String schemaRef) {
+    this.target = schemaRef;
   }
 
   public JsonNode optimize(ObjectNode schema) {
@@ -32,7 +32,7 @@ public class OpenAiSchemaMapper {
 
   private void staticSchemaRef(ObjectNode schemaRef) {
     schemaRef.remove("pattern");
-    schemaRef.put("const", path);
+    schemaRef.put("const", target);
   }
 
   private static void sanitizeDef(JsonNode json) {
