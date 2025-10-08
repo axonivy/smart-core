@@ -40,7 +40,6 @@ public class IvyFormSchemaTool implements IvySchemaTool {
 
   @Override
   public String schema() {
-    // TODO: load-schema form ivy-core. Keep it as static resource.
     return FORM.schema().toString();
   }
 }
