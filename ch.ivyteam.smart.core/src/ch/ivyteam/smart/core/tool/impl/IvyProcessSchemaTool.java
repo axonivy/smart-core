@@ -25,10 +25,11 @@ public class IvyProcessSchemaTool implements IvySchemaTool {
       /'. Note: This does not apply to form processes.
       - Omit as many defaults as possible, but at any rate produce the required values.
       - Create unique instances for element IDs, starting from 'f1'.
-      - Draw elements as graphs.
+      - Ensure elements are connected to the next one in the sequence flow.
       - Do not set any visual attributes on elements, except the position 'at'.
       - Visualize roles as pools.
-      - A process requires a process data class. Create it if needed.""";
+      - A process requires a process data class. Create it if needed.
+      - To use the process data class attributes, use 'in.<attribute>' to retrieve data and 'out.<attribute>' to set modified data.""";
   }
 
   @Override
