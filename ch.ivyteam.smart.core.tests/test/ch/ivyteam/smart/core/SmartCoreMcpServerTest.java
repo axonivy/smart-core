@@ -5,13 +5,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.modelcontextprotocol.client.McpAsyncClient;
-import io.modelcontextprotocol.spec.McpSchema.Tool;
-
 import ch.ivyteam.ivy.server.test.ManagedServer;
 import ch.ivyteam.smart.core.tool.impl.IvyDataClassSchemaTool;
 import ch.ivyteam.smart.core.tool.impl.IvyFormSchemaTool;
 import ch.ivyteam.smart.core.tool.impl.IvyProcessSchemaTool;
+import ch.ivyteam.smart.core.tool.impl.market.MarketSearchTool;
+import io.modelcontextprotocol.client.McpAsyncClient;
+import io.modelcontextprotocol.spec.McpSchema.Tool;
 
 @ManagedServer
 public class SmartCoreMcpServerTest {
@@ -30,6 +30,7 @@ public class SmartCoreMcpServerTest {
         .containsExactly(
             new IvyProcessSchemaTool().name(),
             new IvyDataClassSchemaTool().name(),
-            new IvyFormSchemaTool().name());
+            new IvyFormSchemaTool().name(),
+            MarketSearchTool.NAME);
   }
 }
