@@ -35,7 +35,7 @@ public class IvyFormSchemaTool implements IvySchemaTool {
       - The form process must be of kind 'HTML_DIALOG' and contain a 'HtmlDialogStart' connected to a 'HtmlDialogEnd' and a 'HtmlDialogEventStart' connected to a 'HtmlDialogExit'.
       - The form must be located in a subdirectory of '<project-root>/""" + DIRECTORY_SRC_HD + """
       /' but not directly in it. At least one other directory between '""" + DIRECTORY_SRC_HD + """
-      ' and the form directory is required.""";
+      ' and the form directory is required. The directory in which the form is located must have the same name as the form.""";
   }
 
   @Override
