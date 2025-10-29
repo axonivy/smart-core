@@ -34,7 +34,9 @@ public class IvyProcessSchemaTool implements IvySchemaTool {
       - Do not set any visual attributes on elements, except the position 'at'.
       - Visualize roles as pools.
       - A process requires a process data class. Create it if needed.
-      - To use the process data class attributes, use 'in.<attribute>' to retrieve data and 'out.<attribute>' to set modified data.""";
+      - To use the process data class attributes, use 'in.<attribute>' to retrieve data and 'out.<attribute>' to set modified data.
+      - When setting a value of an element property with one of these formats, follow the corresponding instructions provided:
+        - 'macro': Can be any string. To use the process data class attributes within the string, surround it with'<%=...%>' (e.g. '<%=in.attribute%>.""";
   }
 
   @Override
