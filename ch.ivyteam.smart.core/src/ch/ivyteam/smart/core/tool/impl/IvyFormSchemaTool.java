@@ -17,6 +17,11 @@ public class IvyFormSchemaTool implements IvySchemaTool {
   }
 
   @Override
+  public String resource() {
+    return "form";
+  }
+
+  @Override
   public String resourceFileExtension() {
     return EXTENSION_WITHOUT_DOT;
   }

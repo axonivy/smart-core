@@ -16,6 +16,7 @@ import reactor.core.publisher.Mono;
 public interface IvySchemaTool {
 
   String name();
+  String resource();
   String resourceFileExtension();
 
   String guidelines();
@@ -23,11 +24,9 @@ public interface IvySchemaTool {
   String schema();
 
   default String description() {
-    return """
-      Returns the JSON schema and guidelines for handling Axon Ivy process definitions (file extension '""" + resourceFileExtension() + """
-      ').
-      Whenever instructed to create, edit, or otherwise work with or handle a process, invoke this tool.
-      Use the schema as the authoritative source of truth for structure, required fields, and allowed values and strictly follow the guidelines.""";
+    return "Returns the JSON schema and guidelines for handling Axon Ivy " + resource() + " definitions (file extension '" + resourceFileExtension()
+        + "'). Whenever instructed to create, edit, or otherwise work with or handle a " + resource()
+        + ", use the schema as the authoritative source of truth for structure, required fields, and allowed values and strictly follow the guidelines.";
   }
 
   default AsyncToolSpecification specification() {
