@@ -9,6 +9,7 @@ import ch.ivyteam.ivy.server.test.ManagedServer;
 import ch.ivyteam.smart.core.tool.impl.IvyDataClassSchemaTool;
 import ch.ivyteam.smart.core.tool.impl.IvyFormSchemaTool;
 import ch.ivyteam.smart.core.tool.impl.IvyProcessSchemaTool;
+import ch.ivyteam.smart.core.tool.impl.market.MarketInstallTool;
 import ch.ivyteam.smart.core.tool.impl.market.MarketSearchTool;
 import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
@@ -31,6 +32,7 @@ public class SmartCoreMcpServerTest {
             new IvyProcessSchemaTool().name(),
             new IvyDataClassSchemaTool().name(),
             new IvyFormSchemaTool().name(),
-            MarketSearchTool.NAME);
+            MarketSearchTool.NAME,
+            MarketInstallTool.NAME);
   }
 }

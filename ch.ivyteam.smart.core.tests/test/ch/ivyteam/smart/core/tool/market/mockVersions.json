@@ -1,0 +1,55 @@
+[ {
+  "version" : "13.2.0-a5",
+  "artifactsByVersion" : [ {
+    "createdAt" : null,
+    "updatedAt" : "2025-10-29T11:15:07.892+00:00",
+    "id" : {
+      "artifactId" : "smart-workflow",
+      "productVersion" : "13.2.0-a5",
+      "additionalVersion" : false
+    },
+    "name" : "Smart Workflow (iar)",
+    "downloadUrl" : "https://maven.axonivy.com/com/axonivy/utils/ai/smart-workflow/13.2.0-a5/smart-workflow-13.2.0-a5.iar",
+    "groupId" : "com.axonivy.utils.ai",
+    "productId" : "smart-workflow"
+  }, {
+    "createdAt" : null,
+    "updatedAt" : "2025-10-29T11:15:07.892+00:00",
+    "id" : {
+      "artifactId" : "smart-workflow-demo",
+      "productVersion" : "13.2.0-a5",
+      "additionalVersion" : false
+    },
+    "name" : "Smart Workflow Demo (iar)",
+    "downloadUrl" : "https://maven.axonivy.com/com/axonivy/utils/ai/smart-workflow-demo/13.2.0-a5/smart-workflow-demo-13.2.0-a5.iar",
+    "groupId" : "com.axonivy.utils.ai",
+    "productId" : "smart-workflow"
+  } ]
+}, {
+  "version" : "13.2.0-a4",
+  "artifactsByVersion" : [ {
+    "createdAt" : null,
+    "updatedAt" : "2025-10-29T11:15:07.892+00:00",
+    "id" : {
+      "artifactId" : "smart-workflow",
+      "productVersion" : "13.2.0-a4",
+      "additionalVersion" : false
+    },
+    "name" : "Smart Workflow (iar)",
+    "downloadUrl" : "https://maven.axonivy.com/com/axonivy/utils/ai/smart-workflow/13.2.0-a4/smart-workflow-13.2.0-a4.iar",
+    "groupId" : "com.axonivy.utils.ai",
+    "productId" : "smart-workflow"
+  }, {
+    "createdAt" : null,
+    "updatedAt" : "2025-10-29T11:15:07.892+00:00",
+    "id" : {
+      "artifactId" : "smart-workflow-demo",
+      "productVersion" : "13.2.0-a4",
+      "additionalVersion" : false
+    },
+    "name" : "Smart Workflow Demo (iar)",
+    "downloadUrl" : "https://maven.axonivy.com/com/axonivy/utils/ai/smart-workflow-demo/13.2.0-a4/smart-workflow-demo-13.2.0-a4.iar",
+    "groupId" : "com.axonivy.utils.ai",
+    "productId" : "smart-workflow"
+  } ]
+} ]
