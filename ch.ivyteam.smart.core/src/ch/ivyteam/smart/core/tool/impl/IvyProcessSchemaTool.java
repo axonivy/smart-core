@@ -14,6 +14,11 @@ public class IvyProcessSchemaTool implements IvySchemaTool {
   }
 
   @Override
+  public String resource() {
+    return "process";
+  }
+
+  @Override
   public String resourceFileExtension() {
     return PROCESS_EXTENSION;
   }

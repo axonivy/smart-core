@@ -14,6 +14,11 @@ public class IvyDataClassSchemaTool implements IvySchemaTool {
   }
 
   @Override
+  public String resource() {
+    return "data class";
+  }
+
+  @Override
   public String resourceFileExtension() {
     return DATA_CLASS_EXTENSION;
   }
