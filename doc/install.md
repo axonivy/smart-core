@@ -44,7 +44,7 @@ The editors in the Axon Ivy PRO Designer VSCode extension currently don't refres
 Depending on the model you use, Copilot might not always invoke the required tools. If that happens, you can try again, but tell it explicitly to use the respective tools. Alternatively, you can add custom instructions to your project to ensure tool usage by Copilot. To do this, add a file `.github/copilot-instructions.md` with the following content to your project:
 
 ```md
-Whenever instructed to create, edit, or otherwise work with or handle a file or resource in this project, check the following mapping to determine whether the file/resource is present in it as a key. If so, invoke the corresponding tool defined as the value in the mapping to retrieve a JSON schema and additional guidelines regarding that file/resource before proceeding. Use the schema as the authoritative source of truth for structure, required fields, and allowed values and strictly follow the guidelines returned.
+Whenever instructed to create, edit, or otherwise work with or handle a file or resource in this project, check the following mapping to determine whether the file/resource is present in it as a key. If so, invoke the corresponding tool defined as the value in the mapping to retrieve a JSON schema and additional guidelines regarding that file/resource before proceeding. If you have already called the tool in the current conversation, reuse the previous tool result instead. Use the schema as the authoritative source of truth for structure, required fields, and allowed values and strictly follow the guidelines returned.
 
 # Tool Mapping
 - Process (file extension 'p.json'): ivy-process-schema
