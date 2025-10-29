@@ -1,0 +1,52 @@
+{
+  "_embedded" : {
+    "products" : [ {
+      "id" : "portal",
+      "names" : {
+        "en" : "Axon Ivy Portal",
+        "de" : "Axon Ivy Portal"
+      },
+      "shortDescriptions" : {
+        "de" : "Das Axon Ivy Portal ist dein 'single-point-of-contact' für die Nutzung der Axon Ivy Plattform.",
+        "en" : "The Axon Ivy Portal is the single point of contact for any end-user using the Axon Ivy platform."
+      },
+      "logoUrl" : "https://market.axonivy.com/marketplace-service/api/image/5aa0eaaa-0085-4f94-a017-79c477a6c9c8",
+      "type" : "util",
+      "tags" : [ "workflow-ui" ],
+      "_links" : {
+        "self" : {
+          "href" : "https://market.axonivy.com/marketplace-service/api/product-details/portal?isShowDevVersion=false"
+        }
+      }
+    }, {
+      "id" : "idp-connector",
+      "names" : {
+        "en" : "Axon Ivy IDP",
+        "de" : "Axon Ivy IDP"
+      },
+      "shortDescriptions" : {
+        "de" : "Eine umfassende Lösung für intelligente Dokumentenverarbeitung, die dokumentenintensive Prozesse in effiziente Workflows verwandelt.",
+        "en" : "Axon Ivy IDP is an Intelligent Document Processing solution, transforming document-intensive processes into streamlined, efficient workflows."
+      },
+      "logoUrl" : "https://market.axonivy.com/marketplace-service/api/image/5e1e2807-d5e2-4acc-ba8f-c3a8ccb00914",
+      "type" : "connector",
+      "tags" : [ "AI" ],
+      "_links" : {
+        "self" : {
+          "href" : "https://market.axonivy.com/marketplace-service/api/product-details/idp-connector?isShowDevVersion=false"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "https://market.axonivy.com/marketplace-service/api/product?type=all&language=en&isRESTClient=true&page=0&size=100&sort=standard,asc"
+    }
+  },
+  "page" : {
+    "size" : 100,
+    "totalElements" : 88,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}
