@@ -11,33 +11,30 @@ import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
 import reactor.core.publisher.Mono;
 
-public class MarketSearchTool {
+public class MarketInstallTool {
 
-  public static final String NAME = "market-connector-search";
+  public static final String NAME = "market-installer";
 
   public interface Param {
-    String VENDOR = "vendor";
-    String PRODUCT = "product";
+    String ID = "id";
   }
 
   public AsyncToolSpecification specification() {
     var inputSchema = JsonNodeFactory.instance.objectNode();
     inputSchema.put("type", "object");
     var props = inputSchema.putObject("properties");
-    props.putObject(Param.VENDOR)
+    props.putObject(Param.ID)
         .put("type", "string")
-        .put("description", "the third-party product vendor to incorporate into the axonivy workflow");
-    props.putObject(Param.PRODUCT)
-        .put("type", "string")
-        .put("description", "the name of the product you are trying to connect and use from your axonivy workflow");
-    inputSchema.putArray("required").add(Param.VENDOR).add(Param.PRODUCT);
+        .put("description", "product.id of an existing axonivy market product");
+    inputSchema.putArray("required").add(Param.ID);
     inputSchema.put("additionalProperties", false);
+
+    System.out.println(inputSchema.toPrettyString());
 
     var tool = Tool.builder()
         .name(NAME)
-        .description("Search for connectors to third-party vendors. "
-            + "Returns native workflow elements to use and communicate with third-party systems."
-            + "Security and integration with minimal efforts.")
+        .description("Instructs how to install third-party components from the axonivy market eco-system, "
+            + "by providing required pom.xml dependencies.")
         .inputSchema(MAPPER, inputSchema.toString())
         .build();
     return AsyncToolSpecification.builder()
@@ -47,15 +44,14 @@ public class MarketSearchTool {
   }
 
   private Mono<CallToolResult> callHandler(@SuppressWarnings("unused") McpAsyncServerExchange async, CallToolRequest request) {
-    var vendor = (String) request.arguments().get(Param.VENDOR);
-    var product = (String) request.arguments().get(Param.PRODUCT);
-    return Mono.just(search(vendor, product));
+    var id = (String) request.arguments().get(Param.ID);
+    return Mono.just(install(id));
   }
 
-  private CallToolResult search(String vendor, String product) {
+  private CallToolResult install(String id) {
     try {
-      var json = MarketSearchEngine.searchProducts(vendor, product);
-      return new CallToolResult(json, false);
+      var install = MarketSearchEngine.installer(id);
+      return new CallToolResult(install, false);
     } catch (Exception ex) {
       return new CallToolResult(ex.getMessage(), true);
     }

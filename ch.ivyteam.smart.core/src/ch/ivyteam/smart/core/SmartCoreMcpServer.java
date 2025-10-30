@@ -11,6 +11,7 @@ import ch.ivyteam.smart.core.mcp.transport.JavaxHttpServletStreamableServerTrans
 import ch.ivyteam.smart.core.tool.impl.IvyDataClassSchemaTool;
 import ch.ivyteam.smart.core.tool.impl.IvyFormSchemaTool;
 import ch.ivyteam.smart.core.tool.impl.IvyProcessSchemaTool;
+import ch.ivyteam.smart.core.tool.impl.market.MarketInstallTool;
 import ch.ivyteam.smart.core.tool.impl.market.MarketSearchTool;
 import io.modelcontextprotocol.json.McpJsonMapper;
 import io.modelcontextprotocol.json.jackson.JacksonMcpJsonMapper;
@@ -38,7 +39,8 @@ public class SmartCoreMcpServer implements ServletContextStartupListener {
             new IvyProcessSchemaTool().specification(),
             new IvyDataClassSchemaTool().specification(),
             new IvyFormSchemaTool().specification(),
-            new MarketSearchTool().specification()))
+            new MarketSearchTool().specification(),
+            new MarketInstallTool().specification()))
         .jsonMapper(MAPPER)
         .jsonSchemaValidator(VALIDATOR)
         .build();
