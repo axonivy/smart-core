@@ -29,8 +29,6 @@ public class MarketInstallTool {
     inputSchema.putArray("required").add(Param.ID);
     inputSchema.put("additionalProperties", false);
 
-    System.out.println(inputSchema.toPrettyString());
-
     var tool = Tool.builder()
         .name(NAME)
         .description("Instructs how to install third-party components from the axonivy market eco-system, "
