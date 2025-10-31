@@ -59,12 +59,16 @@ public class OpenAiSchemaMapper {
   private static void sanitizeAmbigiousStringTypes(ObjectNode props) {
     props.propertyStream().forEach(et -> {
       if (et.getValue() instanceof ObjectNode po) {
-        if (po.get("anyOf") instanceof ArrayNode any && "string".equals(any.get(0).asText())) {
-          po.remove("anyOf");
-          var add = po.remove("additionalProperties");
-          po.set("type", any.get(0));
-          if (add != null) {
-            po.set("additionalProperties", add);
+        if (po.get("anyOf") instanceof ArrayNode any && !any.isEmpty()) {
+          if (any.get(0) instanceof ObjectNode first) {
+            if (first.get("type") instanceof TextNode type && "string".equals(type.asText())) {
+              po.remove("anyOf");
+              var add = po.remove("additionalProperties");
+              po.put("type", type.asText());
+              if (add != null) {
+                po.set("additionalProperties", add);
+              }
+            }
           }
         }
       }

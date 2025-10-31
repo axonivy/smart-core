@@ -97,6 +97,8 @@ public class OpenAiSchemaMapperTest {
 
     assertThat(fieldNames(name))
         .containsOnly("type", "additionalProperties");
+    assertThat(name.get("type").valueStream()
+        .map(JsonNode::asText)).containsOnly("string", "null");
   }
 
   @Test
