@@ -62,8 +62,6 @@ public class MarketSearchEngine {
           self.put("versions", MARKET_API + "/product-details/" + id.asText() + "/versions?designerVersion=&isShowDevVersion=true");
         }
       }
-      var versions = versions(id.asText());
-      System.out.println(versions);
     }
   }
 
