@@ -11,7 +11,7 @@
 
   <properties>
     <maven.surefire.version>3.5.4</maven.surefire.version>
-    <junit.engine.version>5.11.4</junit.engine.version>
+    <junit.engine.version>5.14.1</junit.engine.version>
     <maven.surefire.common.argLine>-XX:-OmitStackTraceInFastThrow</maven.surefire.common.argLine>
 
     <!-- If you want to add more things to the surefire arg line configure the property below in your project as follows "${maven.surefire.common.argLine} {your arguments}" -->
