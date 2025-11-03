@@ -14,10 +14,6 @@
       <repository location="https://p2.ivyteam.io/core/13.2.0/" />
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-      <unit id="org.eclipse.bpmn2.feature.feature.group" version="0.0.0"/>
-      <repository location="https://p2.mirror.ivyteam.io/eclipse-bpmn2/1.5.2/"/>
-    </location>
-    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
       <unit id="ch.ivyteam.ivy.thirdparty.lib.designer.feature.feature.group" version="0.0.0" />
       <unit id="ch.ivyteam.ivy.thirdparty.lib.designer.feature.source.feature.group" version="0.0.0" />
       <unit id="ch.ivyteam.ivy.thirdparty.lib.feature.feature.group" version="0.0.0" />
