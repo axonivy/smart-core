@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.ivyteam.ivy.webserver.extension.ServletContextStartupListener;
 import ch.ivyteam.smart.core.mcp.transport.JavaxHttpServletStreamableServerTransportProvider;
-import ch.ivyteam.smart.core.tool.impl.IvyDataClassSchemaTool;
-import ch.ivyteam.smart.core.tool.impl.IvyFormSchemaTool;
-import ch.ivyteam.smart.core.tool.impl.IvyProcessSchemaTool;
+import ch.ivyteam.smart.core.tool.impl.DataClassSchemaTool;
+import ch.ivyteam.smart.core.tool.impl.FormSchemaTool;
+import ch.ivyteam.smart.core.tool.impl.ProcessSchemaTool;
 import ch.ivyteam.smart.core.tool.impl.market.MarketInstallTool;
 import ch.ivyteam.smart.core.tool.impl.market.MarketSearchTool;
 import io.modelcontextprotocol.json.McpJsonMapper;
@@ -36,9 +36,9 @@ public class SmartCoreMcpServer implements ServletContextStartupListener {
         .serverInfo("smart-core-sse", "0.0.1")
         .capabilities(ServerCapabilities.builder().tools(true).build())
         .tools(List.of(
-            new IvyProcessSchemaTool().specification(),
-            new IvyDataClassSchemaTool().specification(),
-            new IvyFormSchemaTool().specification(),
+            new ProcessSchemaTool().specification(),
+            new DataClassSchemaTool().specification(),
+            new FormSchemaTool().specification(),
             new MarketSearchTool().specification(),
             new MarketInstallTool().specification()))
         .jsonMapper(MAPPER)
