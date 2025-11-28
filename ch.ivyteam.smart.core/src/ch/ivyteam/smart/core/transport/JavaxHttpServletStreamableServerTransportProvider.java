@@ -2,7 +2,7 @@
  * Copyright 2024-2024 the original author or authors.
  */
 
-package ch.ivyteam.smart.core.mcp.transport;
+package ch.ivyteam.smart.core.transport;
 
 import java.io.BufferedReader;
 import java.io.IOException;
