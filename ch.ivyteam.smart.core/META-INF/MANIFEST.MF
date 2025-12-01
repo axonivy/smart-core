@@ -16,7 +16,8 @@ Export-Package: ch.ivyteam.smart.core;x-friends:="ch.ivyteam.smart.core.tests",
  ch.ivyteam.smart.core.schema;x-friends:="ch.ivyteam.smart.core.tests",
  ch.ivyteam.smart.core.tool;x-friends:="ch.ivyteam.smart.core.tests",
  ch.ivyteam.smart.core.tool.impl;x-friends:="ch.ivyteam.smart.core.tests",
- ch.ivyteam.smart.core.tool.impl.market;x-friends:="ch.ivyteam.smart.core.tests"
+ ch.ivyteam.smart.core.tool.impl.market;x-friends:="ch.ivyteam.smart.core.tests",
+ ch.ivyteam.smart.core.transport.filter.log;x-friends:="ch.ivyteam.smart.core.tests"
 Require-Bundle: ch.ivyteam.ivy.webserver,
  javax.servlet,
  ch.ivyteam.lib.jackson,
