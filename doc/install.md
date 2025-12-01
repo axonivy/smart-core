@@ -69,3 +69,15 @@ Whenever instructed to create, edit, or otherwise work with or handle a file or 
   ```
 
 - Ensure that the setting `Chat > Mcp: Access` is set to `all`. Note that if you use an account part of an organization, this setting might be managed by your organization.
+
+- You can configure Smart Core to log all requests and responses via the Log4j configuration in `<engineDir>/configuration/log4j2.xml`. E.g.:
+
+  ```xml
+  <Configuration>
+    <Loggers>
+      <Logger name="ch.ivyteam.smart.core" level="debug">
+        <AppenderRef ref="ConsoleLog"/>
+      </Logger>
+    </Loggers>
+  </Configuration>
+  ```
