@@ -12,12 +12,12 @@ Bundle-ClassPath: .,
  lib/mcp-json.jar,
  lib/mcp-json-jackson2.jar
 Bundle-ActivationPolicy: lazy
-Export-Package: ch.ivyteam.smart.core;x-friends:="ch.ivyteam.smart.core.tests",
- ch.ivyteam.smart.core.schema;x-friends:="ch.ivyteam.smart.core.tests",
- ch.ivyteam.smart.core.tool;x-friends:="ch.ivyteam.smart.core.tests",
- ch.ivyteam.smart.core.tool.impl;x-friends:="ch.ivyteam.smart.core.tests",
+Export-Package: ch.ivyteam.smart.core,
+ ch.ivyteam.smart.core.schema,
+ ch.ivyteam.smart.core.tool,
+ ch.ivyteam.smart.core.tool.impl;x-friends:="ch.ivyteam.smart.core.tests,ch.ivyteam.smart.core.tests.integration",
  ch.ivyteam.smart.core.tool.impl.market;x-friends:="ch.ivyteam.smart.core.tests",
- ch.ivyteam.smart.core.transport.filter.log;x-friends:="ch.ivyteam.smart.core.tests"
+ ch.ivyteam.smart.core.transport.filter.log
 Require-Bundle: ch.ivyteam.ivy.webserver,
  javax.servlet,
  ch.ivyteam.lib.jackson,
