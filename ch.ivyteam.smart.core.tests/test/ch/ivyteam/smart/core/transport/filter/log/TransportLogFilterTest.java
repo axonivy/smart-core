@@ -10,7 +10,7 @@ import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
 
 import ch.ivyteam.ivy.server.test.ManagedServer;
-import ch.ivyteam.smart.core.McpClientMock;
+import ch.ivyteam.smart.core.McpClientAccess;
 import ch.ivyteam.smart.core.tool.impl.DataClassSchemaTool;
 import ch.ivyteam.test.log.LoggerAccess;
 
@@ -21,13 +21,14 @@ public class TransportLogFilterTest {
   static final String RESPONSE_LOG_HEADER = "--- HTTP Response ---";
   static final String EMPTY_BODY = "Body: <empty>";
 
-  McpAsyncClient client = McpClientMock.create();
+  @RegisterExtension
+  McpClientAccess mcp = new McpClientAccess();
 
   @RegisterExtension
   LoggerAccess log = new LoggerAccess(TransportLogFilter.class.getName());
 
   @Test
-  void log() {
+  void log(McpAsyncClient client) {
     client.callTool(CallToolRequest.builder().name(DataClassSchemaTool.NAME).build()).block();
     var logs = log.debugs();
     assertThat(logs).hasSize(8);

@@ -6,21 +6,23 @@ import static ch.ivyteam.smart.core.tool.impl.ProcessSchemaTool.NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
 import io.modelcontextprotocol.spec.McpSchema.TextContent;
 
 import ch.ivyteam.ivy.server.test.ManagedServer;
-import ch.ivyteam.smart.core.McpClientMock;
+import ch.ivyteam.smart.core.McpClientAccess;
 
 @ManagedServer
 public class ProcessSchemaToolTest {
 
-  McpAsyncClient client = McpClientMock.create();
+  @RegisterExtension
+  McpClientAccess mcp = new McpClientAccess();
 
   @Test
-  void callTool() {
+  void callTool(McpAsyncClient client) {
     var result = client.callTool(CallToolRequest.builder().name(NAME).build()).block();
 
     assertThat(result.content()).hasSize(2);
