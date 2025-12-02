@@ -6,33 +6,30 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ch.ivyteam.ivy.server.test.ManagedServer;
-import ch.ivyteam.smart.core.McpClientMock;
-import ch.ivyteam.smart.core.tool.impl.market.MarketInstallTool;
-import ch.ivyteam.smart.core.tool.impl.market.MarketSearchEngine;
 import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
 import io.modelcontextprotocol.spec.McpSchema.Content;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
 
+import ch.ivyteam.ivy.server.test.ManagedServer;
+import ch.ivyteam.smart.core.McpClientAccess;
+import ch.ivyteam.smart.core.tool.impl.market.MarketInstallTool;
+import ch.ivyteam.smart.core.tool.impl.market.MarketSearchEngine;
+
 @ManagedServer
 public class MarketInstallToolTest {
 
-  McpAsyncClient client;
-
-  @BeforeEach
-  void beforeEach() {
-    client = McpClientMock.create();
-  }
+  @RegisterExtension
+  McpClientAccess mcp = new McpClientAccess();
 
   @Test
-  void callTool() {
+  void callTool(McpAsyncClient client) {
     var result = client.callTool(CallToolRequest.builder()
         .name(MarketInstallTool.NAME)
         .arguments(Map.of(
