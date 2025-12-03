@@ -69,6 +69,10 @@
                   <reuseForks>false</reuseForks>
                   <testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
                   <testFailureIgnore>true</testFailureIgnore>
+                  <systemPropertyVariables>
+                    <!-- Prevent NPE about a missing webapps folder -->
+                    <IVY_WEBAPPS_ROOT>${basedir}</IVY_WEBAPPS_ROOT>
+                  </systemPropertyVariables>
                 </configuration>
               </execution>
             </executions>
