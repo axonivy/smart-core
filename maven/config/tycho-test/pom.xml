@@ -60,6 +60,12 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
+        <configuration>
+          <systemPropertyVariables>
+            <!-- Prevent NPE about a missing webapps folder -->
+            <IVY_WEBAPPS_ROOT>${basedir}</IVY_WEBAPPS_ROOT>
+          </systemPropertyVariables>
+        </configuration>
         <executions>
           <execution>
             <id>test</id>
@@ -82,10 +88,6 @@
               <forkCount>${ivy-test-forkCount}</forkCount>
               <trimStackTrace>false</trimStackTrace>
               <classpathDependencyExcludes>jakarta.inject:jakarta.inject-api</classpathDependencyExcludes>
-              <systemPropertyVariables>
-                <!-- Prevent NPE about a missing webapps folder -->
-                <IVY_WEBAPPS_ROOT>${basedir}</IVY_WEBAPPS_ROOT>
-              </systemPropertyVariables>
             </configuration>
           </execution>
         </executions>
