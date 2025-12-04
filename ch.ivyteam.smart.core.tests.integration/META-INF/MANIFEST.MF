@@ -7,4 +7,5 @@ Bundle-Vendor: Axon Ivy AG
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Require-Bundle: ch.ivyteam.smart.core,
- ch.ivyteam.ivy.server.tests
+ ch.ivyteam.ivy.server.tests,
+ ch.ivyteam.smart.core.tests
