@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Smart Core Tests Integration
+Bundle-SymbolicName: ch.ivyteam.smart.core.tests.integration;singleton:=true
+Bundle-Version: 13.2.0.qualifier
+Bundle-Vendor: Axon Ivy AG
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Require-Bundle: ch.ivyteam.smart.core,
+ ch.ivyteam.ivy.server.tests

@@ -1,0 +1,33 @@
+pipeline {
+  agent {
+    dockerfile {
+      dir '.'
+      filename 'build/Dockerfile'
+    }
+  }
+
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '60'))
+  }
+
+  triggers {
+    cron 'H 23 * * 7'
+  }
+
+  environment {
+    OPENAI_API_KEY = credentials("smart-core-openai-api-key")
+  }
+
+  stages {
+    stage('test') {
+      steps {
+        script {
+          maven cmd: "clean verify --settings maven/config/settings.xml -P smart-core-integration-tests"
+          def build = load 'build/build.groovy'
+          build.mavenIssues()
+          build.collectJunit()
+        }
+      }
+    }
+  }
+}

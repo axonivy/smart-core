@@ -19,6 +19,7 @@
 
     <module>ch.ivyteam.smart.core</module>
     <module>ch.ivyteam.smart.core.tests</module>
+    <module>ch.ivyteam.smart.core.tests.integration</module>
     <module>ch.ivyteam.smart.core.feature</module>
     <module>ch.ivyteam.smart.p2</module>
   </modules>
