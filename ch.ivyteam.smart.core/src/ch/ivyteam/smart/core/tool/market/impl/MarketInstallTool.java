@@ -1,4 +1,4 @@
-package ch.ivyteam.smart.core.tool.impl.market;
+package ch.ivyteam.smart.core.tool.market.impl;
 
 import static ch.ivyteam.smart.core.SmartCoreMcpServer.MAPPER;
 

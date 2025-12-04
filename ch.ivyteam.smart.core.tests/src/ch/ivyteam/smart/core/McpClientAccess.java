@@ -1,6 +1,7 @@
 package ch.ivyteam.smart.core;
 
-import static ch.ivyteam.smart.core.SmartCoreMcpServer.SERVLET_PATH;
+import static ch.ivyteam.smart.core.McpClientUtils.SMART_CORE_BASE_URL;
+import static ch.ivyteam.smart.core.McpClientUtils.SMART_CORE_MCP_URL;
 import static org.apache.logging.log4j.Level.DEBUG;
 import static org.apache.logging.log4j.core.appender.ConsoleAppender.Target.SYSTEM_OUT;
 
@@ -19,7 +20,6 @@ import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.client.McpClient;
 import io.modelcontextprotocol.client.transport.HttpClientStreamableHttpTransport;
 
-import ch.ivyteam.ivy.request.EngineUriResolver;
 import ch.ivyteam.smart.core.transport.filter.log.TransportLogFilter;
 
 public class McpClientAccess implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
@@ -61,9 +61,8 @@ public class McpClientAccess implements BeforeEachCallback, AfterEachCallback, P
   }
 
   private void initializeClient() {
-    var baseUri = EngineUriResolver.instance().local() + SERVLET_PATH;
-    var transportProvider = HttpClientStreamableHttpTransport.builder(baseUri)
-        .endpoint(baseUri + "/mcp")
+    var transportProvider = HttpClientStreamableHttpTransport.builder(SMART_CORE_BASE_URL)
+        .endpoint(SMART_CORE_MCP_URL)
         .build();
 
     client = McpClient.async(transportProvider).build();

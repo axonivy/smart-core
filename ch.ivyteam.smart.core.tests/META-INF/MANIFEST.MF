@@ -6,6 +6,7 @@ Bundle-Version: 13.2.0.qualifier
 Bundle-Vendor: Axon Ivy AG
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
+Export-Package: ch.ivyteam.smart.core
 Require-Bundle: ch.ivyteam.smart.core,
  ch.ivyteam.ivy.workflow,
  ch.ivyteam.test,

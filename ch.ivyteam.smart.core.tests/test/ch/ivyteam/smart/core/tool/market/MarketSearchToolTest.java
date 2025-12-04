@@ -20,8 +20,8 @@ import io.modelcontextprotocol.spec.McpSchema.Tool;
 
 import ch.ivyteam.ivy.server.test.ManagedServer;
 import ch.ivyteam.smart.core.McpClientAccess;
-import ch.ivyteam.smart.core.tool.impl.market.MarketSearchEngine;
-import ch.ivyteam.smart.core.tool.impl.market.MarketSearchTool;
+import ch.ivyteam.smart.core.tool.market.impl.MarketSearchEngine;
+import ch.ivyteam.smart.core.tool.market.impl.MarketSearchTool;
 
 @ManagedServer
 public class MarketSearchToolTest {

@@ -16,7 +16,7 @@ Export-Package: ch.ivyteam.smart.core,
  ch.ivyteam.smart.core.schema,
  ch.ivyteam.smart.core.tool,
  ch.ivyteam.smart.core.tool.impl;x-friends:="ch.ivyteam.smart.core.tests,ch.ivyteam.smart.core.tests.integration",
- ch.ivyteam.smart.core.tool.impl.market;x-friends:="ch.ivyteam.smart.core.tests",
+ ch.ivyteam.smart.core.tool.market.impl;x-friends:="ch.ivyteam.smart.core.tests,ch.ivyteam.smart.core.tests.integration",
  ch.ivyteam.smart.core.transport.filter.log
 Require-Bundle: ch.ivyteam.ivy.webserver,
  javax.servlet,
