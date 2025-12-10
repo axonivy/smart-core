@@ -20,7 +20,7 @@
       <unit id="ch.ivyteam.ivy.thirdparty.lib.feature.source.feature.group" version="0.0.0" />
       <unit id="ch.ivyteam.ivy.thirdparty.lib.test.feature.feature.group" version="0.0.0" />
       <unit id="ch.ivyteam.ivy.thirdparty.lib.test.feature.source.feature.group" version="0.0.0" />
-      <repository location="https://p2.ivyteam.io/thirdparty-libs/13.2.34/" />
+      <repository location="https://p2.ivyteam.io/thirdparty-libs/13.2.41/" />
     </location>
     <location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="error" type="Maven">
       <dependencies>
