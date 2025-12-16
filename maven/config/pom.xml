@@ -3,7 +3,7 @@
 
   <groupId>ch.ivyteam.smart</groupId>
   <artifactId>maven-config</artifactId>
-  <version>13.2.0-SNAPSHOT</version>
+  <version>14.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>

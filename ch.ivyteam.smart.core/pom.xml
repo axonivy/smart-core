@@ -3,7 +3,7 @@
   <parent>
     <groupId>ch.ivyteam.smart</groupId>
     <artifactId>maven-config-tycho</artifactId>
-    <version>13.2.0-SNAPSHOT</version>
+    <version>14.0.0-SNAPSHOT</version>
     <relativePath>../maven/config/tycho</relativePath>
   </parent>
   <artifactId>ch.ivyteam.smart.core</artifactId>

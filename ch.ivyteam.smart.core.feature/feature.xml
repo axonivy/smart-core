@@ -2,7 +2,7 @@
 <feature
       id="ch.ivyteam.smart.core.feature"
       label="Smart Core Feature"
-      version="13.2.0.qualifier"
+      version="14.0.0.qualifier"
       provider-name="Axon Ivy AG">
 
    <plugin
