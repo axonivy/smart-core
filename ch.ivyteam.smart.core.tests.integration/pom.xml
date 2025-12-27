@@ -10,7 +10,7 @@
   <packaging>eclipse-test-plugin</packaging>
 
   <properties>
-    <langchain4j.version>1.9.1</langchain4j.version>
+    <langchain4j.version>1.10.0</langchain4j.version>
   </properties>
 
   <dependencies>
