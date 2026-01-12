@@ -13,7 +13,7 @@
     <dependency>
       <groupId>io.modelcontextprotocol.sdk</groupId>
       <artifactId>mcp</artifactId>
-      <version>0.17.0</version>
+      <version>0.17.1</version>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
