@@ -28,9 +28,9 @@
       <unit id="org.eclipse.core.expressions" version="0.0.0"/>
       <unit id="org.eclipse.core.commands" version="0.0.0"/>
       <unit id="org.eclipse.core.variables" version="0.0.0"/>
-      
+
       <unit id="org.eclipse.xsd" version="0.0.0"/>
-      
+
       <unit id="org.eclipse.debug.core" version="0.0.0"/>
       <unit id="org.eclipse.equinox.common" version="0.0.0"/>
       <unit id="org.eclipse.equinox.launcher" version="0.0.0"/>
@@ -66,18 +66,18 @@
       <unit id="org.eclipse.equinox.p2.touchpoint.natives" version="0.0.0"/>
       <unit id="org.eclipse.equinox.p2.garbagecollector" version="0.0.0"/>
       <unit id="org.eclipse.equinox.p2.extensionlocation" version="0.0.0"/>
-      
+
       <unit id="org.eclipse.equinox.console" version="0.0.0"/>
       <unit id="org.apache.felix.gogo.runtime" version="0.0.0"/>
       <unit id="org.apache.felix.gogo.shell" version="0.0.0"/>
       <unit id="org.apache.felix.gogo.command" version="0.0.0"/>
       <unit id="org.apache.felix.scr" version="0.0.0"/>
-      
+
       <unit id="org.tukaani.xz" version="0.0.0"/>
       <unit id="bcpg" version="0.0.0"/>
       <unit id="bcprov" version="0.0.0"/>
       <unit id="bcutil" version="0.0.0"/>
-      
+
       <unit id="org.eclipse.osgi" version="0.0.0"/>
       <unit id="org.eclipse.osgi.services" version="0.0.0"/>
       <unit id="org.eclipse.osgi.util" version="0.0.0"/>
@@ -98,13 +98,13 @@
       <unit id="org.osgi.service.wireadmin" version="0.0.0"/>
       <unit id="org.osgi.service.http.whiteboard" version="0.0.0"/>
       <unit id="org.osgi.service.event" version="0.0.0"/>
-      
+
       <unit id="org.eclipse.jdt.core" version="0.0.0"/>
       <unit id="org.eclipse.jdt.core.compiler.batch" version="0.0.0"/>
       <unit id="org.eclipse.jdt.launching" version="0.0.0"/>
-  
+
       <unit id="org.eclipse.debug.core" version="0.0.0"/>
-  
+
       <unit id="org.eclipse.jface" version="0.0.0"/>
       <unit id="org.eclipse.jface.text" version="0.0.0"/>
       <unit id="org.eclipse.text" version="0.0.0"/>
@@ -112,21 +112,21 @@
       <unit id="org.eclipse.swt.svg" version="0.0.0"/>
       <unit id="com.github.weisj.jsvg" version="0.0.0"/>
       <unit id="com.ibm.icu" version="0.0.0"/>
-  
+
       <unit id="com.sun.jna" version="0.0.0"/>
       <unit id="com.sun.jna.platform" version="0.0.0"/>
-      
-      <unit id="junit-jupiter-api" version="5.14.1"/>
-      <unit id="junit-jupiter-engine" version="5.14.1"/>
-      <unit id="junit-jupiter-params" version="5.14.1"/>
-      <unit id="junit-platform-commons" version="1.14.1"/>
-      <unit id="junit-platform-engine" version="1.14.1"/>
-      <unit id="junit-platform-launcher" version="1.14.1"/>
-      <unit id="junit-platform-suite-api" version="1.14.1"/>
-      <unit id="junit-platform-suite-engine" version="1.14.1"/>
+
+      <unit id="junit-jupiter-api" version="0.0.0"/>
+      <unit id="junit-jupiter-engine" version="0.0.0"/>
+      <unit id="junit-jupiter-params" version="0.0.0"/>
+      <unit id="junit-platform-commons" version="0.0.0"/>
+      <unit id="junit-platform-engine" version="0.0.0"/>
+      <unit id="junit-platform-launcher" version="0.0.0"/>
+      <unit id="junit-platform-suite-api" version="0.0.0"/>
+      <unit id="junit-platform-suite-engine" version="0.0.0"/>
       <unit id="org.opentest4j" version="0.0.0"/>
       <unit id="org.apiguardian.api" version="0.0.0"/>
-      
+
       <unit id="org.eclipse.emf" version="0.0.0"/>
       <unit id="org.eclipse.emf.ecore" version="0.0.0"/>
       <unit id="org.eclipse.emf.ecore.change" version="0.0.0"/>
