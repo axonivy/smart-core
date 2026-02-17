@@ -5,7 +5,10 @@ def mavenIssues() {
     excludeMessage('.*No digest algorithm is available to verify download*'),
     excludeMessage('.*Empty classpath of required bundle*'),
     excludeMessage('.*No explicit target runtime environment configuration*'),
-    excludeMessage('.*Problems resolving provisioning plan*')
+    excludeMessage('.*Problems resolving provisioning plan*'),
+    // tycho 5
+    excludeMessage('.*The tycho-source-plugin:feature-source is deprecated.*'),
+    excludeMessage('.*Source features are used for a long time.*')
   ]
 }
 
