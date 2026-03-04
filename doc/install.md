@@ -1,37 +1,42 @@
 # Installation Guide
 
 ## Engine
-1. Download a fresh 13.2 [nightly](https://developer.axonivy.com/download/nightly) engine and unpack it to a directory of choice.
+
+1. Download a fresh 14.0 [nightly](https://developer.axonivy.com/download/nightly) engine and unpack it to a directory of choice.
 2. Download the latest `smart-core.jar` from the [releases](https://github.com/axonivy/smart-core/releases) page.
-3. Copy the downloaded JAR into the `dropins` directory of your engine ![](img/smart-core-dropin-installation.png).
+3. Copy the downloaded JAR into the `dropins` directory of your engine. ![](img/smart-core-dropin-installation.png)
+4. Add `-Ddev.mode=true` to the `jvm.options` file in the `configuration` directory of your engine.
+5. Start the engine.
 
 ## VS-Code
 
 ### Designer extension
-1. [Downlod](https://code.visualstudio.com/download) the Visual Studio Code editor (1.104.1 or newer)
-2. Install the Axon Ivy PRO Designer 13 (pre-release) [extension](https://marketplace.visualstudio.com/items?itemName=axonivy.vscode-designer-13).
-3. Select the previously downloaded engine (with the dropin) as engine directory when being prompted or use the 'settings' button of the extension. ![select-engine](img/smart-core-engine-selection.png)
+
+1. [Download](https://code.visualstudio.com/download) the Visual Studio Code editor (1.104.1 or newer)
+2. Install the Axon Ivy PRO Designer 14 (Preview) [extension](https://marketplace.visualstudio.com/items?itemName=axonivy.vscode-designer-14).
+3. In the settings of the extension, uncheck _Axonivy_ > _Engine: Run By Extension_ and set the URL to the running engine in _Axonivy_ > _Engine: Url_ (usually `http://localhost:8080/`). ![select-engine](img/smart-core-engine-selection.png)
+4. Restart/reload VSCode. For example, by opening the command bar (CTRL+SHIFT+P) and launching `Developer: Reload Window`.
 
 ### MCP tools
 
 1. Open the command bar (CTRL+SHIFT+P)
-    - search and launch `MCP: Add Server...`
-    - select `HTTP (HTTP or Server-Sent Events)`
-    - enter server uri: `http://localhost:8080/smart-core/mcp`
-    - enter server ID: `smart-core`
+   - Search and launch `MCP: Add Server...`
+   - Select `HTTP (HTTP or Server-Sent Events)`
+   - Enter server uri: `http://localhost:8080/smart-core/mcp`
+   - Enter server ID: `smart-core`
 
 2. Open the Chat window in Agent mode (CTRL+SHIFT+ALT+I)
-    - click on the 'hammer and wrench' icon next to your message input.
-    - verify that the 'smart-core' MCP server lists tools.
-    ![tools](img/smart-core-mcp-tools.png)
+   - Click on the 'hammer and wrench' icon next to your message input.
+   - Verify that the 'smart-core' MCP server lists tools.
+     ![tools](img/smart-core-mcp-tools.png)
 
 3. Done, start chatting. Here's a prompt that we like to use.
-    ```
-    Create a process.
-    Start the process based on a signal, referencing a slack-message from a new customer.
-    Add an email element, telling ceo@axonivy.com that we got a new lead!
-    Use an alternative gateway, if the predicted license cost is higher than 100K dollars, create a task for PM with high priority otherwise simply end the process.
-    ```
+   ```
+   Create a process.
+   Start the process based on a signal, referencing a slack-message from a new customer.
+   Add an email element, telling ceo@axonivy.com that we got a new lead!
+   Use an alternative gateway, if the predicted license cost is higher than 100K dollars, create a task for PM with high priority otherwise simply end the process.
+   ```
 
 ## Caveats
 
@@ -47,6 +52,7 @@ Depending on the model you use, Copilot might not always invoke the required too
 Whenever instructed to create, edit, or otherwise work with or handle a file or resource in this project, check the following mapping to determine whether the file/resource is present in it as a key. If so, invoke the corresponding tool defined as the value in the mapping to retrieve a JSON schema and additional guidelines regarding that file/resource before proceeding. If you have already called the tool in the current conversation, reuse the previous tool result instead. Use the schema as the authoritative source of truth for structure, required fields, and allowed values and strictly follow the guidelines returned.
 
 # Tool Mapping
+
 - Process (file extension 'p.json'): ivy-process-schema
 - Data Class (file extension 'd.json'): ivy-data-class-schema
 - Form (file extension 'f.json'): ivy-form-schema
@@ -58,13 +64,13 @@ Whenever instructed to create, edit, or otherwise work with or handle a file or 
 
   ```json
   {
-  	"servers": {
-  		"smart-core-beta": {
-  			"url": "http://localhost:8080/smart-core/mcp",
-  			"type": "http"
-  		}
-  	},
-  	"inputs": []
+    "servers": {
+      "smart-core-beta": {
+        "url": "http://localhost:8080/smart-core/mcp",
+        "type": "http"
+      }
+    },
+    "inputs": []
   }
   ```
 
