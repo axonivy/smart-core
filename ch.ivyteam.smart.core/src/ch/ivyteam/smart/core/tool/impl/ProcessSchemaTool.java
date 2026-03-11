@@ -1,9 +1,9 @@
 package ch.ivyteam.smart.core.tool.impl;
 
-import static ch.ivyteam.ivy.IvyConstants.DIRECTORY_PROCESSES;
 import static ch.ivyteam.ivy.IvyConstants.PROCESS_EXTENSION;
 import static ch.ivyteam.smart.core.schema.ResourceSchema.PROCESS;
 
+import ch.ivyteam.ivy.ProjectDir;
 import ch.ivyteam.smart.core.tool.SchemaTool;
 
 public class ProcessSchemaTool implements SchemaTool {
@@ -12,7 +12,7 @@ public class ProcessSchemaTool implements SchemaTool {
   private static final String RESOURCE = "process";
   private static final String SCHEMA = PROCESS.schema().toString();
   private static final String GUIDELINES = """
-    - Process files must be located in a subdirectory of '<project-root>/""" + DIRECTORY_PROCESSES + """
+    - Process files must be located in a subdirectory of '<project-root>/""" + ProjectDir.PROCESSES + """
     /'. Note: This does not apply to form processes.
     - Omit as many defaults as possible, but at any rate produce the required values.
     - Create unique instances for element IDs, starting from 'f1'.
