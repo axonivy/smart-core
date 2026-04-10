@@ -18,4 +18,5 @@ Require-Bundle: ch.ivyteam.smart.core,
  ch.ivyteam.ivy.process.model.io,
  ch.ivyteam.ivy.config.schema.tests,
  ch.ivyteam.ivy.dialog.form,
- ch.ivyteam.ivy.process.schema
+ ch.ivyteam.ivy.process.schema,
+ ch.ivyteam.ivy.scripting.dataclass.schema
