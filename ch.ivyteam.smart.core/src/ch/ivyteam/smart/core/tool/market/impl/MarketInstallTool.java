@@ -9,6 +9,7 @@ import io.modelcontextprotocol.server.McpServerFeatures.AsyncToolSpecification;
 import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
+
 import reactor.core.publisher.Mono;
 
 public class MarketInstallTool {
@@ -49,9 +50,14 @@ public class MarketInstallTool {
   private CallToolResult install(String id) {
     try {
       var install = MarketSearchEngine.installer(id);
-      return new CallToolResult(install, false);
+      return CallToolResult.builder()
+          .addTextContent(install)
+          .build();
     } catch (Exception ex) {
-      return new CallToolResult(ex.getMessage(), true);
+      return CallToolResult.builder()
+          .addTextContent(ex.getMessage())
+          .isError(true)
+          .build();
     }
   }
 }

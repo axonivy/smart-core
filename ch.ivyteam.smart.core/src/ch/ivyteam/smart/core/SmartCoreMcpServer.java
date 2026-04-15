@@ -6,12 +6,10 @@ import javax.servlet.Filter;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.modelcontextprotocol.json.McpJsonMapper;
-import io.modelcontextprotocol.json.jackson.JacksonMcpJsonMapper;
+import io.modelcontextprotocol.json.jackson3.JacksonMcpJsonMapper;
 import io.modelcontextprotocol.json.schema.JsonSchemaValidator;
-import io.modelcontextprotocol.json.schema.jackson.DefaultJsonSchemaValidator;
+import io.modelcontextprotocol.json.schema.jackson3.DefaultJsonSchemaValidator;
 import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.spec.McpSchema.ServerCapabilities;
 
@@ -23,13 +21,14 @@ import ch.ivyteam.smart.core.tool.market.impl.MarketInstallTool;
 import ch.ivyteam.smart.core.tool.market.impl.MarketSearchTool;
 import ch.ivyteam.smart.core.transport.JavaxHttpServletStreamableServerTransportProvider;
 import ch.ivyteam.smart.core.transport.filter.log.TransportLogFilter;
+import tools.jackson.databind.json.JsonMapper;
 
 public class SmartCoreMcpServer implements ServletContextStartupListener {
 
   private static final String NAME = "smart-core";
   public static final String SERVLET_PATH = "/" + NAME;
 
-  public static final McpJsonMapper MAPPER = new JacksonMcpJsonMapper(new ObjectMapper());
+  public static final McpJsonMapper MAPPER = new JacksonMcpJsonMapper(JsonMapper.builder().build());
   private static final JsonSchemaValidator VALIDATOR = new DefaultJsonSchemaValidator();
 
   @Override

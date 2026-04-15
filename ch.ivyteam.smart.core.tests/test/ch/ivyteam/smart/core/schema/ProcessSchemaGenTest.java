@@ -44,7 +44,7 @@ public class ProcessSchemaGenTest {
   @Test
   void askOpenAi_native120api_gpt41mini_inlineFull_multiElement() {
     var model = ivyMockedOpenAi();
-    OpenAiMock.CHAT = n -> ok("mock/slackMail.json");
+    OpenAiMock.CHAT = _ -> ok("mock/slackMail.json");
 
     var json = generateProcess(model,
         """
@@ -64,7 +64,7 @@ public class ProcessSchemaGenTest {
 
   @Test
   void promptDiet_processId() {
-    OpenAiMock.CHAT = n -> ok("mock/promptDiet.json");
+    OpenAiMock.CHAT = _ -> ok("mock/promptDiet.json");
     var json = generateProcess(ivyMockedOpenAi(),
         "create a new soap-process to fetch products from ERP");
     assertThat(json.get("id").asText())
@@ -73,7 +73,7 @@ public class ProcessSchemaGenTest {
 
   @Test
   void promptDiet_data() {
-    OpenAiMock.CHAT = n -> ok("mock/promptDiet.json");
+    OpenAiMock.CHAT = _ -> ok("mock/promptDiet.json");
     var json = generateProcess(ivyMockedOpenAi(),
         "create a new soap-process to fetch products from ERP");
     assertThat(json.get("config").get("data").asText())
@@ -94,7 +94,7 @@ public class ProcessSchemaGenTest {
 
   @Test
   void promptDiet_alternativeConditions() {
-    OpenAiMock.CHAT = n -> ok("mock/alternativeMap.json");
+    OpenAiMock.CHAT = _ -> ok("mock/alternativeMap.json");
     var json = generateProcess(ivyMockedOpenAi(),
         """
           create a new process with an alternative gateway,

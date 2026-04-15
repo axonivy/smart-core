@@ -47,7 +47,7 @@ public class DataClassSchemaGenTest {
   @Test
   void openAiGenData() {
     var model = ivyMockedOpenAi();
-    OpenAiMock.CHAT = n -> Response.ok().entity(load("mock/customer.json")).build();
+    OpenAiMock.CHAT = _ -> Response.ok().entity(load("mock/customer.json")).build();
 
     var json = generate(model,
         """
@@ -99,7 +99,7 @@ public class DataClassSchemaGenTest {
         .build();
     var agent = AiServices.builder(IvyAgent.class)
         .chatModel(ivyMockedOpenAi())
-        .tools(Map.of(dataTool, (e, memoryId) -> createDataClass(e.arguments())))
+        .tools(Map.of(dataTool, (e, _) -> createDataClass(e.arguments())))
         .build();
     var created = agent.chat("create a dataClass describing a Customer");
     assertThat(created).contains("id");
