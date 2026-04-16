@@ -9,15 +9,11 @@
   <artifactId>ch.ivyteam.smart.core.tests</artifactId>
   <packaging>eclipse-test-plugin</packaging>
   
-  <properties>
-    <langchain4j.version>1.10.0</langchain4j.version>
-  </properties>
-  
   <dependencies>
    <dependency>
       <groupId>dev.langchain4j</groupId>
       <artifactId>langchain4j-open-ai</artifactId>
-      <version>${langchain4j.version}</version>
+      <version>1.13.0</version>
       <exclusions>
         <exclusion>
           <groupId>com.fasterxml.jackson.core</groupId>
@@ -32,7 +28,7 @@
     <dependency>
       <groupId>dev.langchain4j</groupId>
       <artifactId>langchain4j-mcp</artifactId>
-      <version>1.4.0-beta10</version>
+      <version>1.13.0-beta23</version>
       <exclusions>
         <exclusion>
           <groupId>com.fasterxml.jackson.core</groupId>
