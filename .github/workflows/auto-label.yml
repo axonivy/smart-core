@@ -1,0 +1,15 @@
+name: Auto Label
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  auto_label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Autolabeler
+        uses: release-drafter/release-drafter/autolabeler@v7
