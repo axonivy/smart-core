@@ -21,7 +21,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/reactor-core.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/reactive-streams.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mcp-core.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/mcp-json.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/mcp-json-jackson2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mcp-json-jackson3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
