@@ -27,7 +27,7 @@ public class RestMockProvider implements RestResourcesProvider {
   @Path("mocked")
   public static class OpenAiMock {
 
-    public static Function<JsonNode, Response> CHAT = n -> Response.serverError().build();
+    public static Function<JsonNode, Response> CHAT = _ -> Response.serverError().build();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

@@ -9,6 +9,7 @@ import io.modelcontextprotocol.server.McpServerFeatures.AsyncToolSpecification;
 import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
 import io.modelcontextprotocol.spec.McpSchema.CallToolResult;
 import io.modelcontextprotocol.spec.McpSchema.Tool;
+
 import reactor.core.publisher.Mono;
 
 public class MarketSearchTool {
@@ -55,9 +56,14 @@ public class MarketSearchTool {
   private CallToolResult search(String vendor, String product) {
     try {
       var json = MarketSearchEngine.searchProducts(vendor, product);
-      return new CallToolResult(json, false);
+      return CallToolResult.builder()
+          .addTextContent(json)
+          .build();
     } catch (Exception ex) {
-      return new CallToolResult(ex.getMessage(), true);
+      return CallToolResult.builder()
+          .addTextContent(ex.getMessage())
+          .isError(true)
+          .build();
     }
   }
 }

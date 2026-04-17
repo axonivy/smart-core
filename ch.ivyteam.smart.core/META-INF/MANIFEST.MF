@@ -9,8 +9,7 @@ Bundle-ClassPath: .,
  lib/reactor-core.jar,
  lib/reactive-streams.jar,
  lib/mcp-core.jar,
- lib/mcp-json.jar,
- lib/mcp-json-jackson2.jar
+ lib/mcp-json-jackson3.jar
 Bundle-ActivationPolicy: lazy
 Export-Package: ch.ivyteam.smart.core,
  ch.ivyteam.smart.core.schema,
