@@ -12,8 +12,10 @@ def mavenIssues() {
   ]
 }
 
-def collectJunit() {
-  junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: '**/target/surefire-reports/**/*.xml'
+def collectJunit(def name) {
+  junit checksName: name + ' Tests',
+                    testDataPublishers: [[$class: 'StabilityTestDataPublisher']],
+                    testResults: '**/target/surefire-reports/**/*.xml'
 }
 
 return this

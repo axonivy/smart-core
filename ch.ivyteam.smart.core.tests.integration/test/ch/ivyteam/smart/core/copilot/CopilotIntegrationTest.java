@@ -80,7 +80,7 @@ public class CopilotIntegrationTest {
         .withNetwork(network)
         .withEnv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://aspire:18890");
 
-    aspireApi = AspireAPI.create("http://localhost:" + aspireContainer.getMappedPort(18888));
+    aspireApi = AspireAPI.create("http://" + aspireContainer.getHost() + ":" + aspireContainer.getMappedPort(18888));
   }
 
   @AfterAll

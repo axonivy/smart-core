@@ -23,7 +23,7 @@ pipeline {
           maven cmd: "clean verify -DSKIP_UNIT_TESTS=false --settings maven/config/settings.xml"
           def build = load 'build/build.groovy'
           build.mavenIssues()
-          build.collectJunit()
+          build.collectJunit('Smart Core')
           archiveArtifacts 'ch.ivyteam.smart.p2/target/*.zip'
         }
       }
