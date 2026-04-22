@@ -7,6 +7,7 @@ import dev.langchain4j.model.openai.OpenAiChatModelName;
 public interface ChatModelUtils {
 
   String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
+  String OPENAI_API_URL = "https://api.openai.com/v1";
 
   ChatModel GPT_5_NANO = openAi(OpenAiChatModelName.GPT_5_NANO);
 
