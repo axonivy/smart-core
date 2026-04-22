@@ -59,7 +59,7 @@ public class TransportLogFilter implements Filter {
   }
 
   private static Map<String, String> headers(Collection<String> headerNames, Function<String, String> headerAccessor) {
-    return headerNames.stream().collect(Collectors.toMap(Function.identity(), headerAccessor));
+    return headerNames.stream().collect(Collectors.toMap(Function.identity(), headerAccessor, (value1, _) -> value1));
   }
 
   private static String body(String content) {

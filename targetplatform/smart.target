@@ -12,7 +12,7 @@
       <unit id="ch.ivyteam.ivy.thirdparty.lib.feature.source.feature.group" version="0.0.0"/>
       <unit id="ch.ivyteam.ivy.thirdparty.lib.test.feature.feature.group" version="0.0.0"/>
       <unit id="ch.ivyteam.ivy.thirdparty.lib.test.feature.source.feature.group" version="0.0.0"/>
-      <repository location="https://p2.ivyteam.io/thirdparty-libs/14.0.5/"/>
+      <repository location="https://p2.ivyteam.io/thirdparty-libs/14.0.26/"/>
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
       <unit id="org.eclipse.bpmn2" version="0.0.0"/>
