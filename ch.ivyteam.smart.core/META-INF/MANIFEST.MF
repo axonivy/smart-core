@@ -30,3 +30,4 @@ Require-Bundle: ch.ivyteam.ivy.webserver,
  ch.ivyteam.ivy.dialog.form,
  ch.ivyteam.ivy.process.schema,
  ch.ivyteam.ivy.jersey.client
+Automatic-Module-Name: ch.ivyteam.smart.core

@@ -8,6 +8,5 @@ Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Require-Bundle: ch.ivyteam.smart.core,
  ch.ivyteam.ivy.server.tests,
- ch.ivyteam.smart.core.tests,
- ch.ivyteam.lib.opentelemetry,
- ch.ivyteam.ivy.jersey.client
+ ch.ivyteam.smart.core.tests
+Automatic-Module-Name: ch.ivyteam.smart.core.tests.integration

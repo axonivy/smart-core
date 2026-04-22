@@ -1,8 +1,8 @@
 package ch.ivyteam.smart.core.aspire;
 
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
-import ch.ivyteam.ivy.jersey.client.JerseyClientBuilder;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
@@ -32,7 +32,7 @@ public class AspireAPI {
 
   public static AspireAPI create(String baseUrl) {
     return new AspireAPI(
-        JerseyClientBuilder.create("aspire-api").toClient()
+        ClientBuilder.newClient()
             .target(baseUrl)
             .path("api")
             .path("telemetry"));

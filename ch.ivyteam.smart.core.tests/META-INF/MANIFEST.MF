@@ -20,3 +20,4 @@ Require-Bundle: ch.ivyteam.smart.core,
  ch.ivyteam.ivy.dialog.form,
  ch.ivyteam.ivy.process.schema,
  ch.ivyteam.ivy.scripting.dataclass.schema
+Automatic-Module-Name: ch.ivyteam.smart.core.tests
