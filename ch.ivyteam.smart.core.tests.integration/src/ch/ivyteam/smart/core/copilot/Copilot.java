@@ -1,7 +1,11 @@
 package ch.ivyteam.smart.core.copilot;
 
+import static ch.ivyteam.smart.core.McpClientUtils.SMART_CORE_MCP_URL;
+
 import java.io.IOException;
 import java.util.UUID;
+
+import org.testcontainers.images.builder.Transferable;
 
 public class Copilot {
 
@@ -31,6 +35,23 @@ public class Copilot {
   }
 
   static Copilot create(CopilotContainer container) {
+    container.copyFileToContainer(
+        Transferable.of(smartCoreMcpServerConfig()),
+        "/root/.copilot/mcp-config.json");
     return new Copilot(container);
+  }
+
+  private static String smartCoreMcpServerConfig() {
+    var smartCoreMcpUrl = SMART_CORE_MCP_URL.replace("localhost", "host.docker.internal");
+    return String.format("""
+      {
+        "mcpServers": {
+          "smart-core": {
+            "url": "%s",
+            "type": "http"
+          }
+        }
+      }""",
+        smartCoreMcpUrl);
   }
 }

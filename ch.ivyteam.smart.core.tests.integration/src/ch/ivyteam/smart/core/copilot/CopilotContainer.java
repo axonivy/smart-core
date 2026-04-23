@@ -10,6 +10,7 @@ public class CopilotContainer extends GenericContainer<CopilotContainer> {
         .from("node:24-slim")
         .run("npm install -g @github/copilot")
         .build()));
+    withExtraHost("host.docker.internal", "host-gateway");
     withCommand("sleep", "infinity");
   }
 }

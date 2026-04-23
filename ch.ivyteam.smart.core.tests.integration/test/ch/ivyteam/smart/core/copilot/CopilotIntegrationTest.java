@@ -8,9 +8,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.testcontainers.containers.Network;
 
 import ch.ivyteam.ivy.server.test.ManagedServer;
+import ch.ivyteam.smart.core.McpClientAccess;
 import ch.ivyteam.smart.core.aspire.AspireAPI;
 import ch.ivyteam.smart.core.aspire.AspireContainer;
 import ch.ivyteam.smart.core.telemetry.TelemetryUtils;
@@ -46,6 +48,9 @@ public class CopilotIntegrationTest {
   static Copilot copilot;
   static AspireAPI aspireApi;
 
+  @RegisterExtension
+  static McpClientAccess mcp = new McpClientAccess();
+
   @BeforeAll
   static void beforeAll() {
     if (manualAspire) {
@@ -59,7 +64,6 @@ public class CopilotIntegrationTest {
 
   private static void initManualAspire() {
     copilotContainer
-        .withExtraHost("host.docker.internal", "host-gateway")
         .withEnv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://host.docker.internal:4318");
 
     aspireApi = AspireAPI.create("http://localhost:18888");
