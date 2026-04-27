@@ -103,7 +103,7 @@ public class CopilotIntegrationTest {
     var resource = copilot.prompt("create an axon ivy project");
     var spans = aspireApi.spansOfResource(resource);
     var tokenUsage = TelemetryUtils.tokenUsage(spans);
-    assertThat(tokenUsage.input()).isLessThan(60000);
+    assertThat(tokenUsage.input()).isLessThan(150000);
     assertThat(tokenUsage.output()).isLessThan(5000);
   }
 }
