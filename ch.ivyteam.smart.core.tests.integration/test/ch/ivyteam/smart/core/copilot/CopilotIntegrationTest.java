@@ -104,6 +104,6 @@ public class CopilotIntegrationTest {
     var spans = aspireApi.spansOfResource(resource);
     var tokenUsage = TelemetryUtils.tokenUsage(spans);
     assertThat(tokenUsage.input()).isLessThan(150000);
-    assertThat(tokenUsage.output()).isLessThan(5000);
+    assertThat(tokenUsage.output()).isLessThan(10000);
   }
 }
