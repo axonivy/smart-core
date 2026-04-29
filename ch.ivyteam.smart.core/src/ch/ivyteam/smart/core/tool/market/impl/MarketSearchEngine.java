@@ -19,7 +19,6 @@ public class MarketSearchEngine {
   private static final Logger LOGGER = Logger.getLogger(MarketSearchEngine.class);
 
   private static final String MARKET_API = "https://market.axonivy.com/stable/api";
-  private static final String MARKET_SERVICE_API = "https://market.axonivy.com/marketplace-service/api";
   private static final Client CLIENT = JerseyClientBuilder.create("market-tool").toClient();
 
   public static String searchProducts(String vendor, String product) {
@@ -62,8 +61,8 @@ public class MarketSearchEngine {
   }
 
   private static JsonNode versions(String id) {
-    // https://market.axonivy.com/marketplace-service/api/product-details/coffee-machine-connector/versions?designerVersion=&isShowDevVersion=true
-    var path = CLIENT.target(MARKET_SERVICE_API).path("product-details").path(id).path("versions")
+    // https://market.axonivy.com/stable/api/product/coffee-machine-connector/versions?designerVersion=&isShowDevVersion=true
+    var path = CLIENT.target(MARKET_API).path("product").path(id).path("versions")
         .queryParam("isShowDevVersion", true);
     var response = path.request().get();
     if (!Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily())) {
