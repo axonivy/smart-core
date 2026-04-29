@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import io.modelcontextprotocol.client.McpAsyncClient;
 import io.modelcontextprotocol.spec.McpSchema.CallToolRequest;
@@ -54,10 +53,9 @@ public class MarketSearchToolTest {
 
   @Test
   void installHints() {
-    var mockResponse = read("mockProducts.json");
-    MarketSearchEngine.enrich(mockResponse);
+    var prods = read("mockProducts.json");
+    MarketSearchEngine.enrich(prods);
 
-    var prods = (ArrayNode) mockResponse.get("_embedded").get("products");
     var portal = prods.get(0);
     System.out.println(portal.toPrettyString());
 
@@ -68,7 +66,7 @@ public class MarketSearchToolTest {
         .isEqualTo("https://market.axonivy.com/portal");
     assertThat(node.get("versions").asText())
         .as("a cheap hint on where to fetch version information from")
-        .isEqualTo("https://market.axonivy.com/marketplace-service/api/product-details/portal/versions?designerVersion=&isShowDevVersion=true");
+        .isEqualTo("https://market.axonivy.com/stable/api/product/portal/versions?designerVersion=&isShowDevVersion=true");
   }
 
   private static JsonNode read(String resource) {
