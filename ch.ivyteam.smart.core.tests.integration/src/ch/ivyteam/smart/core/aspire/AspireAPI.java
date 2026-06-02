@@ -3,8 +3,9 @@ package ch.ivyteam.smart.core.aspire;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AspireAPI {
 
@@ -27,6 +28,8 @@ public class AspireAPI {
           .get("resourceSpans").get(0)
           .get("scopeSpans").get(0)
           .get("spans");
+    } catch (JsonProcessingException ex) {
+      throw new RuntimeException(ex);
     }
   }
 

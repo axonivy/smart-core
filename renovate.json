@@ -3,5 +3,6 @@
   "extends": [
     "local>axonivy/renovate-config",
     "schedule:weekends"
-  ]
+  ],
+  "enabled": false
 }

@@ -3,9 +3,9 @@ package ch.ivyteam.smart.core.telemetry;
 import static io.opentelemetry.semconv.incubating.GenAiIncubatingAttributes.GEN_AI_USAGE_INPUT_TOKENS;
 import static io.opentelemetry.semconv.incubating.GenAiIncubatingAttributes.GEN_AI_USAGE_OUTPUT_TOKENS;
 
-import io.opentelemetry.api.common.AttributeKey;
+import com.fasterxml.jackson.databind.JsonNode;
 
-import tools.jackson.databind.JsonNode;
+import io.opentelemetry.api.common.AttributeKey;
 
 public class TelemetryUtils {
 
@@ -30,11 +30,11 @@ public class TelemetryUtils {
 
   private static String findSpanAttributeValue(JsonNode span, AttributeKey<?> key) {
     var attribute = span.get("attributes").valueStream()
-        .filter(attr -> key.getKey().equals(attr.get("key").asString()))
+        .filter(attr -> key.getKey().equals(attr.get("key").asText()))
         .findAny().orElse(null);
     if (attribute == null) {
       return null;
     }
-    return attribute.get("value").get("stringValue").asString();
+    return attribute.get("value").get("stringValue").asText();
   }
 }
