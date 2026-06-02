@@ -8,5 +8,6 @@ Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Require-Bundle: ch.ivyteam.smart.core,
  ch.ivyteam.ivy.server.tests,
- ch.ivyteam.smart.core.tests
+ ch.ivyteam.smart.core.tests,
+ ch.ivyteam.lib.jackson
 Automatic-Module-Name: ch.ivyteam.smart.core.tests.integration

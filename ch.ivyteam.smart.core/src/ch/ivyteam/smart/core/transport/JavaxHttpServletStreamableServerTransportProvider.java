@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 the original author or authors.
+ * Copyright 2024-2024 the original author or authors.
  */
 
 package ch.ivyteam.smart.core.transport;
@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -25,13 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.modelcontextprotocol.common.McpTransportContext;
-import io.modelcontextprotocol.json.McpJsonDefaults;
 import io.modelcontextprotocol.json.McpJsonMapper;
 import io.modelcontextprotocol.json.TypeRef;
 import io.modelcontextprotocol.server.McpTransportContextExtractor;
-import io.modelcontextprotocol.server.transport.HttpServletStreamableServerTransportProvider;
-import io.modelcontextprotocol.server.transport.ServerTransportSecurityException;
-import io.modelcontextprotocol.server.transport.ServerTransportSecurityValidator;
 import io.modelcontextprotocol.spec.HttpHeaders;
 import io.modelcontextprotocol.spec.McpError;
 import io.modelcontextprotocol.spec.McpSchema;
@@ -63,7 +58,6 @@ import reactor.core.publisher.Mono;
  * @see McpStreamableServerTransportProvider
  * @see HttpServlet
  */
-@SuppressWarnings("all")
 @WebServlet(asyncSupported = true)
 public class JavaxHttpServletStreamableServerTransportProvider extends HttpServlet
     implements McpStreamableServerTransportProvider {
@@ -127,36 +121,26 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
   private KeepAliveScheduler keepAliveScheduler;
 
   /**
-   * Security validator for validating HTTP requests.
-   */
-  private final ServerTransportSecurityValidator securityValidator;
-
-  /**
-   * Constructs a new HttpServletStreamableServerTransportProvider instance.
+   * Constructs a new JavaxHttpServletStreamableServerTransportProvider instance.
    * @param jsonMapper The JsonMapper to use for JSON serialization/deserialization of
    *          messages.
    * @param mcpEndpoint The endpoint URI where clients should send their JSON-RPC
    *          messages via HTTP. This endpoint will handle GET, POST, and DELETE requests.
    * @param disallowDelete Whether to disallow DELETE requests on the endpoint.
    * @param contextExtractor The extractor for transport context from the request.
-   * @param keepAliveInterval The interval for keep-alive pings. If null, no keep-alive
-   *          will be scheduled.
-   * @param securityValidator The security validator for validating HTTP requests.
    * @throws IllegalArgumentException if any parameter is null
    */
   private JavaxHttpServletStreamableServerTransportProvider(McpJsonMapper jsonMapper, String mcpEndpoint,
       boolean disallowDelete, McpTransportContextExtractor<HttpServletRequest> contextExtractor,
-      Duration keepAliveInterval, ServerTransportSecurityValidator securityValidator) {
+      Duration keepAliveInterval) {
     Assert.notNull(jsonMapper, "JsonMapper must not be null");
     Assert.notNull(mcpEndpoint, "MCP endpoint must not be null");
     Assert.notNull(contextExtractor, "Context extractor must not be null");
-    Assert.notNull(securityValidator, "Security validator must not be null");
 
     this.jsonMapper = jsonMapper;
     this.mcpEndpoint = mcpEndpoint;
     this.disallowDelete = disallowDelete;
     this.contextExtractor = contextExtractor;
-    this.securityValidator = securityValidator;
 
     if (keepAliveInterval != null) {
 
@@ -174,7 +158,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
   @Override
   public List<String> protocolVersions() {
     return List.of(ProtocolVersions.MCP_2024_11_05, ProtocolVersions.MCP_2025_03_26,
-        ProtocolVersions.MCP_2025_06_18, ProtocolVersions.MCP_2025_11_25);
+        ProtocolVersions.MCP_2025_06_18);
   }
 
   @Override
@@ -207,18 +191,6 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
           logger.error("Failed to send message to session {}: {}", session.getId(), e.getMessage());
         }
       });
-    });
-  }
-
-  @Override
-  public Mono<Void> notifyClient(String sessionId, String method, Object params) {
-    return Mono.defer(() -> {
-      McpStreamableServerSession session = this.sessions.get(sessionId);
-      if (session == null) {
-        logger.debug("Session {} not found", sessionId);
-        return Mono.empty();
-      }
-      return session.sendNotification(method, params);
     });
   }
 
@@ -273,14 +245,6 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
       return;
     }
 
-    try {
-      Map<String, List<String>> headers = JavaxHttpServletRequestUtils.extractHeaders(request);
-      this.securityValidator.validateHeaders(headers);
-    } catch (ServerTransportSecurityException e) {
-      response.sendError(e.getStatusCode(), e.getMessage());
-      return;
-    }
-
     List<String> badRequestErrors = new ArrayList<>();
 
     String accept = request.getHeader(ACCEPT);
@@ -296,8 +260,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
 
     if (!badRequestErrors.isEmpty()) {
       String combinedMessage = String.join("; ", badRequestErrors);
-      this.responseError(response, HttpServletResponse.SC_BAD_REQUEST,
-          McpError.builder(McpSchema.ErrorCodes.METHOD_NOT_FOUND).message(combinedMessage).build());
+      this.responseError(response, HttpServletResponse.SC_BAD_REQUEST, new McpError(combinedMessage));
       return;
     }
 
@@ -317,6 +280,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
       response.setCharacterEncoding(UTF_8);
       response.setHeader("Cache-Control", "no-cache");
       response.setHeader("Connection", "keep-alive");
+      response.setHeader("Access-Control-Allow-Origin", "*");
 
       AsyncContext asyncContext = request.startAsync();
       asyncContext.setTimeout(0);
@@ -404,14 +368,6 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
       return;
     }
 
-    try {
-      Map<String, List<String>> headers = JavaxHttpServletRequestUtils.extractHeaders(request);
-      this.securityValidator.validateHeaders(headers);
-    } catch (ServerTransportSecurityException e) {
-      response.sendError(e.getStatusCode(), e.getMessage());
-      return;
-    }
-
     List<String> badRequestErrors = new ArrayList<>();
 
     String accept = request.getHeader(ACCEPT);
@@ -439,8 +395,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
           && McpSchema.METHOD_INITIALIZE.equals(jsonrpcRequest.method())) {
         if (!badRequestErrors.isEmpty()) {
           String combinedMessage = String.join("; ", badRequestErrors);
-          this.responseError(response, HttpServletResponse.SC_BAD_REQUEST,
-              McpError.builder(McpSchema.ErrorCodes.METHOD_NOT_FOUND).message(combinedMessage).build());
+          this.responseError(response, HttpServletResponse.SC_BAD_REQUEST, new McpError(combinedMessage));
           return;
         }
 
@@ -468,9 +423,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
         } catch (Exception e) {
           logger.error("Failed to initialize session: {}", e.getMessage());
           this.responseError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-              McpError.builder(McpSchema.ErrorCodes.INTERNAL_ERROR)
-                  .message("Failed to initialize session: " + e.getMessage())
-                  .build());
+              new McpError("Failed to initialize session: " + e.getMessage()));
           return;
         }
       }
@@ -483,8 +436,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
 
       if (!badRequestErrors.isEmpty()) {
         String combinedMessage = String.join("; ", badRequestErrors);
-        this.responseError(response, HttpServletResponse.SC_BAD_REQUEST,
-            McpError.builder(McpSchema.ErrorCodes.METHOD_NOT_FOUND).message(combinedMessage).build());
+        this.responseError(response, HttpServletResponse.SC_BAD_REQUEST, new McpError(combinedMessage));
         return;
       }
 
@@ -492,9 +444,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
 
       if (session == null) {
         this.responseError(response, HttpServletResponse.SC_NOT_FOUND,
-            McpError.builder(McpSchema.ErrorCodes.INTERNAL_ERROR)
-                .message("Session not found: " + sessionId)
-                .build());
+            new McpError("Session not found: " + sessionId));
         return;
       }
 
@@ -514,6 +464,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
         response.setCharacterEncoding(UTF_8);
         response.setHeader("Cache-Control", "no-cache");
         response.setHeader("Connection", "keep-alive");
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
         AsyncContext asyncContext = request.startAsync();
         asyncContext.setTimeout(0);
@@ -531,21 +482,17 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
         }
       } else {
         this.responseError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-            McpError.builder(McpSchema.ErrorCodes.INVALID_REQUEST).message("Unknown message type").build());
+            new McpError("Unknown message type"));
       }
     } catch (IllegalArgumentException | IOException e) {
       logger.error("Failed to deserialize message: {}", e.getMessage());
       this.responseError(response, HttpServletResponse.SC_BAD_REQUEST,
-          McpError.builder(McpSchema.ErrorCodes.INVALID_REQUEST)
-              .message("Invalid message format: " + e.getMessage())
-              .build());
+          new McpError("Invalid message format: " + e.getMessage()));
     } catch (Exception e) {
       logger.error("Error handling message: {}", e.getMessage());
       try {
         this.responseError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-            McpError.builder(McpSchema.ErrorCodes.INTERNAL_ERROR)
-                .message("Error processing message: " + e.getMessage())
-                .build());
+            new McpError("Error processing message: " + e.getMessage()));
       } catch (IOException ex) {
         logger.error(FAILED_TO_SEND_ERROR_RESPONSE, ex.getMessage());
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing message");
@@ -575,14 +522,6 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
       return;
     }
 
-    try {
-      Map<String, List<String>> headers = JavaxHttpServletRequestUtils.extractHeaders(request);
-      this.securityValidator.validateHeaders(headers);
-    } catch (ServerTransportSecurityException e) {
-      response.sendError(e.getStatusCode(), e.getMessage());
-      return;
-    }
-
     if (this.disallowDelete) {
       response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
       return;
@@ -592,9 +531,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
 
     if (request.getHeader(HttpHeaders.MCP_SESSION_ID) == null) {
       this.responseError(response, HttpServletResponse.SC_BAD_REQUEST,
-          McpError.builder(McpSchema.ErrorCodes.METHOD_NOT_FOUND)
-              .message("Session ID required in mcp-session-id header")
-              .build());
+          new McpError("Session ID required in mcp-session-id header"));
       return;
     }
 
@@ -614,7 +551,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
       logger.error("Failed to delete session {}: {}", sessionId, e.getMessage());
       try {
         this.responseError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-            McpError.builder(McpSchema.ErrorCodes.INTERNAL_ERROR).message(e.getMessage()).build());
+            new McpError(e.getMessage()));
       } catch (IOException ex) {
         logger.error(FAILED_TO_SEND_ERROR_RESPONSE, ex.getMessage());
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error deleting session");
@@ -784,7 +721,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
 
         this.closed = true;
 
-        // HttpServletStreamableServerTransportProvider.this.sessions.remove(this.sessionId);
+        // JavaxHttpServletStreamableServerTransportProvider.this.sessions.remove(this.sessionId);
         this.asyncContext.complete();
         logger.debug("Successfully completed async context for session {}", sessionId);
       } catch (Exception e) {
@@ -802,7 +739,7 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
 
   /**
    * Builder for creating instances of
-   * {@link HttpServletStreamableServerTransportProvider}.
+   * {@link JavaxHttpServletStreamableServerTransportProvider}.
    */
   public static class Builder {
 
@@ -815,8 +752,6 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
     private McpTransportContextExtractor<HttpServletRequest> contextExtractor = serverRequest -> McpTransportContext.EMPTY;
 
     private Duration keepAliveInterval;
-
-    private ServerTransportSecurityValidator securityValidator = ServerTransportSecurityValidator.NOOP;
 
     /**
      * Sets the JsonMapper to use for JSON serialization/deserialization of MCP
@@ -878,28 +813,16 @@ public class JavaxHttpServletStreamableServerTransportProvider extends HttpServl
     }
 
     /**
-     * Sets the security validator for validating HTTP requests.
-     * @param securityValidator The security validator to use. Must not be null.
-     * @return this builder instance
-     * @throws IllegalArgumentException if securityValidator is null
-     */
-    public Builder securityValidator(ServerTransportSecurityValidator securityValidator) {
-      Assert.notNull(securityValidator, "Security validator must not be null");
-      this.securityValidator = securityValidator;
-      return this;
-    }
-
-    /**
-     * Builds a new instance of {@link HttpServletStreamableServerTransportProvider}
+     * Builds a new instance of {@link JavaxHttpServletStreamableServerTransportProvider}
      * with the configured settings.
-     * @return A new HttpServletStreamableServerTransportProvider instance
+     * @return A new JavaxHttpServletStreamableServerTransportProvider instance
      * @throws IllegalStateException if required parameters are not set
      */
     public JavaxHttpServletStreamableServerTransportProvider build() {
       Assert.notNull(this.mcpEndpoint, "MCP endpoint must be set");
       return new JavaxHttpServletStreamableServerTransportProvider(
-          jsonMapper == null ? McpJsonDefaults.getMapper() : jsonMapper, mcpEndpoint, disallowDelete,
-          contextExtractor, keepAliveInterval, securityValidator);
+          jsonMapper == null ? McpJsonMapper.getDefault() : jsonMapper, mcpEndpoint, disallowDelete,
+          contextExtractor, keepAliveInterval);
     }
 
   }
