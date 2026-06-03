@@ -58,6 +58,7 @@ import reactor.core.publisher.Mono;
  * @see McpStreamableServerTransportProvider
  * @see HttpServlet
  */
+@SuppressWarnings("all")
 @WebServlet(asyncSupported = true)
 public class JavaxHttpServletStreamableServerTransportProvider extends HttpServlet
     implements McpStreamableServerTransportProvider {
