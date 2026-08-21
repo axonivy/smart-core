@@ -1,6 +1,7 @@
 # Smart Core
 
-[![CI Build](https://github.com/axonivy/smart-core/actions/workflows/ci.yml/badge.svg)](https://github.com/axonivy/smart-core/actions/workflows/ci.yml)
+> [!WARNING]
+> Smart Core has been discontinued. All features will be implemented directly in the [VS Code Designer](https://github.com/axonivy/vscode-designer).
 
 Prototype of the Smart Core
 
